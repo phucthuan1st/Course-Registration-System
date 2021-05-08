@@ -3,5 +3,7 @@
 #include <fstream>
 #include <string>
 
+const char* filename = "test.csv";
+
 using namespace std;
 
