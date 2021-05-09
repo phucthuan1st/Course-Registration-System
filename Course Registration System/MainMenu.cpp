@@ -27,24 +27,22 @@ STATUS key(int _key_) {
 		return ENTER;
 }
 
-int MainMenu(str thaotac[5], int options) {
+int getProcess(str listOfProcess[5], int numberOfOptions) {
 
 	//khoi tao ban dau
 	int processing = 0;
-	int* color = new int[options];
-	for (int i = 0; i < options; i++) {
+	int* color = new int[numberOfOptions];
+	for (int i = 0; i < numberOfOptions; i++) {
 		color[i] = TEXTCOLOR;
 	}
 	color[0] = WHITE_TEXTCOLOR;
 
-
-
 	while (true) {
-		clrscr();								//cap nhat lai frame moi
-		for (int i = 0; i < options; i++) {		//
-			TextColor(color[i]);				//
-			cout << process[i] << endl;			//
-		}										//
+		clrscr();										//cap nhat lai frame moi
+		for (int i = 0; i < numberOfOptions; i++) {		//
+			TextColor(color[i]);						//
+			cout << listOfProcess[i] << endl;			//
+		}												//
 
 		int z = _getch();
 		STATUS status = key(z); //nhan vao thao tac moi
@@ -52,11 +50,11 @@ int MainMenu(str thaotac[5], int options) {
 			case UP: {
 				if (processing > 0)
 					processing--;
-				else processing = options - 1;
+				else processing = numberOfOptions - 1;
 				break;
 			}
 			case DOWN: {
-				if (processing < options - 1)
+				if (processing < numberOfOptions - 1)
 					processing++;
 				else processing = 0;
 				break;
@@ -64,7 +62,7 @@ int MainMenu(str thaotac[5], int options) {
 			case ENTER:
 				return processing;
 			}
-		for (int i = 0; i < options; i++) { //thay doi mau cua thao tac dang tro den
+		for (int i = 0; i < numberOfOptions; i++) { //thay doi mau cua thao tac dang tro den
 			color[i] = TEXTCOLOR;
 		}
 		color[processing] = WHITE_TEXTCOLOR;
@@ -72,6 +70,6 @@ int MainMenu(str thaotac[5], int options) {
 }
 
 int main() {
-	MainMenu(process, 5);
+	getProcess(process, 5);
 	return 0;
 }
