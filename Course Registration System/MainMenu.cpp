@@ -8,7 +8,6 @@
 
 typedef char str[31];
 
-str process[5] = { "[ Process 1 ]", "[ Process 2 ]", "[ Process 3 ]", "[ Process 4 ]", "[ Process 5 ]" };
 enum STATUS{UP, DOWN, LEFT, RIGHT, ENTER, BACKSPACE};
 
 STATUS key(int _key_) {
@@ -27,7 +26,8 @@ STATUS key(int _key_) {
 		return ENTER;
 }
 
-int getProcess(str listOfProcess[5], int numberOfOptions) {
+
+int getProcess(str listOfProcess[5], int numberOfOptions, const char* nameOfProcess) {
 
 	//khoi tao ban dau
 	int processing = 0;
@@ -39,29 +39,30 @@ int getProcess(str listOfProcess[5], int numberOfOptions) {
 
 	while (true) {
 		clrscr();										//cap nhat lai frame moi
+		TextColor(TEXTCOLOR);
+		cout << nameOfProcess << endl << endl << "==================" << endl;
 		for (int i = 0; i < numberOfOptions; i++) {		//
 			TextColor(color[i]);						//
-			cout << listOfProcess[i] << endl;			//
+			cout << listOfProcess[i] << endl;
 		}												//
-
 		int z = _getch();
 		STATUS status = key(z); //nhan vao thao tac moi
 		switch (status) {
-			case UP: {
-				if (processing > 0)
-					processing--;
-				else processing = numberOfOptions - 1;
-				break;
-			}
-			case DOWN: {
-				if (processing < numberOfOptions - 1)
-					processing++;
-				else processing = 0;
-				break;
-			}
-			case ENTER:
-				return processing;
-			}
+		case UP: {
+			if (processing > 0)
+				processing--;
+			else processing = numberOfOptions - 1;
+			break;
+		}
+		case DOWN: {
+			if (processing < numberOfOptions - 1)
+				processing++;
+			else processing = 0;
+			break;
+		}
+		case ENTER:
+			return processing;
+		}
 		for (int i = 0; i < numberOfOptions; i++) { //thay doi mau cua thao tac dang tro den
 			color[i] = TEXTCOLOR;
 		}
@@ -69,7 +70,68 @@ int getProcess(str listOfProcess[5], int numberOfOptions) {
 	}
 }
 
+
+int subMenu1() {
+	const char* name = "==== Sub 1 ====";
+	str process[5] = { "[ Menu 1 ]", "[ Menu 2 ]", "[ Menu 3 ]", "[ Menu 4 ]", "[ Exit ]" };
+	int running;
+	do {
+		running = getProcess(process, 5, name);
+	} while (running != 4);
+	return running;
+}
+
+int subMenu2() {
+	const char* name = "==== Sub 2 ====";
+	str process[5] = { "[ Menu 1 ]", "[ Menu 2 ]", "[ Menu 3 ]", "[ Menu 4 ]", "[ Exit ]" };
+	int running;
+	do {
+		running = getProcess(process, 5, name);
+	} while (running != 4);
+	return running;
+}
+
+int subMenu3() {
+	const char* name = "==== Sub 3 ===";
+	str process[5] = { "[ Menu 1 ]", "[ Menu 2 ]", "[ Menu 3 ]", "[ Menu 4 ]", "[ Exit ]" };
+	int running;
+	do {
+		running = getProcess(process, 5, name);
+	} while (running != 4);
+	return running;
+}
+
+int subMenu4() {
+	const char* name = "==== Sub 4 ====";
+	str process[5] = { "[ Menu 1 ]", "[ Menu 2 ]", "[ Menu 3 ]", "[ Menu 4 ]", "[ Exit ]" };
+	int running;
+	do {
+		running = getProcess(process, 5, name);
+	} while (running != 4);
+	return running;
+}
+
+int mainMenu() {
+	const char* name = "=====  Main  =====";
+	str process[5] = { "[ Menu 1 ]", "[ Menu 2 ]", "[ Menu 3 ]", "[ Menu 4 ]", "[ Exit ]" };
+	int running;
+	do {
+		running = getProcess(process, 5, name);
+		if (running == 0)
+			subMenu1();
+		else if (running == 1)
+			subMenu2();
+		else if (running == 2)
+			subMenu3();
+		else if (running == 3)
+			subMenu4();
+	} while (running != 4);
+	return running;
+}
+
+
+
 int main() {
-	getProcess(process, 5);
+	mainMenu();
 	return 0;
 }
