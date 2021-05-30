@@ -170,3 +170,5 @@ bool readFromFile(string file, list l) {
 
 	f.close();
 }
+
+.
