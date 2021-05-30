@@ -135,3 +135,38 @@ int main() {
 	mainMenu();
 	return 0;
 }
+
+bool writeToFile(string file, list l) {
+	fstream f;
+	f.open(file, ios::app);
+	for (Node* k = l.pHead;k != NULL;k = k->pNext) {
+		f << k->data.ID << ",";
+		f << k->data.name << ",";
+		f << k->data.date.day << ",";
+		f << k->data.date.month << ",";
+		f << k->data.date.year << "," << endl;
+	}
+	f.close();
+	return true;
+}
+
+bool readFromFile(string file, list l) {
+	car car;
+	ifstream f("test1.csv");
+	if (!f.is_open())
+		cout << "Error File Open";
+
+	string line;
+	getline(f, line);
+	while (f) {
+		getline(f, car.ID, ',');
+		getline(f, car.name, ',');
+		getline(f, car.date.day, ',');
+		getline(f, car.date.month, ',');
+		getline(f, car.date.year, ',');
+		addTail(l, createNode(insertCar()));
+
+	}
+
+	f.close();
+}
