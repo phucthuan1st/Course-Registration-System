@@ -117,7 +117,7 @@ void printList(list l)
 		cout << "First Name: " << p->data.firstName << endl;
 		cout << "Last Name: " << p->data.lastName << endl;
 		cout << "Gender: " << p->data.gender << endl;
-		cout << "Date of Birth: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl << endl;
+		cout << "Date of Birth: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
 		cout << "Social ID: " << p->data.socialID << endl;
 	}
 	cout << "=====================================" << endl;
@@ -182,8 +182,13 @@ int main() {
 	list l;
 	initL(l);
 	//addTail(l, createNode(insertStudent()));
+	//addTail(l, createNode(insertStudent()));
+
 	//printList(l);
 	//writeToFile("E:/Thanh Demo/First Year- Second Term/Midterm/student2.csv", l);
 	readFromFile("E:/Thanh Demo/First Year- Second Term/Midterm/student2.csv", l);
 	printList(l);
 }
+
+
+
