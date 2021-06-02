@@ -4,13 +4,13 @@
 using namespace std;
 
 struct dateOfBirth {
-	int day;
-	int month;
-	int year;
+	string day;
+	string month;
+	string year;
 };
 
 struct student {
-	int No;
+	string No;
 	string studentID;
 	string firstName;
 	string lastName;
@@ -51,11 +51,12 @@ student insertStudent()
 	//cin.ignore();
 	cout << "Gender: ";
 	getline(cin, student.gender);
-	cout << "Date: ";
-	cin >> student.date.day;
-	cin >> student.date.month;
-	cin >> student.date.year;
-	cin.ignore();
+	cout << "Day: ";
+	getline(cin, student.date.day);
+	cout << "Month: ";
+	getline(cin, student.date.month);
+	cout << "Year: ";
+	getline(cin, student.date.year);
 	cout << "Social ID: ";
 	getline(cin, student.socialID);
 	return student;
@@ -100,24 +101,27 @@ void delTail(list& l) {
 	p->pNext = p->pNext->pNext;
 }
 
-//void printList(list l)
-//{
-//	Node* pTmp = l.pHead;
-//	if (pTmp == NULL)
-//	{
-//		cout << "Empty";
-//		return;
-//	}
-//
-//	cout << "Car Information:" << endl << endl;
-//	for (Node* p = l.pHead; p != NULL; p = p->pNext) {
-//		cout << "ID:" << p->data.ID << endl;
-//		cout << "Name: " << p->data.name << endl;
-//		cout << "Date: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl << endl;
-//
-//	}
-//	cout << "=====================================" << endl;
-//}
+void printList(list l)
+{
+	Node* pTmp = l.pHead;
+	if (pTmp == NULL)
+	{
+		cout << "Empty";
+		return;
+	}
+
+	cout << "Student Information:" << endl << endl;
+	for (Node* p = l.pHead; p->pNext != NULL; p = p->pNext) {
+		cout << "No:" << p->data.No << endl;
+		cout << "Student ID: " << p->data.studentID << endl;
+		cout << "First Name: " << p->data.firstName << endl;
+		cout << "Last Name: " << p->data.lastName << endl;
+		cout << "Gender: " << p->data.gender << endl;
+		cout << "Date of Birth: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl << endl;
+		cout << "Social ID: " << p->data.socialID << endl;
+	}
+	cout << "=====================================" << endl;
+}
 
 void addHead(list& l, Node* p) {
 
@@ -131,7 +135,7 @@ void addHead(list& l, Node* p) {
 
 }
 
-bool writeToFile(string file, list l) {
+bool writeToFile(string file, list& l) {
 	fstream f;
 	f.open(file, ios::app);
 	for (Node* k = l.pHead;k != NULL;k = k->pNext) {
@@ -149,33 +153,37 @@ bool writeToFile(string file, list l) {
 	return true;
 }
 
+bool readFromFile(string file, list& l) {
+	student student;
+	fstream f;
+	f.open(file, ios::in);
+	if (!f.is_open())
+		cout << "Error File Open";
+
+	while (!f.eof()) {
+		getline(f, student.No, ',');
+		getline(f, student.studentID, ',');
+		getline(f, student.firstName, ',');
+		getline(f, student.lastName, ',');
+		getline(f, student.gender, ',');
+		getline(f, student.date.day, ',');
+		getline(f, student.date.month, ',');
+		getline(f, student.date.year, ',');
+		getline(f, student.socialID, ',');
+		addTail(l, createNode(student));
+
+	}
+
+	f.close();
+	return true;
+}
+
 int main() {
 	list l;
 	initL(l);
-	addTail(l, createNode(insertStudent()));
+	//addTail(l, createNode(insertStudent()));
 	//printList(l);
-	writeToFile("E:/Thanh Demo/First Year- Second Term/Midterm/student.csv", l);
+	//writeToFile("E:/Thanh Demo/First Year- Second Term/Midterm/student2.csv", l);
+	readFromFile("E:/Thanh Demo/First Year- Second Term/Midterm/student2.csv", l);
+	printList(l);
 }
-
-
-
-//bool readFromFile(string file, list l) {
-//	car car;
-//	ifstream f("test1.csv");
-//	if (!f.is_open())
-//		cout << "Error File Open";
-//
-//	string line;
-//	getline(f, line);
-//	while (f) {
-//		getline(f, car.ID, ',');
-//		getline(f, car.name, ',');
-//		getline(f, car.date.day, ',');
-//		getline(f, car.date.month, ',');
-//		getline(f, car.date.year, ',');
-//		addTail(l, createNode(insertCar()));
-//
-//	}
-//
-//	f.close();
-//}
