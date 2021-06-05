@@ -185,8 +185,8 @@ int main() {
 	//addTail(l, createNode(insertStudent()));
 
 	//printList(l);
-	//writeToFile("E:/Thanh Demo/First Year- Second Term/Midterm/student2.csv", l);
-	readFromFile("E:/Thanh Demo/First Year- Second Term/Midterm/student2.csv", l);
+	//writeToFile("student2.csv", l);
+	readFromFile("student2.csv", l);
 	printList(l);
 }
 
