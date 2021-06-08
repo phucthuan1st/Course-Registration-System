@@ -112,16 +112,17 @@ void printList(list l)
 
 	cout << "Student Information:" << endl << endl;
 	for (Node* p = l.pHead; p->pNext != NULL; p = p->pNext) {
-		cout << "No:" << p->data.No << endl;
+		cout << "No: " << p->data.No << endl;
 		cout << "Student ID: " << p->data.studentID << endl;
 		cout << "First Name: " << p->data.firstName << endl;
 		cout << "Last Name: " << p->data.lastName << endl;
 		cout << "Gender: " << p->data.gender << endl;
 		cout << "Date of Birth: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
-		cout << "Social ID: " << p->data.socialID << endl;
+		cout << "Social ID: " << p->data.socialID << endl << endl;
 	}
 	cout << "=====================================" << endl;
 }
+
 
 void addHead(list& l, Node* p) {
 
@@ -169,7 +170,10 @@ bool readFromFile(string file, list& l) {
 		getline(f, student.date.day, ',');
 		getline(f, student.date.month, ',');
 		getline(f, student.date.year, ',');
-		getline(f, student.socialID, ',');
+		getline(f, student.socialID);
+		cout << endl;
+
+
 		addTail(l, createNode(student));
 
 	}
