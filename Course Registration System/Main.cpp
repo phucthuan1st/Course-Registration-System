@@ -1,7 +1,12 @@
-#include<iostream>
-#include<fstream>
-#include<string>
-using namespace std;
+#include "Header.h"
+#include "console.h"
+
+#define BACKGROUND 0
+#define GREENGROUND 10
+#define TEXTCOLOR 10
+#define WHITE_TEXTCOLOR 175
+
+typedef char str[31];
 
 struct dateOfBirth {
 	string day;
@@ -19,9 +24,24 @@ struct student {
 	string socialID;
 };
 
+struct ScoreBoard {
+	string No;
+	string studentID;
+	string fullName;
+	string aveScore;
+	string finalTermScore;
+	string middleTermScore;
+	string other;
+};
+
 struct Node {
 	student data;
 	Node* pNext;
+};
+
+struct NodeScore {
+	ScoreBoard data;
+	NodeScore* pNext;
 };
 
 struct list {
@@ -29,9 +49,19 @@ struct list {
 	Node* pTail;
 };
 
+struct listScore {
+	NodeScore* pHead;
+	NodeScore* pTail;
+};
+
 void initL(list& l)
 {
 	l.pHead = l.pTail = NULL;
+}
+
+void initLScore(listScore& lScore)
+{
+	lScore.pHead = lScore.pTail = NULL;
 }
 
 student insertStudent()
@@ -70,6 +100,14 @@ Node* createNode(student student)
 	return p;
 }
 
+NodeScore* createScoreBoard(ScoreBoard score)
+{
+	NodeScore* p = new NodeScore;
+	p->pNext = NULL;
+	p->data = score;
+	return p;
+}
+
 void addTail(list& l, Node* p)
 {
 	if (l.pHead == NULL) {
@@ -78,6 +116,17 @@ void addTail(list& l, Node* p)
 	else {
 		l.pTail->pNext = p;
 		l.pTail = p;
+	}
+}
+
+void addTailScore(listScore& lScore, NodeScore* p)
+{
+	if (lScore.pHead == NULL) {
+		lScore.pHead = lScore.pTail = p;
+	}
+	else {
+		lScore.pTail->pNext = p;
+		lScore.pTail = p;
 	}
 }
 
@@ -123,7 +172,6 @@ void printList(list l)
 	cout << "=====================================" << endl;
 }
 
-
 void addHead(list& l, Node* p) {
 
 	if (l.pHead == NULL) {
@@ -139,7 +187,7 @@ void addHead(list& l, Node* p) {
 bool writeToFile(string file, list& l) {
 	fstream f;
 	f.open(file, ios::app);
-	for (Node* k = l.pHead;k != NULL;k = k->pNext) {
+	for (Node* k = l.pHead; k != NULL; k = k->pNext) {
 		f << k->data.No << ",";
 		f << k->data.studentID << ",";
 		f << k->data.firstName << ",";
@@ -182,17 +230,447 @@ bool readFromFile(string file, list& l) {
 	return true;
 }
 
-int main() {
-	list l;
-	initL(l);
-	//addTail(l, createNode(insertStudent()));
-	//addTail(l, createNode(insertStudent()));
+bool readScoreFromFile(string file, listScore& lScore) {
+	ScoreBoard score;
+	fstream f;
+	f.open(file, ios::in);
+	if (!f.is_open())
+		cout << "Error File Open";
 
-	//printList(l);
-	//writeToFile("student2.csv", l);
-	readFromFile("student2.csv", l);
-	printList(l);
+	while (!f.eof()) {
+		getline(f, score.No, ',');
+		getline(f, score.studentID, ',');
+		getline(f, score.fullName, ',');
+		getline(f, score.aveScore, ',');
+		getline(f, score.finalTermScore, ',');
+		getline(f, score.middleTermScore, ',');
+		getline(f, score.other);
+		cout << endl;
+
+
+		addTailScore(lScore, createScoreBoard(score));
+
+	}
+
+	f.close();
+	return true;
+}
+
+struct fileContent {
+	string* options;
+	int numberOfOptions;
+};
+
+enum STATUS { UP, DOWN, LEFT, RIGHT, ENTER, BACKSPACE, ESCAPE, _ADD, DELE_TE };
+
+STATUS key(int _key_)
+{
+	if (_key_ == 224)
+	{
+		char c = _getch();
+		c = toupper(c);
+		if (c == 72)
+			return UP;
+		if (c == 80)
+			return DOWN;
+		if (c == 75)
+			return LEFT;
+		if (c == 77)
+			return RIGHT;
+	}
+	else if (_key_ == 13)
+		return ENTER;
+	else if (_key_ == 27)
+		return ESCAPE;
+	else if (_key_ == 43) return _ADD;
+	else if (_key_ == 45) return DELE_TE;
+}
+
+int getProcess(str listOfProcess[], int numberOfOptions, const char* nameOfProcess) {
+	clrscr();
+	//khoi tao ban dau
+	int processing = 0;
+	int* color = new int[numberOfOptions];
+	for (int i = 0; i < numberOfOptions; i++) {
+		color[i] = TEXTCOLOR;
+	}
+	color[0] = WHITE_TEXTCOLOR;
+
+	while (true) {
+		clrscr();										//cap nhat lai frame moi
+		TextColor(TEXTCOLOR);
+		gotoXY(30, 10);
+		int x = 30;
+		int y = 10;
+		cout << nameOfProcess << endl << endl << "==================" << endl;
+		y += 2;
+		for (int i = 0; i < numberOfOptions; i++) {		//
+			TextColor(color[i]);
+			gotoXY(x, y);//
+			cout << listOfProcess[i] << endl;
+			y += 2;
+		}												//
+		int z = _getch();
+		STATUS status = key(z); //nhan vao thao tac moi
+		switch (status) {
+		case UP: {
+			if (processing > 0)
+				processing--;
+			else processing = numberOfOptions - 1;
+			break;
+		}
+		case DOWN: {
+			if (processing < numberOfOptions - 1)
+				processing++;
+			else processing = 0;
+			break;
+		}
+		case ENTER:
+			return processing;
+		}
+		for (int i = 0; i < numberOfOptions; i++) { //thay doi mau cua thao tac dang tro den
+			color[i] = TEXTCOLOR;
+		}
+		color[processing] = WHITE_TEXTCOLOR;
+	}
+}
+void Del_option(string str, fileContent CD)
+{
+	fstream ff;
+	string _del;
+	bool kt;
+
+	cout << " FILE NAME: "; getline(cin, _del, '\n');
+	ff.open(str, ios::out);
+	for (int i = 0; i < CD.numberOfOptions; i++)
+	{
+		kt = false;
+		if (CD.options[i] != _del)
+		{
+			ff << CD.options[i];
+			kt = true;
+		}
+		if ((i < CD.numberOfOptions) && (kt)) ff << endl;
+	}
+
+	//ff <<"\n"<< _del;
+	ff.close();
+}
+void add_option(string str)
+{
+	fstream ff;
+	string _addop;
+
+	cout << " FILE NAME: "; getline(cin, _addop, '\n');
+	ff.open(str, ios::app);
+	/*for (int i = 0; i < FC.numberOfOptions; i++)
+	{
+		ff << FC.options[i]<<endl;
+	}*/
+
+
+	ff << "\n" << _addop;
+	ff.close();
+}
+
+fileContent readFile(char* filepath)
+{
+	fstream f;
+	fileContent _fileContent;
+	_fileContent.numberOfOptions = 0;
+	f.open(filepath, ios::in);
+	string temp, xs;
+	getline(f, xs); getline(f, xs); getline(f, xs); getline(f, xs);
+	while (!f.eof()) {
+		_fileContent.numberOfOptions += 1;
+		getline(f, temp);
+	}
+	f.close();
+	f.open(filepath, ios::in);
+	_fileContent.options = new string[_fileContent.numberOfOptions];
+	getline(f, xs); getline(f, xs); getline(f, xs); getline(f, xs);
+	for (int i = 0; i < _fileContent.numberOfOptions; i++) {
+		getline(f, _fileContent.options[i]);
+	}
+	f.close();
+	return _fileContent;
+}
+
+string getProcessFile(fileContent file, const char* nameOfProcess) {
+	clrscr();
+	//khoi tao ban dau
+	int processing = 0;
+	int* color = new int[file.numberOfOptions];
+	for (int i = 0; i < file.numberOfOptions; i++) {
+		color[i] = TEXTCOLOR;
+	}
+	color[0] = WHITE_TEXTCOLOR;
+
+	while (true) {
+		clrscr();					//cap nhat lai frame moi
+		TextColor(TEXTCOLOR);
+		gotoXY(30, 10);
+		int x = 30;                                        // new game
+		int y = 10;
+		cout << nameOfProcess << endl;
+		y += 2;
+		for (int i = 0; i < file.numberOfOptions; i++) {		//
+			TextColor(color[i]);
+			gotoXY(x, y);
+			cout << file.options[i] << endl;
+			y += 2;
+		}
+
+		int z = _getch();
+		STATUS status = key(z); //nhan vao thao tac moi
+		switch (status) {
+		case UP: {
+			if (processing > 0)
+				processing--;
+			else processing = file.numberOfOptions - 1;
+			break;
+		}
+		case DOWN: {
+			if (processing < file.numberOfOptions - 1)
+				processing++;
+			else processing = 0;
+			break;
+		}
+		case ENTER: {
+			int x = 30;
+			int y = 12;
+			for (int i = 0; i < file.numberOfOptions; i++) { //thay doi mau cua thao tac dang tro den
+				color[i] = TEXTCOLOR;
+			}
+			for (int i = 0; i < file.numberOfOptions; i++) {		//
+				TextColor(color[i]);
+				gotoXY(x, y);//
+				cout << file.options[i] << endl;
+				y += 2;
+			}
+			return file.options[processing];
+			break;
+		}
+		case ESCAPE: {
+			int x = 30;
+			int y = 12;
+			for (int i = 0; i < file.numberOfOptions; i++) { //thay doi mau cua thao tac dang tro den
+				color[i] = TEXTCOLOR;
+			}
+			for (int i = 0; i < file.numberOfOptions; i++) {		//
+				TextColor(color[i]);
+				gotoXY(x, y);//
+				cout << file.options[i] << endl;
+				y += 2;
+			}
+
+			return "BACK";
+			break;
+		}
+		case _ADD:
+			//add_option(nameOfProcess);
+
+			return "add";
+			break;
+		case DELE_TE:
+			return "_dele";
+			break;
+		}
+
+		for (int i = 0; i < file.numberOfOptions; i++) { //thay doi mau cua thao tac dang tro den
+			color[i] = TEXTCOLOR;
+		}
+		color[processing] = WHITE_TEXTCOLOR;
+	}
+}
+int selectsub1(char* filepath) {
+	list L;
+	initL(L);
+	int running = 1;
+
+
+	while (running) {
+		fileContent yearFile = readFile(filepath);
+		char* termFilePath = new char[150];
+		strcpy(termFilePath, getProcessFile(yearFile, "Term").c_str());
+		if (strcmp(termFilePath, "BACK") == 0)
+			running = 0;
+		else
+			if (strcmp(termFilePath, "add") == 0)
+			{
+				running = 1;
+				add_option(filepath);
+			}
+			else
+				if (strcmp(termFilePath, "_dele") == 0)
+				{
+					running = 1;
+					Del_option(filepath, yearFile);
+
+				}
+				else
+				{
+					running = 1;
+					readFromFile(filepath, L);
+					clrscr();
+					printList(L);
+					system("pause");
+					/*selectSubjectScreen(termFilePath);*/
+				}
+
+	}
+	return 1;
+}
+int selectSubScreen(char* filepath) {
+	list L;
+	initL(L);
+	int running = 1;
+
+
+	while (running) {
+		fileContent yearFile = readFile(filepath);
+		char* termFilePath = new char[150];
+		strcpy(termFilePath, getProcessFile(yearFile, "Term").c_str());
+		if (strcmp(termFilePath, "BACK") == 0)
+			running = 0;
+		else
+			if (strcmp(termFilePath, "add") == 0)
+			{
+				running = 1;
+				add_option(filepath);
+			}
+			else
+				if (strcmp(termFilePath, "_dele") == 0)
+				{
+					running = 1;
+					Del_option(filepath, yearFile);
+
+				}
+				else
+				{
+					running = 1;
+					selectsub1(termFilePath);
+					/*selectSubjectScreen(termFilePath);*/
+				}
+
+	}
+	return 1;
 }
 
 
+int selectSubjectScreen(char* filepath)
+{
 
+	int running = 1;
+
+	while (running) {
+		fileContent termFile = readFile(filepath);
+		char* subjectFilePath = new char[50];
+
+		strcpy(subjectFilePath, getProcessFile(termFile, "Subject").c_str());
+		if (strcmp(subjectFilePath, "BACK") == 0)
+			running = 0;
+		else
+			if (strcmp(subjectFilePath, "add") == 0)
+			{
+				running = 1;
+				add_option(filepath);
+			}
+			else
+				if (strcmp(subjectFilePath, "_dele") == 0)
+				{
+					running = 1;
+					Del_option(filepath, termFile);
+
+				}
+				else
+
+					selectSubScreen(subjectFilePath);
+	}
+	return 1;
+}
+
+int selectTermScreen(char* filepath) {
+
+	int running = 1;
+
+
+	while (running) {
+		fileContent yearFile = readFile(filepath);
+		char* termFilePath = new char[50];
+		strcpy(termFilePath, getProcessFile(yearFile, "Term").c_str());
+		if (strcmp(termFilePath, "BACK") == 0)
+			running = 0;
+		else
+			if (strcmp(termFilePath, "add") == 0)
+			{
+				running = 1;
+				add_option(filepath);
+			}
+			else
+				if (strcmp(termFilePath, "_dele") == 0)
+				{
+					running = 1;
+					Del_option(filepath, yearFile);
+
+				}
+				else
+					selectSubjectScreen(termFilePath);
+	}
+	return 1;
+}
+
+int selectYearScreen(char* filepath) {
+
+	int running = 1;
+
+	while (running) {
+		fileContent adminFile = readFile(filepath);
+		char* yearFilePath = new char[50];
+
+		strcpy(yearFilePath, getProcessFile(adminFile, "Admin").c_str());
+		if (strcmp(yearFilePath, "BACK") == 0)
+			running = 0;
+		else
+			if (strcmp(yearFilePath, "add") == 0)
+			{
+				running = 1;
+				add_option(filepath);
+
+			}
+			else
+				if (strcmp(yearFilePath, "_dele") == 0)
+				{
+					running = 1;
+					Del_option(filepath, adminFile);
+
+				}
+				else
+					selectTermScreen(yearFilePath);
+
+	}
+
+	return 0;
+}
+
+int mainMenu() {
+
+	const char* name = "=====  Main  =====";
+	char* filepath = new char[50];
+	strcpy(filepath, "admin.txt");
+	fileContent file = readFile(filepath);
+	int running = 0;
+
+	do {
+
+		running = selectYearScreen(filepath);
+	} while (running);
+
+	return running;
+}
+
+int main() {
+	mainMenu();
+
+	return 0;
+}
