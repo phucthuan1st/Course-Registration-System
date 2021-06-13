@@ -328,6 +328,7 @@ int main() {
 	//addTailScore(lScore, createScoreBoard(insertStudentScore()));
 	//printList(l);
 	//writeToFile("NMCNTT.csv", l);
+	writeScoreToFile("NMCNTT-Score.csv", lScore);
 	//readFromFile("student2.csv", l);
 	readScoreFromFile("KTLTScore.csv", lScore);
 	//printList(l);
