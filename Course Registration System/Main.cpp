@@ -322,8 +322,8 @@ int main() {
 	listScore lScore;
 	initLScore(lScore);
 	//addTail(l, createNode(insertStudent()));
-	//addTail(l, createNode(insertStudent()));
-	//addTail(l, createNode(insertStudent()));
+	
+	
 	//addTailScore(lScore, createScoreBoard(insertStudentScore()));
 	//addTailScore(lScore, createScoreBoard(insertStudentScore()));
 	//printList(l);
