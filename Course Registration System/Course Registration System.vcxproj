@@ -146,9 +146,18 @@
     <ClCompile Include="console.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="StudentAccess.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="2018.txt" />
+    <Text Include="2019.txt" />
+    <Text Include="2020.txt" />
+    <Text Include="2021.txt" />
+    <Text Include="admin.txt" />
+    <Text Include="input.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

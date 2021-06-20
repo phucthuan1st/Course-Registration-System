@@ -1,17 +1,37 @@
 #include "Header.h"
 #include "console.h"
 
-#define BACKGROUND 0
-#define GREENGROUND 10
-#define TEXTCOLOR 10
-#define WHITE_TEXTCOLOR 175
 
-typedef char str[31];
+struct dateOfBirth {
+	string day;
+	string month;
+	string year;
+};
 
-enum STATUS{UP, DOWN, LEFT, RIGHT, ENTER, BACKSPACE};
+struct student {
+	string No;
+	string studentID;
+	string firstName;
+	string lastName;
+	string gender;
+	dateOfBirth date;
+	string socialID;
+};
 
-STATUS key(int _key_) {
-	if (_key_ == 224) {
+struct Node {
+	student data;
+	Node* pNext;
+};
+
+struct list {
+	Node* pHead;
+	Node* pTail;
+};
+
+STATUS key(int _key_)
+{
+	if (_key_ == 224)
+	{
 		char c = _getch();
 		if (c == 72)
 			return UP;
@@ -24,11 +44,170 @@ STATUS key(int _key_) {
 	}
 	else if (_key_ == 13)
 		return ENTER;
+	else if (_key_ == 27)
+		return ESCAPE;
+	else if (_key_ == 43) 
+		return _ADD;
+	else if (_key_ == 45) 
+		return _DELETE;
+	else 
+		return keynone;
 }
 
+void initL(list& l)
+{
+	l.pHead = l.pTail = NULL;
+}
 
-int getProcess(str listOfProcess[5], int numberOfOptions, const char* nameOfProcess) {
+student insertStudent()
+{
+	student student;
+	cout << "No: ";
+	cin >> student.No;
+	cin.ignore();
+	cout << "Student ID: ";
+	getline(cin, student.studentID);
+	//cin.ignore();
+	cout << "First Name: ";
+	getline(cin, student.firstName);
+	//cin.ignore();
+	cout << "Last Name: ";
+	getline(cin, student.lastName);
+	//cin.ignore();
+	cout << "Gender: ";
+	getline(cin, student.gender);
+	cout << "Day: ";
+	getline(cin, student.date.day);
+	cout << "Month: ";
+	getline(cin, student.date.month);
+	cout << "Year: ";
+	getline(cin, student.date.year);
+	cout << "Social ID: ";
+	getline(cin, student.socialID);
+	return student;
+}
 
+Node* createNode(student student)
+{
+	Node* p = new Node;
+	p->pNext = NULL;
+	p->data = student;
+	return p;
+}
+
+void addTail(list& l, Node* p)
+{
+	if (l.pHead == NULL) {
+		l.pHead = l.pTail = p;
+	}
+	else {
+		l.pTail->pNext = p;
+		l.pTail = p;
+	}
+}
+
+void delHead(list& l) {
+	if (l.pHead == NULL) {
+		cout << "Don't have element";
+	}
+	else {
+		l.pHead = l.pHead->pNext;
+	}
+}
+
+void delTail(list& l) {
+	if (l.pHead == NULL || l.pHead->pNext == NULL) {
+		delHead(l);
+	}
+	else {
+		Node* p = l.pHead;
+		while (p->pNext->pNext != NULL) {
+			p = p->pNext;
+		}
+		p->pNext = p->pNext->pNext;
+	}
+	
+}
+
+void printList(list l)
+{
+	Node* pTmp = l.pHead;
+	if (pTmp == NULL)
+	{
+		cout << "Empty";
+		return;
+	}
+
+	cout << "Student Information:" << endl << endl;
+	for (Node* p = l.pHead; p->pNext != NULL; p = p->pNext) {
+		cout << "No: " << p->data.No << endl;
+		cout << "Student ID: " << p->data.studentID << endl;
+		cout << "First Name: " << p->data.firstName << endl;
+		cout << "Last Name: " << p->data.lastName << endl;
+		cout << "Gender: " << p->data.gender << endl;
+		cout << "Date of Birth: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
+		cout << "Social ID: " << p->data.socialID << endl;
+	}
+	cout << "=====================================" << endl;
+}
+
+void addHead(list& l, Node* p) {
+
+	if (l.pHead == NULL) {
+		l.pHead = l.pTail = p;
+	}
+	else {
+		p->pNext = l.pHead;
+		l.pHead = p;
+	}
+
+}
+
+bool writeToFile(string file, list& l) {
+	fstream f;
+	f.open(file, ios::app);
+	for (Node* k = l.pHead; k != NULL; k = k->pNext) {
+		f << k->data.No << ",";
+		f << k->data.studentID << ",";
+		f << k->data.firstName << ",";
+		f << k->data.lastName << ",";
+		f << k->data.gender << ",";
+		f << k->data.date.day << ",";
+		f << k->data.date.month << ",";
+		f << k->data.date.year << ",";
+		f << k->data.socialID << "," << endl;
+	}
+	f.close();
+	return true;
+}
+
+bool readFromFile(string file, list& l) {
+	student student;
+	fstream f;
+	f.open(file, ios::in);
+	if (!f.is_open())
+		cout << "Error File Open";
+
+	while (!f.eof()) {
+		getline(f, student.No, ',');
+		getline(f, student.studentID, ',');
+		getline(f, student.firstName, ',');
+		getline(f, student.lastName, ',');
+		getline(f, student.gender, ',');
+		getline(f, student.date.day, ',');
+		getline(f, student.date.month, ',');
+		getline(f, student.date.year, ',');
+		getline(f, student.socialID, ',');
+		addTail(l, createNode(student));
+
+	}
+
+	f.close();
+	return true;
+}
+
+int getProcess(str listOfProcess[], int numberOfOptions, const char* nameOfProcess) {
+	clrscr();
 	//khoi tao ban dau
 	int processing = 0;
 	int* color = new int[numberOfOptions];
@@ -40,28 +219,40 @@ int getProcess(str listOfProcess[5], int numberOfOptions, const char* nameOfProc
 	while (true) {
 		clrscr();										//cap nhat lai frame moi
 		TextColor(TEXTCOLOR);
-		cout << nameOfProcess << endl << endl << "==================" << endl;
+		gotoXY(30, 5);
+		int x = 30;
+		int y = 5;
+		cout << nameOfProcess << endl << endl;
+		y += 2;
 		for (int i = 0; i < numberOfOptions; i++) {		//
-			TextColor(color[i]);						//
+			TextColor(color[i]);
+			gotoXY(x, y);//
 			cout << listOfProcess[i] << endl;
+			y += 2;
 		}												//
 		int z = _getch();
 		STATUS status = key(z); //nhan vao thao tac moi
 		switch (status) {
-		case UP: {
-			if (processing > 0)
-				processing--;
-			else processing = numberOfOptions - 1;
-			break;
-		}
-		case DOWN: {
-			if (processing < numberOfOptions - 1)
-				processing++;
-			else processing = 0;
-			break;
-		}
-		case ENTER:
-			return processing;
+			case UP: {
+				if (processing > 0)
+					processing--;
+				else processing = numberOfOptions - 1;
+				break;
+			}
+			case DOWN: {
+				if (processing < numberOfOptions - 1)
+					processing++;
+				else processing = 0;
+				break;
+			}
+			case ENTER: {
+				clearColor(listOfProcess, numberOfOptions, nameOfProcess);
+				return processing;
+			}
+			case ESCAPE: {
+				clearColor(listOfProcess, numberOfOptions, nameOfProcess);
+				return -1;
+			}	
 		}
 		for (int i = 0; i < numberOfOptions; i++) { //thay doi mau cua thao tac dang tro den
 			color[i] = TEXTCOLOR;
@@ -70,68 +261,323 @@ int getProcess(str listOfProcess[5], int numberOfOptions, const char* nameOfProc
 	}
 }
 
-
-int subMenu1() {
-	const char* name = "==== Sub 1 ====";
-	str process[5] = { "[ Menu 1 ]", "[ Menu 2 ]", "[ Menu 3 ]", "[ Menu 4 ]", "[ Exit ]" };
-	int running;
-	do {
-		running = getProcess(process, 5, name);
-	} while (running != 4);
-	return running;
+void Del_option(string str, fileContent CD)
+{
+	fstream ff;
+	string _del;
+	bool kt;
+	  
+	cout << " FILE NAME: "; getline(cin, _del , '\n');
+	ff.open(str, ios::out);            
+	for (int i = 0; i < CD.numberOfOptions; i++)
+	{
+		kt = false;
+		if (CD.options[i] != _del  ) 
+			{
+				ff << CD.options[i];
+				kt=true;
+			}
+		if ((i < CD.numberOfOptions)&&(kt)) ff << endl;
+	}
+		
+	//ff <<"\n"<< _del;
+	ff.close();
 }
 
-int subMenu2() {
-	const char* name = "==== Sub 2 ====";
-	str process[5] = { "[ Menu 1 ]", "[ Menu 2 ]", "[ Menu 3 ]", "[ Menu 4 ]", "[ Exit ]" };
-	int running;
-	do {
-		running = getProcess(process, 5, name);
-	} while (running != 4);
-	return running;
+void add_option(string str)      
+{
+	fstream ff;
+	string _addop;
+
+	cout << " FILE NAME: "; getline(cin, _addop, '\n');
+	ff.open(str, ios::app);
+	/*for (int i = 0; i < FC.numberOfOptions; i++)
+	{
+		ff << FC.options[i]<<endl;
+	}*/
+
+
+	ff << "\n" << _addop;
+	ff.close();
 }
 
-int subMenu3() {
-	const char* name = "==== Sub 3 ===";
-	str process[5] = { "[ Menu 1 ]", "[ Menu 2 ]", "[ Menu 3 ]", "[ Menu 4 ]", "[ Exit ]" };
-	int running;
-	do {
-		running = getProcess(process, 5, name);
-	} while (running != 4);
-	return running;
+fileContent readFile(char* filepath)
+{
+	fstream f;
+	fileContent _fileContent;
+	_fileContent.numberOfOptions = 0;
+	f.open(filepath, ios::in);
+	string temp,xs;
+	getline(f, xs); getline(f, xs); getline(f, xs); getline(f, xs);
+	while (!f.eof()) {
+		_fileContent.numberOfOptions += 1;
+		getline(f, temp);
+	}
+	f.close();
+	f.open(filepath, ios::in);
+	_fileContent.options = new string[_fileContent.numberOfOptions];
+	getline(f, xs); getline(f, xs); getline(f, xs); getline(f, xs);
+	for (int i = 0; i < _fileContent.numberOfOptions; i++) {
+		getline(f, _fileContent.options[i]);
+	}
+	f.close();
+	return _fileContent;
 }
 
-int subMenu4() {
-	const char* name = "==== Sub 4 ====";
-	str process[5] = { "[ Menu 1 ]", "[ Menu 2 ]", "[ Menu 3 ]", "[ Menu 4 ]", "[ Exit ]" };
-	int running;
-	do {
-		running = getProcess(process, 5, name);
-	} while (running != 4);
-	return running;
+string getProcessFile(fileContent file, const char* nameOfProcess) {
+	clrscr();
+	//khoi tao ban dau
+	int processing = 0;
+	int* color = new int[file.numberOfOptions];
+	for (int i = 0; i < file.numberOfOptions; i++) {
+		color[i] = TEXTCOLOR;
+	}
+	color[0] = WHITE_TEXTCOLOR;
+
+	while (true) {
+		clrscr();					//cap nhat lai frame moi
+		TextColor(TEXTCOLOR);
+		gotoXY(30, 5);
+		int x = 30;                                        // new game
+		int y = 5;                                        
+		cout << nameOfProcess;
+		y += 2;
+		for (int i = 0; i < file.numberOfOptions; i++) {		//
+			TextColor(color[i]);
+			gotoXY(x, y);
+			cout << file.options[i] << endl;
+			y += 2;
+		} 
+		
+		int z = _getch();
+		STATUS status = key(z); //nhan vao thao tac moi
+		switch (status) {
+		case UP: {
+			if (processing > 0)
+				processing--;
+			else processing = file.numberOfOptions - 1;
+			break;
+		}
+		case DOWN: {
+			if (processing < file.numberOfOptions - 1)
+				processing++;
+			else processing = 0;
+			break;
+		}
+		case ENTER: {
+			clearColor(file, nameOfProcess);
+			return file.options[processing];
+		}
+		case ESCAPE: {
+			clearColor(file, nameOfProcess);
+			return "BACK";
+		}
+		case _ADD:
+			//add_option(nameOfProcess);
+			
+			return "add";
+			break;
+		case _DELETE:
+			return "_dele";
+			break;
+		}
+		
+		for (int i = 0; i < file.numberOfOptions; i++) { //thay doi mau cua thao tac dang tro den
+			color[i] = TEXTCOLOR;
+		}
+		color[processing] = WHITE_TEXTCOLOR;
+	}
+}
+
+int selectsub1(char* filepath) {
+	list L;
+	initL(L);
+	int running = 1;
+
+
+	while (running) {
+		fileContent yearFile = readFile(filepath);
+		char* termFilePath = new char[150];
+		strcpy(termFilePath, getProcessFile(yearFile, "Term").c_str());
+		if (strcmp(termFilePath, "BACK") == 0)
+			running = 0;
+		else
+			if (strcmp(termFilePath, "add") == 0)
+			{
+				running = 1;
+				add_option(filepath);
+			}
+			else
+				if (strcmp(termFilePath, "_dele") == 0)
+				{
+					running = 1;
+					Del_option(filepath, yearFile);
+
+				}
+				else
+				{
+					running = 1;
+					readFromFile(filepath, L);
+					clrscr();
+					printList(L);
+					system("pause");
+					/*selectSubjectScreen(termFilePath);*/
+				}
+
+	}
+	return 1;
+}
+
+int selectSubScreen(char* filepath) {
+	list L;
+	initL(L);
+	int running = 1;
+
+
+	while (running) {
+		fileContent yearFile = readFile(filepath);
+		char* termFilePath = new char[150];
+		strcpy(termFilePath, getProcessFile(yearFile, "Term").c_str());
+		if (strcmp(termFilePath, "BACK") == 0)
+			running = 0;
+		else
+			if (strcmp(termFilePath, "add") == 0)
+			{
+				running = 1;
+				add_option(filepath);
+			}
+			else
+				if (strcmp(termFilePath, "_dele") == 0)
+				{
+					running = 1;
+					Del_option(filepath, yearFile);
+
+				}
+				else
+				{
+					running = 1;
+					selectsub1(termFilePath);
+					/*selectSubjectScreen(termFilePath);*/
+				}
+
+	}
+	return 1;
+}
+
+int selectSubjectScreen(char* filepath) 
+{
+	
+	int running = 1;
+	
+	while (running) {
+		fileContent termFile = readFile(filepath);
+		char* subjectFilePath = new char[50];
+
+		strcpy(subjectFilePath, getProcessFile(termFile, "Subject").c_str());
+		if (strcmp(subjectFilePath, "BACK") == 0 )
+			running = 0;
+		else 
+			if (strcmp(subjectFilePath, "add") == 0)
+			{
+				running = 1;
+				add_option(filepath);
+			}
+		else
+			if (strcmp(subjectFilePath, "_dele") == 0)
+			{
+					running = 1;
+					Del_option(filepath, termFile);
+
+			}
+		else
+				
+				selectSubScreen(subjectFilePath);
+	}
+	return 1;
+}
+
+int selectTermScreen(char* filepath) {
+
+	int running = 1;
+	
+
+	while (running) {
+		fileContent yearFile = readFile(filepath);
+		char* termFilePath = new char[50];
+		strcpy(termFilePath, getProcessFile(yearFile, "Term").c_str());
+		if (strcmp(termFilePath, "BACK") == 0)
+			running = 0;
+		else
+		if (strcmp(termFilePath, "add") == 0)
+		{
+			running = 1;
+			add_option(filepath);
+		}
+		else
+			if (strcmp(termFilePath, "_dele") == 0)
+			{
+				running = 1;
+				Del_option(filepath, yearFile);
+
+			}
+		else 
+			selectSubjectScreen(termFilePath);
+	}
+	return 1;
+}
+
+int selectYearScreen(char* filepath) {
+
+	int running = 1;
+	
+	while (running) {                
+		fileContent adminFile = readFile(filepath);
+		char* yearFilePath = new char[50];
+
+		strcpy(yearFilePath, getProcessFile(adminFile, "Admin").c_str());
+		if (strcmp(yearFilePath, "BACK") == 0) 
+			running = 0;
+		else 
+			if (strcmp(yearFilePath, "add") == 0)
+			{
+				running = 1;
+				add_option(filepath);
+			
+			}
+			else 
+				if (strcmp(yearFilePath, "_dele") == 0)
+				{
+					running = 1;
+					Del_option(filepath,adminFile);
+
+				}
+		else
+			selectTermScreen(yearFilePath);
+		
+	}
+
+	return 0;
 }
 
 int mainMenu() {
+
 	const char* name = "=====  Main  =====";
-	str process[5] = { "[ Menu 1 ]", "[ Menu 2 ]", "[ Menu 3 ]", "[ Menu 4 ]", "[ Exit ]" };
-	int running;
+	char* filepath = new char[50];
+	strcpy(filepath, "admin.txt");
+	fileContent file = readFile(filepath);
+	int running = 0;
+
 	do {
-		running = getProcess(process, 5, name);
-		if (running == 0)
-			subMenu1();
-		else if (running == 1)
-			subMenu2();
-		else if (running == 2)
-			subMenu3();
-		else if (running == 3)
-			subMenu4();
-	} while (running != 4);
+
+		running = selectYearScreen(filepath);
+	} while (running);
+
 	return running;
 }
 
 
-
-int main() {
+/*int main() {
 	mainMenu();
+	
 	return 0;
-}
+} */
