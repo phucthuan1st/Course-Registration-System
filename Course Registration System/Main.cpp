@@ -3,6 +3,17 @@
 #include<string>
 using namespace std;
 
+struct TimeTable {
+	bool table[4][7];
+	string nameOfSubject[4][7];
+};
+
+struct TimeTableFromAdmin {
+	string nameOfSubject[30];
+	string weekDay[30];
+	string time[30];
+};
+
 struct dateOfBirth {
 	string day;
 	string month;
@@ -314,6 +325,44 @@ bool readScoreFromFile(string file, listScore& lScore) {
 
 	f.close();
 	return true;
+}
+
+void getTimeTable(TimeTableFromAdmin& admin) {
+	int counter = 0;
+	string c = "stop";
+	while (admin.nameOfSubject[counter - 1] != c) {
+		cin >> admin.nameOfSubject[counter];
+		cin >> admin.weekDay[counter];
+		cin >> admin.time[counter];
+		counter++;
+	}
+}
+
+void writeTimeTable(string file, TimeTableFromAdmin& admin)
+{
+	fstream f;
+	int counter = 0;
+	string c = "stop";
+	int flag = 0;
+	f.open(file, ios::out);
+	getTimeTable(admin);
+	while (admin.nameOfSubject[counter] != c)
+	{
+		for (int counter1 = 0; counter1 < counter; counter1++)
+		{
+			if ((admin.nameOfSubject[counter] == admin.nameOfSubject[counter1]) && (admin.weekDay[counter] == admin.weekDay[counter1]) && (admin.time[counter] == admin.time[counter1]))
+			{
+				flag = 1;
+			}
+		}
+		if (flag == 0) {
+			f << admin.nameOfSubject[counter] << "\t";
+			f << admin.weekDay[counter] << "_";
+			f << admin.time[counter] << endl;
+		}
+		counter++;
+		flag = 0;
+	}
 }
 
 int main() {
