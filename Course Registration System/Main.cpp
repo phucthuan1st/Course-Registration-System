@@ -276,7 +276,7 @@ bool readFromFile(string file, list& l) {
 		getline(f, student.date.day, ',');
 		getline(f, student.date.month, ',');
 		getline(f, student.date.year, ',');
-		getline(f, student.socialID, ',');
+		getline(f, student.socialID, '\n');
 		addTail(l, createNode(student));
 
 	}
@@ -315,7 +315,7 @@ bool readScoreFromFile(string file, listScore& lScore) {
 		getline(f, score.aveScore, ',');
 		getline(f, score.finalTermScore, ',');
 		getline(f, score.middleTermScore, ',');
-		getline(f, score.other);
+		getline(f, score.other, '\n');
 		cout << endl;
 
 
