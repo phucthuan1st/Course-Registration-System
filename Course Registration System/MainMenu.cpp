@@ -2,31 +2,6 @@
 #include "console.h"
 
 
-struct dateOfBirth {
-	string day;
-	string month;
-	string year;
-};
-
-struct student {
-	string No;
-	string studentID;
-	string firstName;
-	string lastName;
-	string gender;
-	dateOfBirth date;
-	string socialID;
-};
-
-struct Node {
-	student data;
-	Node* pNext;
-};
-
-struct list {
-	Node* pHead;
-	Node* pTail;
-};
 
 STATUS key(int _key_)
 {
@@ -52,6 +27,163 @@ STATUS key(int _key_)
 		return _DELETE;
 	else 
 		return keynone;
+}
+
+void initLScore(listScore& lScore)
+{
+	lScore.pHead = lScore.pTail = NULL;
+}
+
+
+//Nhap tay
+ScoreBoard insertStudentScore()
+{
+	ScoreBoard score;
+
+	cout << "No: ";
+	cin >> score.No;
+	cin.ignore();
+
+	cout << "Student ID: ";
+	getline(cin, score.studentID);
+
+	cout << "Full Name: ";
+	getline(cin, score.fullName);
+
+	cout << "Average Score: ";
+	getline(cin, score.aveScore);
+
+	cout << "Middle Term Score: ";
+	getline(cin, score.finalTermScore);
+
+	cout << "Final Term Score: ";
+	getline(cin, score.finalTermScore);
+
+	cout << "Bonus score: ";
+	getline(cin, score.other);
+
+	return score;
+}
+
+void printScoreBoard(listScore lScore)
+{
+	NodeScore* pTmp = lScore.pHead;
+	if (pTmp == NULL)
+	{
+		cout << "Empty";
+		return;
+	}
+
+	cout << "Student Information:" << endl << endl;
+	for (NodeScore* p = lScore.pHead; p->pNext != NULL; p = p->pNext) {
+		cout << "No: " << p->data.No << endl;
+		cout << "Student ID: " << p->data.studentID << endl;
+		cout << "Full Name: " << p->data.fullName << endl;
+		cout << "Average Score: " << p->data.aveScore << endl;
+		cout << "Final-Term Score: " << p->data.finalTermScore << endl;
+		cout << "Mid-Term Score: " << p->data.middleTermScore << endl;
+		cout << "Other: " << p->data.other << endl << endl;
+	}
+	cout << "=====================================" << endl;
+}
+
+bool writeScoreToFile(string file, listScore& lScore) {
+	fstream f;
+	f.open(file, ios::app);
+	for (NodeScore* k = lScore.pHead;k != NULL;k = k->pNext) {
+		f << k->data.No << ",";
+		f << k->data.studentID << ",";
+		f << k->data.fullName << ",";
+		f << k->data.aveScore << ",";
+		f << k->data.finalTermScore << ",";
+		f << k->data.middleTermScore << ",";
+		f << k->data.other << "," << endl;
+	}
+	f.close();
+	return true;
+}
+
+bool readScoreFromFile(string file, listScore& lScore) {
+	ScoreBoard score;
+	fstream f;
+	f.open(file, ios::in);
+	if (!f.is_open())
+		cout << "Error File Open";
+
+	while (!f.eof()) {
+		getline(f, score.No, ',');
+		getline(f, score.studentID, ',');
+		getline(f, score.fullName, ',');
+		getline(f, score.aveScore, ',');
+		getline(f, score.finalTermScore, ',');
+		getline(f, score.middleTermScore, ',');
+		getline(f, score.other);
+		cout << endl;
+
+
+		addTailScore(lScore, createScoreBoard(score));
+
+	}
+
+	f.close();
+	return true;
+}
+
+void getTimeTable(TimeTableFromAdmin& admin) {
+	int counter = 0;
+	string c = "stop";
+	while (admin.nameOfSubject[counter - 1] != c) {
+		cin >> admin.nameOfSubject[counter];
+		cin >> admin.weekDay[counter];
+		cin >> admin.time[counter];
+		counter++;
+	}
+}
+
+void writeTimeTable(string file, TimeTableFromAdmin& admin)
+{
+	fstream f;
+	int counter = 0;
+	string c = "stop";
+	int flag = 0;
+	f.open(file, ios::out);
+	getTimeTable(admin);
+	while (admin.nameOfSubject[counter] != c)
+	{
+		for (int counter1 = 0; counter1 < counter; counter1++)
+		{
+			if ((admin.nameOfSubject[counter] == admin.nameOfSubject[counter1]) && (admin.weekDay[counter] == admin.weekDay[counter1]) && (admin.time[counter] == admin.time[counter1]))
+			{
+				flag = 1;
+			}
+		}
+		if (flag == 0) {
+			f << admin.nameOfSubject[counter] << "\t";
+			f << admin.weekDay[counter] << "_";
+			f << admin.time[counter] << endl;
+		}
+		counter++;
+		flag = 0;
+	}
+}
+
+void addTailScore(listScore& lScore, NodeScore* p)
+{
+	if (lScore.pHead == NULL) {
+		lScore.pHead = lScore.pTail = p;
+	}
+	else {
+		lScore.pTail->pNext = p;
+		lScore.pTail = p;
+	}
+}
+
+NodeScore* createScoreBoard(ScoreBoard score)
+{
+	NodeScore* p = new NodeScore;
+	p->pNext = NULL;
+	p->data = score;
+	return p;
 }
 
 void initL(list& l)
@@ -146,7 +278,7 @@ void printList(list l)
 		cout << "Last Name: " << p->data.lastName << endl;
 		cout << "Gender: " << p->data.gender << endl;
 		cout << "Date of Birth: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
-		cout << "Social ID: " << p->data.socialID << endl;
+		cout << "Social ID: " << p->data.socialID << endl << endl;
 	}
 	cout << "=====================================" << endl;
 }
@@ -197,7 +329,7 @@ bool readFromFile(string file, list& l) {
 		getline(f, student.date.day, ',');
 		getline(f, student.date.month, ',');
 		getline(f, student.date.year, ',');
-		getline(f, student.socialID, ',');
+		getline(f, student.socialID, '\n');
 		addTail(l, createNode(student));
 
 	}
@@ -575,9 +707,138 @@ int mainMenu() {
 	return running;
 }
 
+int init_MENU()
+{
+	int n = 6;
+	int m = 15;
+	int key = 1;
 
-/*int main() {
-	mainMenu();
-	
+	gotoXY(n, m);
+	cout << "*________________________________*"; gotoXY(n, m + 1);
+	cout << "|              LOGIN             |"; gotoXY(n, m + 2);
+	cout << "|							    "; gotoXY(n, m + 3);
+	cout << "|							    "; gotoXY(n, m + 4);
+	cout << "|					            "; gotoXY(n, m + 5);
+	cout << "|             ADMIN    <--       |"; gotoXY(n, m + 6);
+	cout << "|             STUDENT            |"; gotoXY(n, m + 7);
+	cout << "|                                |"; gotoXY(n, m + 8);
+	cout << "|             RATE***           |"; gotoXY(n, m + 9);
+	cout << "|________________________________|"; m += 5;
+	while (true)
+	{
+		char c = _getch();
+
+		if ((c == 72) || (c == 80))
+		{
+			if (key == 1)
+			{
+				gotoXY(n, m);
+				cout << "|             ADMIN          ";  gotoXY(n, m + 1);
+				cout << "|             STUDENT  <--  "; key = 2;
+			}
+			else
+			{
+				gotoXY(n, m);
+				cout << "|             ADMIN    <--   ";  gotoXY(n, m + 1);
+				cout << "|             STUDENT        "; key = 1;
+			}
+
+		}
+		else if (c == 13) break;
+
+	}
+	return key;
+}
+bool check(string tp, string a, string b)
+{
+
+	string kt, str = a + "####" + b;
+
+	fstream file;
+
+	file.open(tp, ios::in);
+	if (!file)
+		file.open(tp, ios::out);
+	while (!file.eof())
+	{
+		getline(file, kt);
+
+		if (kt == str) return true;
+	}
+	file.close();
+	return false;
+
+}
+int init_LOGIN(int k)
+{
+	clrscr();
+
+
+
+
+	int n = 6;
+	int m = 15;
+	string typelog;
+	if (k == 1) typelog = "DATA_AD.txt";
+	else typelog = "DATA_STU.txt";
+	string ACC, PASS;
+	bool kt;
+	gotoXY(n, m);
+	cout << "*________________________________*"; gotoXY(n, m + 1);
+	cout << "|              LOGIN             |"; gotoXY(n, m + 2);
+	cout << "|							    "; gotoXY(n, m + 3);
+	cout << "|							    "; gotoXY(n, m + 4);
+	cout << "|					            "; gotoXY(n, m + 5);
+	cout << "| Account:                              "; gotoXY(n, m + 6);
+	cout << "| PASS:                       "; gotoXY(n, m + 7);
+	cout << "|                                |"; gotoXY(n, m + 8);
+	cout << "|                                |"; gotoXY(n, m + 9);
+	cout << "|________________________________|";
+
+
+	while (1)
+	{
+		gotoXY(n + 12, m + 5);   getline(cin, ACC, '\n');
+		gotoXY(n + 12, m + 6);   getline(cin, PASS, '\n');
+		gotoXY(n, m + 7);
+		if (check(typelog, ACC, PASS))
+		{
+			if (k == 1) return 1;
+			else return 2;
+			break;
+		}
+		else cout << " KO DUNG";
+		gotoXY(n, m + 5);
+		cout << "| Account:                              "; gotoXY(n, m + 6);
+		cout << "| PASS:                       "; gotoXY(n, m + 7);
+	}
+
+
+}
+void stdent()
+{
+
+	clrscr();
+	cout << " oooooo";
+}
+void Login()
+{
+
+	int d = init_LOGIN(init_MENU());
+	if (d == 1) mainMenu();
+	else StudentAccess(const_cast<char*>("20120380"));
+
+}
+int main() {
+
+	Login();
 	return 0;
-} */
+}
+
+
+
+
+
+
+
+

@@ -28,6 +28,60 @@ struct TimeTable {
 	string nameOfSubject[4][7];
 };
 
+struct TimeTableFromAdmin {
+	string nameOfSubject[30];
+	string weekDay[30];
+	string time[30];
+};
+
+struct dateOfBirth {
+	string day;
+	string month;
+	string year;
+};
+
+struct student {
+	string No;
+	string studentID;
+	string firstName;
+	string lastName;
+	string gender;
+	dateOfBirth date;
+	string socialID;
+};
+
+struct Node {
+	student data;
+	Node* pNext;
+};
+
+
+
+struct list {
+	Node* pHead;
+	Node* pTail;
+};
+
+struct ScoreBoard {
+	string No;
+	string studentID;
+	string fullName;
+	string aveScore;
+	string finalTermScore;
+	string middleTermScore;
+	string other;
+};
+
+struct NodeScore {
+	ScoreBoard data;
+	NodeScore* pNext;
+};
+
+struct listScore {
+	NodeScore* pHead;
+	NodeScore* pTail;
+};
+
 bool writeToFile(char* file, int data);
 int readFileData(const char* file);
 string getProcessFile(fileContent file, const char* nameOfProcess);
@@ -36,3 +90,13 @@ void InitColor();
 STATUS key(int _key_);
 void clearColor(fileContent file, const char* nameOfProcess);
 void clearColor(str listOfProcess[], int numberOfOptions, const char* nameOfProcess);
+void initLScore(listScore& lScore);
+ScoreBoard insertStudentScore();
+void printScoreBoard(listScore lScore);
+bool writeScoreToFile(string file, listScore& lScore);
+bool readScoreFromFile(string file, listScore& lScore);
+void getTimeTable(TimeTableFromAdmin& admin);
+void writeTimeTable(string file, TimeTableFromAdmin& admin);
+void addTailScore(listScore& lScore, NodeScore* p);
+NodeScore* createScoreBoard(ScoreBoard score);
+void StudentAccess(char* studentID);

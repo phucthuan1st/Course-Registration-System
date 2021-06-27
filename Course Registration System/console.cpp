@@ -25,6 +25,7 @@ int inputKey()
 	return key_none;
 }
 
+
 //-------------------------Screen-------------------------
 void clrscr()
 {
@@ -68,6 +69,7 @@ int whereY()
 		return csbi.dwCursorPosition.Y;
 	return -1;
 }
+
 
 void TextColor (int color)
 {

@@ -212,10 +212,10 @@ void StudentAccess(char* studentID) {
 	
 }
 
-int main() {
-	char* studentID = new char[9];
-	strcpy(studentID, "20120380");
-	StudentAccess(studentID);
-	clrscr();
-	return 0;
-}
+//int main() {
+//	char* studentID = new char[9];
+//	strcpy(studentID, "20120380");
+//	StudentAccess(studentID);
+//	clrscr();
+//	return 0;
+//}
