@@ -60,3 +60,18 @@ void StrToInt(registTime &T, registTime_s &T_s)
 	T.DayFinish.time.sec = atoi(T_s.DayFinish_s.time.sec.c_str());
 }
 //
+//
+date Today()
+{
+	date today;
+	time_t now = time(NULL); 
+	tm* ltm = new tm;
+	localtime_s(ltm, &now);
+	today.year = 1900 + ltm->tm_year;
+	today.month = 1 + ltm->tm_mon;
+	today.day = ltm->tm_mday;
+	today.time.hour = ltm->tm_hour;
+	today.time.min = ltm->tm_min;
+	today.time.sec = ltm->tm_sec;
+	return today;
+}
