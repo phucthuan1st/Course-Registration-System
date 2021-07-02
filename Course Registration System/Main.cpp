@@ -421,6 +421,31 @@ void writeMyAllSubjectScore(string fileNameSubject, string ID, listScore& lScore
 
 }
 
+void readMyAllSubjectScore(string file, listScore& lScore)
+{
+	ScoreBoard score;
+	fstream f;
+	f.open(file, ios::in);
+	if (!f.is_open())
+		cout << "Error File Open";
+
+	while (!f.eof()) {
+		getline(f, score.fullName, ',');
+		getline(f, score.aveScore, ',');
+		getline(f, score.finalTermScore, ',');
+		getline(f, score.middleTermScore, ',');
+		getline(f, score.other);
+		cout << endl;
+
+
+		addTailScore(lScore, createScoreBoard(score));
+
+	}
+
+	f.close();
+
+}
+
 int main() {
 	list l;
 	initL(l);
