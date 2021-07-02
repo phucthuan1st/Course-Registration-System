@@ -749,6 +749,7 @@ int init_MENU()
 	}
 	return key;
 }
+
 bool check(string tp, string a, string b)
 {
 
@@ -769,6 +770,7 @@ bool check(string tp, string a, string b)
 	return false;
 
 }
+
 int init_LOGIN(int k)
 {
 	clrscr();
@@ -782,7 +784,7 @@ int init_LOGIN(int k)
 	if (k == 1) typelog = "DATA_AD.txt";
 	else typelog = "DATA_STU.txt";
 	string ACC, PASS;
-	bool kt;
+	//bool kt;
 	gotoXY(n, m);
 	cout << "*________________________________*"; gotoXY(n, m + 1);
 	cout << "|              LOGIN             |"; gotoXY(n, m + 2);
@@ -815,12 +817,8 @@ int init_LOGIN(int k)
 
 
 }
-void stdent()
-{
 
-	clrscr();
-	cout << " oooooo";
-}
+
 void Login()
 {
 

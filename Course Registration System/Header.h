@@ -23,6 +23,7 @@ struct fileContent {
 	string* options;
 	int numberOfOptions;
 };
+
 struct TimeTable {
 	bool table[4][7];
 	string nameOfSubject[4][7];
@@ -55,8 +56,6 @@ struct Node {
 	Node* pNext;
 };
 
-
-
 struct list {
 	Node* pHead;
 	Node* pTail;
@@ -84,6 +83,7 @@ struct listScore {
 
 bool writeToFile(char* file, int data);
 int readFileData(const char* file);
+fileContent readFile(char* filepath);
 string getProcessFile(fileContent file, const char* nameOfProcess);
 int getProcess(str listOfProcess[], int numberOfOptions, const char* nameOfProcess);
 void InitColor();
