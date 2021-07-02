@@ -43,3 +43,20 @@ struct registTime_s {
 	date_s DayFinish_s;
 };
 //
+//
+void StrToInt(registTime &T, registTime_s &T_s)
+{
+	T.DayBegin.day = atoi(T_s.DayBegin_s.day.c_str());
+	T.DayBegin.month = atoi(T_s.DayBegin_s.month.c_str());
+	T.DayBegin.year = atoi(T_s.DayBegin_s.year.c_str());
+	T.DayBegin.time.hour = atoi(T_s.DayBegin_s.time.hour.c_str());
+	T.DayBegin.time.min = atoi(T_s.DayBegin_s.time.min.c_str());
+	T.DayBegin.time.sec = atoi(T_s.DayBegin_s.time.sec.c_str());
+	T.DayFinish.day = atoi(T_s.DayFinish_s.day.c_str());
+	T.DayFinish.month = atoi(T_s.DayFinish_s.month.c_str());
+	T.DayFinish.year = atoi(T_s.DayFinish_s.year.c_str());
+	T.DayFinish.time.hour = atoi(T_s.DayFinish_s.time.hour.c_str());
+	T.DayFinish.time.min = atoi(T_s.DayFinish_s.time.min.c_str());
+	T.DayFinish.time.sec = atoi(T_s.DayFinish_s.time.sec.c_str());
+}
+//
