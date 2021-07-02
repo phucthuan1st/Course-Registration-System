@@ -81,6 +81,43 @@ struct listScore {
 	NodeScore* pTail;
 };
 
+//
+struct Time {
+	int hour;
+	int min;
+	int sec;
+};
+//
+struct date {
+	int day;
+	int month;
+	int year;
+	Time time;
+};
+//
+struct registTime {
+	date DayBegin;
+	date DayFinish;
+};
+//
+struct Time_s {
+	string hour;
+	string min;
+	string sec;
+};
+//
+struct date_s {
+	string day;
+	string month;
+	string year;
+	Time_s time;
+};
+//
+struct registTime_s {
+	date_s DayBegin_s;
+	date_s DayFinish_s;
+};
+//
 bool writeToFile(char* file, int data);
 int readFileData(const char* file);
 fileContent readFile(char* filepath);
