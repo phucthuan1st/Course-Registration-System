@@ -1,0 +1,8 @@
+{
+  "C_Cpp_Runner.includePaths": "E:\\Apps\\MinGW\\mingw64\\bin",
+  "C_Cpp_Runner.cppCompilerPath": "E:\\Apps\\MinGW\\mingw64\\bin\\g++.exe",
+  "C_Cpp_Runner.warnings": "",
+  "C_Cpp_Runner.cCompilerPath": "E:\\Apps\\MinGW\\mingw64\\bin\\gcc.exe",
+  "C_Cpp_Runner.debuggerPath": "E:\\Apps\\MinGW\\mingw64\\bin\\gdb.exe",
+  "C_Cpp_Runner.makePath": "E:\\Apps\\MinGW\\mingw64\\bin\\make.exe"
+}
