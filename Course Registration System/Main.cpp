@@ -446,6 +446,26 @@ void readMyAllSubjectScore(string file, listScore& lScore)
 
 }
 
+void printMyAllSubjectScore(listScore lScore)
+{
+	NodeScore* pTmp = lScore.pHead;
+	if (pTmp == NULL)
+	{
+		cout << "Empty";
+		return;
+	}
+
+	cout << "My All Subject Score:" << endl << endl;
+	for (NodeScore* p = lScore.pHead; p->pNext != NULL; p = p->pNext) {
+		cout << "Full Name: " << p->data.fullName << endl;
+		cout << "Average Score: " << p->data.aveScore << endl;
+		cout << "Final-Term Score: " << p->data.finalTermScore << endl;
+		cout << "Mid-Term Score: " << p->data.middleTermScore << endl;
+		cout << "Other: " << p->data.other << endl << endl;
+	}
+	cout << "=====================================" << endl;
+}
+
 int main() {
 	list l;
 	initL(l);
