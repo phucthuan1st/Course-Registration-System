@@ -1,0 +1,4 @@
+﻿  MainMenu.cpp
+D:\KTLT_____\21-6-2021\TASK1_FULL\Course Registration System\MainMenu.cpp(827,7): warning C4101: 'kt': unreferenced local variable
+D:\KTLT_____\21-6-2021\TASK1_FULL\Course Registration System\MainMenu.cpp(38): warning C4715: 'key': not all control paths return a value
+  Course Registration System.vcxproj -> D:\KTLT_____\21-6-2021\TASK1_FULL\x64\Debug\Course Registration System.exe
