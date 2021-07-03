@@ -365,61 +365,7 @@ void writeTimeTable(string file, TimeTableFromAdmin& admin)
 	}
 }
 
-void writeMyAllSubjectScore(string fileNameSubject, string ID, listScore& lScore, listScore& lScore1, string classname)
-{
-	ScoreBoard score;
-	ScoreBoard score1;
-	fstream f;
 
-	f.open(fileNameSubject, ios::in);
-	if (!f.is_open())
-		cout << "Error File Open";
-
-	while (!f.eof()) {
-		getline(f, score.fullName, '\n');
-		addTailScore(lScore, createScoreBoard(score));
-	}
-	f.close();
-	for (NodeScore* p = lScore.pHead; p != NULL; p = p->pNext)
-	{
-		f.open(p->data.fullName + classname + "Score.csv", ios::in);
-		if (!f.is_open())
-			cout << "Error File Open";
-
-		while (!f.eof()) {
-			getline(f, score1.No, ',');
-			getline(f, score1.studentID, ',');
-			getline(f, score1.fullName, ',');
-			getline(f, score1.aveScore, ',');
-			getline(f, score1.finalTermScore, ',');
-			getline(f, score1.middleTermScore, ',');
-			getline(f, score1.other);
-			cout << endl;
-			addTailScore(lScore1, createScoreBoard(score1));
-		}
-		for (NodeScore* k = lScore1.pHead; k != NULL; k = k->pNext)
-		{
-			if (k->data.studentID == ID)
-			{
-				p->data.aveScore = k->data.aveScore;
-				p->data.middleTermScore = k->data.middleTermScore;
-				p->data.finalTermScore = k->data.finalTermScore;
-				p->data.other = k->data.other;
-			}
-		}
-		f.close();
-	}
-	f.open(ID + ".csv", ios::out);
-	for (NodeScore* l = lScore.pHead;l != NULL;l = l->pNext) {
-		f << l->data.fullName << ',';
-		f << l->data.aveScore << ',';
-		f << l->data.finalTermScore << ',';
-		f << l->data.middleTermScore << ',';
-		f << l->data.other << ',' << endl;
-	}
-	f.close();
-
-}
 
 void readMyAllSubjectScore(string file, listScore& lScore)
 {
