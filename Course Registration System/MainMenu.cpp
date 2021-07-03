@@ -408,7 +408,10 @@ void Del_option(string str, fileContent CD)
 	  
 	cout << " FILE NAME: "; getline(cin, _del , '\n');
 	ff.open(str, ios::out);            
-	for (int i = 0; i < 4; i++) ff << endl;
+	for (int i = 0; i < 4; i++) 
+	{
+		ff << endl;
+	}
 	for (int i = 0; i < CD.numberOfOptions; i++)
 	{
 		kt = false;
