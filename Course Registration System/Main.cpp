@@ -471,18 +471,25 @@ int main() {
 	initL(l);
 	listScore lScore;
 	initLScore(lScore);
+	listScore lScore1;
+	initLScore(lScore1);
+
 	//addTail(l, createNode(insertStudent()));
-	
-	
+	//addTail(l, createNode(insertStudent()));
+	//addTail(l, createNode(insertStudent()));
 	//addTailScore(lScore, createScoreBoard(insertStudentScore()));
 	//addTailScore(lScore, createScoreBoard(insertStudentScore()));
 	//printList(l);
 	//writeToFile("NMCNTT.csv", l);
-	writeScoreToFile("NMCNTT-Score.csv", lScore);
 	//readFromFile("student2.csv", l);
-	readScoreFromFile("KTLTScore.csv", lScore);
+	//readScoreFromFile("KTLTScore.csv", lScore);
 	//printList(l);
-	printScoreBoard(lScore);
+	//printScoreBoard(lScore);
+	/*TimeTableFromAdmin admin;
+	writeTimeTable("Danh sach mon DKHP.txt", admin);*/
+	//writeMyAllSubjectScore("MySubjectScore.txt", "20120373", lScore, lScore1, "20CTT3");
+	readMyAllSubjectScore("20120373.csv", lScore);
+	printMyAllSubjectScore(lScore);
 }
 
 
