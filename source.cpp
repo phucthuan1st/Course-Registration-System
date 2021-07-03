@@ -75,3 +75,46 @@ date Today()
 	today.time.sec = ltm->tm_sec;
 	return today;
 }
+//
+bool checkLeapYear(int year)
+{
+	return (((year % 4 == 0) && (year % 100 != 0)) ||
+		(year % 400 == 0));
+}
+//
+bool checkDate(date Date)
+{
+	if (Date.month==4||Date.month==6||Date.month==9||Date.month==11)
+	{
+		if (Date.day == 31)
+		{
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	else if(Date.month==2){
+		if (Date.day > 29)
+		{
+			return false;
+		}
+		else if (Date.day==29)
+		{
+			if (checkLeapYear(Date.year))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else {
+			return true;
+		}
+	}
+	else {
+		return true;
+	}
+}
