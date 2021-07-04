@@ -118,3 +118,137 @@ bool checkDate(date Date)
 		return true;
 	}
 }
+//
+date InputDate()
+{
+	date Date;
+	do {
+		cout << "Nhap ngay:";
+		cin >> Date.day;
+	} while (Date.day < 1 || Date.day>31);
+	do {
+		cout << "Nhap thang :";
+		cin >> Date.month;
+	} while (Date.month < 1 || Date.month>12);
+	do {
+		cout << "Nhap nam :";
+		cin >> Date.year;
+	} while (Date.year <= 0);
+	do {
+		cout << "Nhap gio:";
+		cin >> Date.time.hour;
+	} while (Date.time.hour < 0 || Date.time.hour>24);
+	do {
+		cout << "Nhap phut:";
+		cin >> Date.time.min;
+	} while (Date.time.min < 0 || Date.time.min>59);
+	do {
+		cout << "Nhap giay:";
+		cin >> Date.time.sec;
+	} while (Date.time.sec < 0 || Date.time.sec>59);
+	return Date;
+}
+//
+bool ComparDay(date Date1, date Date2)
+{
+	if (Date2.year > Date1.year) {
+		return true;
+	}
+	else if (Date2.year < Date1.year) {
+		return false;
+	}
+	else {
+		if (Date2.month > Date1.month)
+		{
+			return true;
+		}
+		else if (Date2.month < Date1.month) {
+			return false;
+		}
+		else {
+			if (Date2.day > Date1.day)
+			{
+				return true;
+			}
+			else if (Date2.day < Date1.day) {
+				return false;
+			}
+			else {
+				if (Date2.time.hour > Date1.time.hour)
+				{
+					return true;
+				}
+				else if (Date2.time.hour < Date1.time.hour) {
+					return false;
+				}
+				else {
+					if (Date2.time.min > Date1.time.min)
+					{
+						return true;
+					}
+					else if (Date2.time.min < Date1.time.min) {
+						return false;
+					}
+					else {
+						if (Date2.time.sec > Date1.time.sec)
+						{
+							return true;
+						}
+						else if (Date2.time.sec < Date1.time.sec) {
+							return false;
+						}
+						else {
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+//
+registTime InputregistTime()
+{
+	registTime RegistTime;
+	cout << "\nNhap ngay bat dau " << endl;
+	cout << "-----------------------" << endl;
+	RegistTime.DayBegin = InputDate();
+	while (checkDate(RegistTime.DayBegin) == false)
+	{
+		cout << "-----------------------" << endl;
+		cout << "Khong ton tai ngay nay " << endl;
+		cout << "Vui long nhap lai ngay bat dau " << endl;
+		RegistTime.DayBegin = InputDate();
+	}
+	cout << "\nNhap ngay ket thuc" << endl;
+	cout << "-----------------------" << endl;
+	RegistTime.DayFinish = InputDate();
+	while (checkDate(RegistTime.DayFinish) == false)
+	{
+		cout << "-----------------------" << endl;
+		cout << "Khong ton tai ngay nay " << endl;
+		cout << "Vui long nhap lai ngay ket thuc " << endl;
+		RegistTime.DayFinish = InputDate();
+	}
+	if (ComparDay(RegistTime.DayBegin, RegistTime.DayFinish) == false)
+	{
+		cout << "-------------------" << endl;
+		cout << "Thoi gian ket thuc phai muon hon thoi gian bat dau " << endl;
+		cout << "Vui long nhap lai " << endl;
+		RegistTime = InputregistTime();
+	}
+	return RegistTime;
+}
+void checktime(registTime RegistTime)
+{
+	date today = Today();
+	bool check1 = ComparDay(RegistTime.DayBegin, today);
+	bool check2 = ComparDay(today, RegistTime.DayFinish);
+	if (check1 && check2)
+	{
+		cout << "Load Dang ki" << endl;
+	}
+	else {
+		cout << "Da het han dang ki" << endl;
+	}
+}
