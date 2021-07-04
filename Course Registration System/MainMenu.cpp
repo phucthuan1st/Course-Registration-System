@@ -2,7 +2,7 @@
 #include "console.h"
 
 
-
+//sdfsdfsdf
 STATUS key(int _key_)
 {
 	if (_key_ == 224)
@@ -25,8 +25,16 @@ STATUS key(int _key_)
 		return _ADD;
 	else if (_key_ == 45) 
 		return _DELETE;
+	else if (_key_ == 47)
+		return _ADDPOINT;
+	else if (_key_ == 42)
+	{
+		return _T;
+	}
 	else 
 		return keynone;
+	
+
 }
 
 void initLScore(listScore& lScore)
@@ -36,6 +44,7 @@ void initLScore(listScore& lScore)
 
 
 //Nhap tay
+//drtytyty
 ScoreBoard insertStudentScore()
 {
 	ScoreBoard score;
@@ -331,9 +340,7 @@ bool readFromFile(string file, list& l) {
 		getline(f, student.date.year, ',');
 		getline(f, student.socialID, '\n');
 		addTail(l, createNode(student));
-
 	}
-
 	f.close();
 	return true;
 }
@@ -401,6 +408,7 @@ void Del_option(string str, fileContent CD)
 	  
 	cout << " FILE NAME: "; getline(cin, _del , '\n');
 	ff.open(str, ios::out);            
+	
 	for (int i = 0; i < CD.numberOfOptions; i++)
 	{
 		kt = false;
@@ -412,7 +420,7 @@ void Del_option(string str, fileContent CD)
 		if ((i < CD.numberOfOptions)&&(kt)) ff << endl;
 	}
 		
-	//ff <<"\n"<< _del;
+	
 	ff.close();
 }
 
@@ -471,7 +479,7 @@ string getProcessFile(fileContent file, const char* nameOfProcess) {
 		TextColor(TEXTCOLOR);
 		gotoXY(30, 5);
 		int x = 30;                                        // new game
-		int y = 5;                                        
+		int y = 5;
 		cout << nameOfProcess;
 		y += 2;
 		for (int i = 0; i < file.numberOfOptions; i++) {		//
@@ -479,8 +487,8 @@ string getProcessFile(fileContent file, const char* nameOfProcess) {
 			gotoXY(x, y);
 			cout << file.options[i] << endl;
 			y += 2;
-		} 
-		
+		}
+
 		int z = _getch();
 		STATUS status = key(z); //nhan vao thao tac moi
 		switch (status) {
@@ -506,14 +514,19 @@ string getProcessFile(fileContent file, const char* nameOfProcess) {
 		}
 		case _ADD:
 			//add_option(nameOfProcess);
-			
+
 			return "add";
 			break;
 		case _DELETE:
 			return "_dele";
 			break;
+		case _ADDPOINT:
+			return "addpoint";
+			break;
+		case _T:
+			return "registTime";
+			break;
 		}
-		
 		for (int i = 0; i < file.numberOfOptions; i++) { //thay doi mau cua thao tac dang tro den
 			color[i] = TEXTCOLOR;
 		}
@@ -530,7 +543,7 @@ int selectsub1(char* filepath) {
 	while (running) {
 		fileContent yearFile = readFile(filepath);
 		char* termFilePath = new char[150];
-		strcpy(termFilePath, getProcessFile(yearFile, "Term").c_str());
+		strcpy(termFilePath, getProcessFile(yearFile, "Term1").c_str());
 		if (strcmp(termFilePath, "BACK") == 0)
 			running = 0;
 		else
@@ -546,6 +559,7 @@ int selectsub1(char* filepath) {
 					Del_option(filepath, yearFile);
 
 				}
+				
 				else
 				{
 					running = 1;
@@ -563,13 +577,15 @@ int selectsub1(char* filepath) {
 int selectSubScreen(char* filepath) {
 	list L;
 	initL(L);
+	listScore diem;
+	initLScore(diem);
 	int running = 1;
 
 
 	while (running) {
 		fileContent yearFile = readFile(filepath);
 		char* termFilePath = new char[150];
-		strcpy(termFilePath, getProcessFile(yearFile, "Term").c_str());
+		strcpy(termFilePath, getProcessFile(yearFile, "Course").c_str());
 		if (strcmp(termFilePath, "BACK") == 0)
 			running = 0;
 		else
@@ -585,13 +601,30 @@ int selectSubScreen(char* filepath) {
 					Del_option(filepath, yearFile);
 
 				}
+		       if (strcmp(termFilePath, "_dele") == 0)
+		       {
+			       running = 1;
+			       Del_option(filepath, yearFile);
+
+		       }
+			   if (strcmp(termFilePath, "addpoint") == 0)
+			   {
+				   
+				   running = 1;
+
+				   cout << "NHap diem tu ben ngoai ";
+				   system("pause");
+				   readScoreFromFile("KTLTScore.csv",diem);
+				   printScoreBoard(diem);
+
+			   }
 				else
 				{
 					running = 1;
 					selectsub1(termFilePath);
 					/*selectSubjectScreen(termFilePath);*/
 				}
-
+			   
 	}
 	return 1;
 }
@@ -622,7 +655,6 @@ int selectSubjectScreen(char* filepath)
 
 			}
 		else
-				
 				selectSubScreen(subjectFilePath);
 	}
 	return 1;
@@ -637,6 +669,7 @@ int selectTermScreen(char* filepath) {
 		fileContent yearFile = readFile(filepath);
 		char* termFilePath = new char[50];
 		strcpy(termFilePath, getProcessFile(yearFile, "Term").c_str());
+
 		if (strcmp(termFilePath, "BACK") == 0)
 			running = 0;
 		else
@@ -652,6 +685,13 @@ int selectTermScreen(char* filepath) {
 				Del_option(filepath, yearFile);
 
 			}
+			else
+				if (strcmp(termFilePath, "registTime") == 0)
+				{
+					running = 1;
+					registTime T = InputregistTime();
+					writeToFile_T("dkhp.txt", T);
+				}
 		else 
 			selectSubjectScreen(termFilePath);
 	}
@@ -784,7 +824,7 @@ int init_LOGIN(int k)
 	if (k == 1) typelog = "DATA_AD.txt";
 	else typelog = "DATA_STU.txt";
 	string ACC, PASS;
-	//bool kt;
+	bool kt;
 	gotoXY(n, m);
 	cout << "*________________________________*"; gotoXY(n, m + 1);
 	cout << "|              LOGIN             |"; gotoXY(n, m + 2);
@@ -818,6 +858,259 @@ int init_LOGIN(int k)
 
 }
 
+void StrToInt(registTime& T, registTime_s& T_s)
+{
+	T.DayBegin.day = atoi(T_s.DayBegin_s.day.c_str());
+	T.DayBegin.month = atoi(T_s.DayBegin_s.month.c_str());
+	T.DayBegin.year = atoi(T_s.DayBegin_s.year.c_str());
+	T.DayBegin.time.hour = atoi(T_s.DayBegin_s.time.hour.c_str());
+	T.DayBegin.time.min = atoi(T_s.DayBegin_s.time.min.c_str());
+	T.DayBegin.time.sec = atoi(T_s.DayBegin_s.time.sec.c_str());
+	T.DayFinish.day = atoi(T_s.DayFinish_s.day.c_str());
+	T.DayFinish.month = atoi(T_s.DayFinish_s.month.c_str());
+	T.DayFinish.year = atoi(T_s.DayFinish_s.year.c_str());
+	T.DayFinish.time.hour = atoi(T_s.DayFinish_s.time.hour.c_str());
+	T.DayFinish.time.min = atoi(T_s.DayFinish_s.time.min.c_str());
+	T.DayFinish.time.sec = atoi(T_s.DayFinish_s.time.sec.c_str());
+}
+//
+date Today()
+{
+	date today;
+	time_t now = time(NULL);
+	tm* ltm = new tm;
+	localtime_s(ltm, &now);
+	today.year = 1900 + ltm->tm_year;
+	today.month = 1 + ltm->tm_mon;
+	today.day = ltm->tm_mday;
+	today.time.hour = ltm->tm_hour;
+	today.time.min = ltm->tm_min;
+	today.time.sec = ltm->tm_sec;
+	return today;
+}
+//
+bool checkLeapYear(int year)
+{
+	return (((year % 4 == 0) && (year % 100 != 0)) ||
+		(year % 400 == 0));
+}
+//
+bool checkDate(date Date)
+{
+	if (Date.month == 4 || Date.month == 6 || Date.month == 9 || Date.month == 11)
+	{
+		if (Date.day == 31)
+		{
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	else if (Date.month == 2) {
+		if (Date.day > 29)
+		{
+			return false;
+		}
+		else if (Date.day == 29)
+		{
+			if (checkLeapYear(Date.year))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else {
+			return true;
+		}
+	}
+	else {
+		return true;
+	}
+}
+//
+date InputDate()
+{
+	date Date;
+	do {
+		cout << "Nhap ngay:";
+		cin >> Date.day;
+	} while (Date.day < 1 || Date.day>31);
+	do {
+		cout << "Nhap thang :";
+		cin >> Date.month;
+	} while (Date.month < 1 || Date.month>12);
+	do {
+		cout << "Nhap nam :";
+		cin >> Date.year;
+	} while (Date.year <= 0);
+	do {
+		cout << "Nhap gio:";
+		cin >> Date.time.hour;
+	} while (Date.time.hour < 0 || Date.time.hour>24);
+	do {
+		cout << "Nhap phut:";
+		cin >> Date.time.min;
+	} while (Date.time.min < 0 || Date.time.min>59);
+	do {
+		cout << "Nhap giay:";
+		cin >> Date.time.sec;
+	} while (Date.time.sec < 0 || Date.time.sec>59);
+	return Date;
+}
+//
+bool ComparDay(date Date1, date Date2)
+{
+	if (Date2.year > Date1.year) {
+		return true;
+	}
+	else if (Date2.year < Date1.year) {
+		return false;
+	}
+	else {
+		if (Date2.month > Date1.month)
+		{
+			return true;
+		}
+		else if (Date2.month < Date1.month) {
+			return false;
+		}
+		else {
+			if (Date2.day > Date1.day)
+			{
+				return true;
+			}
+			else if (Date2.day < Date1.day) {
+				return false;
+			}
+			else {
+				if (Date2.time.hour > Date1.time.hour)
+				{
+					return true;
+				}
+				else if (Date2.time.hour < Date1.time.hour) {
+					return false;
+				}
+				else {
+					if (Date2.time.min > Date1.time.min)
+					{
+						return true;
+					}
+					else if (Date2.time.min < Date1.time.min) {
+						return false;
+					}
+					else {
+						if (Date2.time.sec > Date1.time.sec)
+						{
+							return true;
+						}
+						else if (Date2.time.sec < Date1.time.sec) {
+							return false;
+						}
+						else {
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+//
+registTime InputregistTime()
+{
+	registTime RegistTime;
+	cout << "\nNhap ngay bat dau " << endl;
+	cout << "-----------------------" << endl;
+	RegistTime.DayBegin = InputDate();
+	while (checkDate(RegistTime.DayBegin) == false)
+	{
+		cout << "-----------------------" << endl;
+		cout << "Khong ton tai ngay nay " << endl;
+		cout << "Vui long nhap lai ngay bat dau " << endl;
+		RegistTime.DayBegin = InputDate();
+	}
+	cout << "\nNhap ngay ket thuc" << endl;
+	cout << "-----------------------" << endl;
+	RegistTime.DayFinish = InputDate();
+	while (checkDate(RegistTime.DayFinish) == false)
+	{
+		cout << "-----------------------" << endl;
+		cout << "Khong ton tai ngay nay " << endl;
+		cout << "Vui long nhap lai ngay ket thuc " << endl;
+		RegistTime.DayFinish = InputDate();
+	}
+	if (ComparDay(RegistTime.DayBegin, RegistTime.DayFinish) == false)
+	{
+		cout << "-------------------" << endl;
+		cout << "Thoi gian ket thuc phai muon hon thoi gian bat dau " << endl;
+		cout << "Vui long nhap lai " << endl;
+		RegistTime = InputregistTime();
+	}
+	return RegistTime;
+}
+//
+bool checktime(registTime RegistTime)
+{
+	date today = Today();
+	bool check1 = ComparDay(RegistTime.DayBegin, today);
+	bool check2 = ComparDay(today, RegistTime.DayFinish);
+	if (check1 && check2)
+	{
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+//
+void writeToFile_T(string file, registTime& T) {
+	fstream f;
+	f.open(file, ios::out);
+	f << T.DayBegin.day << ",";
+	f << T.DayBegin.month << ",";
+	f << T.DayBegin.year << ",";
+	f << T.DayBegin.time.hour << ",";
+	f << T.DayBegin.time.min << ",";
+	f << T.DayBegin.time.sec << ",";
+	f << T.DayFinish.day << ",";
+	f << T.DayFinish.month << ",";
+	f << T.DayFinish.year << ",";
+	f << T.DayFinish.time.hour << ",";
+	f << T.DayFinish.time.min << ",";
+	f << T.DayFinish.time.sec << ",";
+	f.close();
+}
+//
+void readFromFile_T(string file, registTime_s& T_s) {
+	fstream f;
+	f.open(file, ios::in);
+	if (!f.is_open())
+		cout << "Error File Open";
+	getline(f, T_s.DayBegin_s.day, ',');
+	getline(f, T_s.DayBegin_s.month, ',');
+	getline(f, T_s.DayBegin_s.year, ',');
+	getline(f, T_s.DayBegin_s.time.hour, ',');
+	getline(f, T_s.DayBegin_s.time.min, ',');
+	getline(f, T_s.DayBegin_s.time.sec, ',');
+	getline(f, T_s.DayFinish_s.day, ',');
+	getline(f, T_s.DayFinish_s.month, ',');
+	getline(f, T_s.DayFinish_s.year, ',');
+	getline(f, T_s.DayFinish_s.time.hour, ',');
+	getline(f, T_s.DayFinish_s.time.min, ',');
+	getline(f, T_s.DayFinish_s.time.sec, ',');
+	f.close();
+}
+//
+void stdent()
+{
+
+	clrscr();
+	cout << " oooooo";
+}
 
 void Login()
 {
@@ -827,6 +1120,7 @@ void Login()
 	else StudentAccess(const_cast<char*>("20120380"));
 
 }
+
 int main() {
 
 	Login();
