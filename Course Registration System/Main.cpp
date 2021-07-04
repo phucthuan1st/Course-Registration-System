@@ -242,6 +242,48 @@ void addHead(list& l, Node* p) {
 
 }
 
+bool writeScoreToFile(string file, listScore& lScore) {
+	fstream f;
+	f.open(file + ".csv", ios::app);
+	for (NodeScore* k = lScore.pHead;k != NULL;k = k->pNext) {
+		f << k->data.No << ",";
+		f << k->data.studentID << ",";
+		f << k->data.fullName << ",";
+		f << k->data.aveScore << ",";
+		f << k->data.finalTermScore << ",";
+		f << k->data.middleTermScore << ",";
+		f << k->data.other << "," << endl;
+	}
+	f.close();
+	return true;
+}
+
+bool readScoreFromFile(string file, listScore& lScore) {
+	ScoreBoard score;
+	fstream f;
+	f.open(file + ".csv", ios::in);
+	if (!f.is_open())
+		cout << "Error File Open";
+
+	while (!f.eof()) {
+		getline(f, score.No, ',');
+		getline(f, score.studentID, ',');
+		getline(f, score.fullName, ',');
+		getline(f, score.aveScore, ',');
+		getline(f, score.finalTermScore, ',');
+		getline(f, score.middleTermScore, ',');
+		getline(f, score.other);
+		cout << endl;
+
+
+		addTailScore(lScore, createScoreBoard(score));
+
+	}
+
+	f.close();
+	return true;
+}
+
 bool writeToFile(string file, list& l) {
 	fstream f;
 	f.open(file, ios::app);
@@ -285,47 +327,7 @@ bool readFromFile(string file, list& l) {
 	return true;
 }
 
-bool writeScoreToFile(string file, listScore& lScore) {
-	fstream f;
-	f.open(file, ios::app);
-	for (NodeScore* k = lScore.pHead;k != NULL;k = k->pNext) {
-		f << k->data.No << ",";
-		f << k->data.studentID << ",";
-		f << k->data.fullName << ",";
-		f << k->data.aveScore << ",";
-		f << k->data.finalTermScore << ",";
-		f << k->data.middleTermScore << ",";
-		f << k->data.other << "," << endl;
-	}
-	f.close();
-	return true;
-}
 
-bool readScoreFromFile(string file, listScore& lScore) {
-	ScoreBoard score;
-	fstream f;
-	f.open(file, ios::in);
-	if (!f.is_open())
-		cout << "Error File Open";
-
-	while (!f.eof()) {
-		getline(f, score.No, ',');
-		getline(f, score.studentID, ',');
-		getline(f, score.fullName, ',');
-		getline(f, score.aveScore, ',');
-		getline(f, score.finalTermScore, ',');
-		getline(f, score.middleTermScore, ',');
-		getline(f, score.other, '\n');
-		cout << endl;
-
-
-		addTailScore(lScore, createScoreBoard(score));
-
-	}
-
-	f.close();
-	return true;
-}
 
 void getTimeTable(TimeTableFromAdmin& admin) {
 	int counter = 0;
