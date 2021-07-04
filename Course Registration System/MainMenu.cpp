@@ -423,7 +423,7 @@ void Del_option(string str, fileContent CD)
 		if ((i < CD.numberOfOptions)&&(kt)) ff << endl;
 	}
 		
-	//ff <<"\n"<< _del;
+	
 	ff.close();
 }
 
