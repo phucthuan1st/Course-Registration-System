@@ -6,6 +6,7 @@
 #include <string>
 #include <conio.h>
 #include <Windows.h>
+#include<ctime>
 
 
 #define _line "--------------------------------------------------------"
@@ -14,7 +15,7 @@
 #define TEXTCOLOR 10
 #define WHITE_TEXTCOLOR 175
 
-enum STATUS { UP, DOWN, LEFT, RIGHT, ENTER, BACKSPACE, ESCAPE, _ADD, _DELETE, keynone };
+enum STATUS { UP, DOWN, LEFT, RIGHT, ENTER, BACKSPACE, ESCAPE, _ADD, _DELETE,_ADDPOINT , _T ,keynone};
 
 using namespace std;
 typedef char str[31];
@@ -56,6 +57,8 @@ struct Node {
 	Node* pNext;
 };
 
+
+
 struct list {
 	Node* pHead;
 	Node* pTail;
@@ -80,8 +83,6 @@ struct listScore {
 	NodeScore* pHead;
 	NodeScore* pTail;
 };
-
-//
 struct Time {
 	int hour;
 	int min;
@@ -120,7 +121,6 @@ struct registTime_s {
 //
 bool writeToFile(char* file, int data);
 int readFileData(const char* file);
-fileContent readFile(char* filepath);
 string getProcessFile(fileContent file, const char* nameOfProcess);
 int getProcess(str listOfProcess[], int numberOfOptions, const char* nameOfProcess);
 void InitColor();
@@ -137,3 +137,13 @@ void writeTimeTable(string file, TimeTableFromAdmin& admin);
 void addTailScore(listScore& lScore, NodeScore* p);
 NodeScore* createScoreBoard(ScoreBoard score);
 void StudentAccess(char* studentID);
+void StrToInt(registTime& T, registTime_s& T_s);
+date Today();
+bool checkLeapYear(int year);
+bool checkDate(date Date);
+date InputDate();
+bool ComparDay(date Date1, date Date2);
+registTime InputregistTime();
+bool checktime(registTime RegistTime);
+void writeToFile_T(string file, registTime& T);
+void readFromFile_T(string file, registTime_s& T_s);

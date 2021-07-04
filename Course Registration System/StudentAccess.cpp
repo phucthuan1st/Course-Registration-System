@@ -1,11 +1,6 @@
 #include "console.h"
 #include "Header.h"
 
-bool confirmScreen() {
-	str yes_no[2] = { "Yes", "No" };
-	int confirm = getProcess(yes_no, 2, "Confirm");
-	return !confirm;
-}
 
 bool checkRegisted(string info, TimeTable studentTimeTable) {
 	string day = "";
@@ -61,53 +56,6 @@ fileContent readFileStudyLesson(char* filepath) {
 	return _fileContent;
 }
 
-bool convertTimeTableToList(TimeTable TKB, char* destination_file) {
-	ofstream des(destination_file, ios::out);
-	int day = 0;
-	int shift = 0;
-	while (day < 6) {
-		while (shift < 4) {
-			if (TKB.nameOfSubject[shift][day] == TKB.nameOfSubject[shift + 1][day] && TKB.nameOfSubject[shift][day] != "0") {
-				des << TKB.nameOfSubject[shift][day] << "\tT" << day + 2 << "_" << shift + 1 << shift + 2 << endl;
-				shift += 2;
-			}
-			else if (TKB.nameOfSubject[shift][day] != "0") {
-				des << TKB.nameOfSubject[shift][day] << "\tT" << day + 2 << "_" << shift + 1 << endl;
-				shift++;
-			}
-			else {
-				shift += 1;
-			}
-		}
-		shift = 0;
-		day += 1;
-	}
-	return des.is_open();
-}
-
-void cancelCourses(char* registedcourse, TimeTable &TKB) {
-	int running = 1;
-	while (running) {
-		fileContent file = readFileStudyLesson(registedcourse);
-		string buffer = getProcessFile(file, "HUY DANG KI");
-		if (buffer == "BACK") {
-			running = confirmScreen();
-		}
-		else {
-			int pos = buffer.find('\t');
-			string subject = buffer.substr(0, pos - 1);
-			string time = buffer.substr(pos + 1, buffer.size() - pos - 1);
-			for (int i = 0; i < 4; i++) {
-				for (int j = 0; j < 6; j++) {
-					if (TKB.nameOfSubject[i][j] == subject && j == time[1]) {
-						TKB.nameOfSubject[i][j] = "0";
-					}
-				}
-			}
-		}
-	}
-}
-
 void displayTimeTable(TimeTable student) {
 	TextColor(7);
 	int baseX = whereX() + 8;
@@ -130,6 +78,7 @@ void displayTimeTable(TimeTable student) {
 		cout << endl;
 	}
 	cout << endl;
+	system("pause");
 }
 
 void getDayAndShift(char* result, string& time, string& subject) {
@@ -173,7 +122,9 @@ bool registSubject(char* filepath, TimeTable &student) {
 			}
 		}
 	}
-	return confirmScreen();
+	str yes_no[2] = { "Yes", "No" };
+	int confirm = getProcess(yes_no, 2, "Confirm");
+	return !confirm;
 }
 
 void InitColor() {
@@ -229,12 +180,11 @@ void saveChange(char* tkb, TimeTable student, char* studentID) {
 			}
 		}
 	}
-	convertTimeTableToList(student, (char*)"Ds mon da dang ki.txt");
 }
 
 void StudentAccess(char* studentID) {
 	int running = 1;
-	str studentProcess[5] = { "Dang ki hoc phan", "Xem diem cac mon da hoc", "Huy dang ki hoc phan", "Xem TKB", "Thoat" };
+	str studentProcess[5] = { "Dang ki hoc phan", "Xem diem cac mon da hoc", "Xem TKB", "Thoat" };
 	TimeTable student;
 	getStudentTimeTable(const_cast <char*>("TKB.txt"), student);
 	while (running) {
@@ -242,32 +192,45 @@ void StudentAccess(char* studentID) {
 		int choose = getProcess(studentProcess, 5, "HOC SINH");
 		clearColor(studentProcess, 3, "HOC SINH");
 		if (choose == 0) {
-			if (true) { // them dieu kien con mo dang ki hp//
+			registTime T1;
+			registTime_s T1_s;
+			readFromFile_T("dkhp.txt", T1_s);
+			StrToInt(T1, T1_s);
+			if (checktime(T1)) { // them dieu kien con mo dang ki hp//
 				bool save = registSubject(const_cast<char*>("danh sach mon DKHP.txt"), student);
 				if (save) {
 					saveChange(const_cast <char*>("TKB.txt"), student, studentID);
 				}
 			}
+			else
+			{
+				gotoXY(60, 15);
+				cout << "----------------------------------------";
+				gotoXY(60, 16);
+				cout << "| KHONG PHAI THOI GIAN DANG KI HOC PHAN |";
+				gotoXY(60, 17);
+				cout << "----------------------------------------";
+				getch();
+			}
 		}
 		else if (choose == 1) {
-			clrscr();
-			gotoXY(40, 15);
-			cout << "nothing here\n";
-			system("pause");
+
 		}
 		else if (choose == 2) {
-			cancelCourses((char*)"Ds mon da dang ki.txt", student);
-			saveChange(const_cast <char*>("TKB.txt"), student, studentID);
-		}
-		else if (choose == 3) {
 			displayTimeTable(student);
 			system("pause");
 		}
-		else if (choose == -1 || choose == 4) {
-			clrscr();
+		else if (choose == -1 || choose == 3) {
 			running = 0;
 		}
 	}
 	
 }
 
+//int main() {
+//	char* studentID = new char[9];
+//	strcpy(studentID, "20120380");
+//	StudentAccess(studentID);
+//	clrscr();
+//	return 0;
+//}

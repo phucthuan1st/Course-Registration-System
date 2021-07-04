@@ -6,4 +6,3 @@ KTLT.txt
 AV3.txt
 DSTT.txt
 TLDC.txt
-The duc
