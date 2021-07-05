@@ -98,7 +98,7 @@ void printScoreBoard(listScore lScore)
 
 bool writeScoreToFile(string file, listScore& lScore) {
 	fstream f;
-	f.open(file, ios::app);
+	f.open(file + ".csv", ios::app);
 	for (NodeScore* k = lScore.pHead;k != NULL;k = k->pNext) {
 		f << k->data.No << ",";
 		f << k->data.studentID << ",";
@@ -115,7 +115,7 @@ bool writeScoreToFile(string file, listScore& lScore) {
 bool readScoreFromFile(string file, listScore& lScore) {
 	ScoreBoard score;
 	fstream f;
-	f.open(file, ios::in);
+	f.open(file + ".csv", ios::in);
 	if (!f.is_open())
 		cout << "Error File Open";
 
@@ -155,7 +155,7 @@ void writeTimeTable(string file, TimeTableFromAdmin& admin)
 	int counter = 0;
 	string c = "stop";
 	int flag = 0;
-	f.open(file, ios::out);
+	f.open(file + ".txt", ios::out);
 	getTimeTable(admin);
 	while (admin.nameOfSubject[counter] != c)
 	{
@@ -306,7 +306,7 @@ void addHead(list& l, Node* p) {
 
 bool writeToFile(string file, list& l) {
 	fstream f;
-	f.open(file, ios::app);
+	f.open(file + ".csv", ios::app);
 	for (Node* k = l.pHead; k != NULL; k = k->pNext) {
 		f << k->data.No << ",";
 		f << k->data.studentID << ",";
@@ -325,7 +325,7 @@ bool writeToFile(string file, list& l) {
 bool readFromFile(string file, list& l) {
 	student student;
 	fstream f;
-	f.open(file, ios::in);
+	f.open(file + ".csv", ios::in);
 	if (!f.is_open())
 		cout << "Error File Open";
 
