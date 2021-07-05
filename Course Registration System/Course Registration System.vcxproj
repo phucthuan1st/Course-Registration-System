@@ -149,6 +149,9 @@
     <ClCompile Include="StudentAccess.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="20CTT3.csv" />
+    <None Include="KTLTScore.csv" />
+    <None Include="student2.csv" />
     <None Include="test.csv" />
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +160,14 @@
     <Text Include="2020.txt" />
     <Text Include="2021.txt" />
     <Text Include="admin.txt" />
+    <Text Include="danh sach mon DKHP.txt" />
+    <Text Include="DATA_AD.txt" />
+    <Text Include="DATA_STU.txt" />
+    <Text Include="hocki1-2020.txt" />
+    <Text Include="hocki2-2020.txt" />
     <Text Include="input.txt" />
+    <Text Include="KTLT.txt" />
+    <Text Include="TKB.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

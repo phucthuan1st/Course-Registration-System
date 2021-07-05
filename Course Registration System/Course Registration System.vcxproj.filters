@@ -41,6 +41,27 @@
     <Text Include="input.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="danh sach mon DKHP.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="DATA_AD.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="DATA_STU.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="hocki1-2020.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="hocki2-2020.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="KTLT.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="TKB.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -55,6 +76,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="test.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="20CTT3.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="KTLTScore.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="student2.csv">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

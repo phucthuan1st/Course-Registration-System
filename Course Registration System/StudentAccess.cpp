@@ -127,10 +127,6 @@ bool registSubject(char* filepath, TimeTable &student) {
 	return !confirm;
 }
 
-void InitColor() {
-
-}
-
 void clearColor(fileContent file, const char* nameOfProcess) {
 	clrscr();
 	int x = 30;
@@ -182,15 +178,25 @@ void saveChange(char* tkb, TimeTable student, char* studentID) {
 	}
 }
 
+void drawPassedRegistrationNotification() {
+	gotoXY(60, 15);
+	cout << "----------------------------------------";
+	gotoXY(60, 16);
+	cout << "| KHONG PHAI THOI GIAN DANG KI HOC PHAN |";
+	gotoXY(60, 17);
+	cout << "----------------------------------------";
+	getch();
+}
+
 void StudentAccess(char* studentID) {
 	int running = 1;
-	str studentProcess[5] = { "Dang ki hoc phan", "Xem diem cac mon da hoc", "Xem TKB", "Thoat" };
+	str studentProcess[5] = { "Dang ki hoc phan", "Xem diem cac mon da hoc", "Xem TKB", "Huy dang ki hoc phan", "Thoat" };
 	TimeTable student;
 	getStudentTimeTable(const_cast <char*>("TKB.txt"), student);
 	while (running) {
 		clrscr();
 		int choose = getProcess(studentProcess, 5, "HOC SINH");
-		clearColor(studentProcess, 3, "HOC SINH");
+		clearColor(studentProcess, 5, "HOC SINH");
 		if (choose == 0) {
 			registTime T1;
 			registTime_s T1_s;
@@ -204,13 +210,7 @@ void StudentAccess(char* studentID) {
 			}
 			else
 			{
-				gotoXY(60, 15);
-				cout << "----------------------------------------";
-				gotoXY(60, 16);
-				cout << "| KHONG PHAI THOI GIAN DANG KI HOC PHAN |";
-				gotoXY(60, 17);
-				cout << "----------------------------------------";
-				getch();
+				drawPassedRegistrationNotification();
 			}
 		}
 		else if (choose == 1) {
@@ -218,19 +218,13 @@ void StudentAccess(char* studentID) {
 		}
 		else if (choose == 2) {
 			displayTimeTable(student);
-			system("pause");
 		}
-		else if (choose == -1 || choose == 3) {
+		else if (choose == 3) {
+
+		}
+		else if (choose == -1 || choose == 4) {
 			running = 0;
 		}
 	}
 	
 }
-
-//int main() {
-//	char* studentID = new char[9];
-//	strcpy(studentID, "20120380");
-//	StudentAccess(studentID);
-//	clrscr();
-//	return 0;
-//}
