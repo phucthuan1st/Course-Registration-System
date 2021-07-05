@@ -1,6 +1,12 @@
 #include "console.h"
 #include "Header.h"
 
+bool confirmScreen() {
+	str yn[2] = { "Yes", "No" };
+	int choose = getProcess(yn, 2, "Confirm changing?");
+	clearColor(yn, 2, "Comfirm changing?");
+	return choose;
+}
 
 bool checkRegisted(string info, TimeTable studentTimeTable) {
 	string day = "";
@@ -127,6 +133,55 @@ bool registSubject(char* filepath, TimeTable &student) {
 	return !confirm;
 }
 
+bool convertTimeTableToList(TimeTable TKB, char* destination_file) {
+	ofstream des(destination_file, ios::out);
+	int day = 0;
+	int shift = 0;
+	while (day < 6) {
+		while (shift < 4) {
+			if (TKB.nameOfSubject[shift][day] == TKB.nameOfSubject[shift + 1][day] && TKB.nameOfSubject[shift][day] != "0") {
+				des << TKB.nameOfSubject[shift][day] << "\tT" << day + 2 << "_" << shift + 1 << shift + 2 << endl;
+				shift += 2;
+			}
+			else if (TKB.nameOfSubject[shift][day] != "0") {
+				des << TKB.nameOfSubject[shift][day] << "\tT" << day + 2 << "_" << shift + 1 << endl;
+				shift++;
+			}
+			else {
+				shift += 1;
+			}
+		}
+		shift = 0;
+		day += 1;
+	}
+	return des.is_open();
+}
+
+void cancelCourses(char* registedcourse, TimeTable& TKB) {
+	int running = 1;
+	convertTimeTableToList(TKB, registedcourse);
+	while (running) {
+		fileContent file = readFileStudyLesson(registedcourse);
+		string buffer = getProcessFile(file, "HUY DANG KI");
+ 		if (buffer == "BACK") {
+			running = confirmScreen();
+		}
+		else {
+			int pos = buffer.find('\t');
+			string subject = buffer.substr(0, pos);
+			string time = buffer.substr(pos + 1, buffer.size() - pos - 1);
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 6; j++) {
+					if (TKB.nameOfSubject[i][j] == subject && j == time[1] - 48 - 1) {
+						TKB.nameOfSubject[i][j] = "0";
+					}
+				}
+			}
+			convertTimeTableToList(TKB, registedcourse);
+		}
+	}
+}
+
 void clearColor(fileContent file, const char* nameOfProcess) {
 	clrscr();
 	int x = 30;
@@ -220,7 +275,7 @@ void StudentAccess(char* studentID) {
 			displayTimeTable(student);
 		}
 		else if (choose == 3) {
-
+			cancelCourses((char*)"Ds mon da dang ki.txt", student);
 		}
 		else if (choose == -1 || choose == 4) {
 			running = 0;
