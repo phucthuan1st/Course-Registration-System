@@ -157,29 +157,37 @@ bool convertTimeTableToList(TimeTable TKB, char* destination_file) {
 	return des.is_open();
 }
 
-void cancelCourses(char* registedcourse, TimeTable& TKB) {
+int cancelCourses(char* registedcourse, TimeTable& TKB) {
 	int running = 1;
+	bool choose;
 	convertTimeTableToList(TKB, registedcourse);
 	while (running) {
 		fileContent file = readFileStudyLesson(registedcourse);
 		string buffer = getProcessFile(file, "HUY DANG KI");
  		if (buffer == "BACK") {
-			running = confirmScreen();
+			running = 0;
+			choose = confirmScreen();
 		}
 		else {
-			int pos = buffer.find('\t');
-			string subject = buffer.substr(0, pos);
-			string time = buffer.substr(pos + 1, buffer.size() - pos - 1);
-			for (int i = 0; i < 4; i++) {
-				for (int j = 0; j < 6; j++) {
-					if (TKB.nameOfSubject[i][j] == subject && j == time[1] - 48 - 1) {
-						TKB.nameOfSubject[i][j] = "0";
+			str yn[2] = { "Yes", "No" };
+			int confirm = getProcess(yn, 2, "Did you want to cancel this course?");
+			clearColor(yn, 2, "Did you want to cancel this course?");
+			if (!confirm) {
+				int pos = buffer.find('\t');
+				string subject = buffer.substr(0, pos);
+				string time = buffer.substr(pos + 1, buffer.size() - pos - 1);
+				for (int i = 0; i < 4; i++) {
+					for (int j = 0; j < 6; j++) {
+						if (TKB.nameOfSubject[i][j] == subject && j == time[1] - 48 - 2 && (i == time[3] - 48 - 1 || time[4] - 48 - 1 == i)) {
+							TKB.nameOfSubject[i][j] = "0";
+						}
 					}
 				}
+				convertTimeTableToList(TKB, registedcourse);
 			}
-			convertTimeTableToList(TKB, registedcourse);
 		}
 	}
+	return !choose;
 }
 
 void clearColor(fileContent file, const char* nameOfProcess) {
@@ -275,7 +283,9 @@ void StudentAccess(char* studentID) {
 			displayTimeTable(student);
 		}
 		else if (choose == 3) {
-			cancelCourses((char*)"Ds mon da dang ki.txt", student);
+			int confirm = cancelCourses((char*)"Ds mon da dang ki.txt", student);
+			if (confirm)
+				saveChange((char*)"TKB.txt", student, (char*)"20120380");
 		}
 		else if (choose == -1 || choose == 4) {
 			running = 0;
