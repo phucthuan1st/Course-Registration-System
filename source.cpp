@@ -252,3 +252,21 @@ void checktime(registTime RegistTime)
 		cout << "Da het han dang ki" << endl;
 	}
 }
+//
+void writeToFile_T(string file, registTime &T) {
+	fstream f;
+	f.open(file, ios::out);
+	f << T.DayBegin.day << ",";
+	f << T.DayBegin.month << ",";
+	f << T.DayBegin.year << ",";
+	f << T.DayBegin.time.hour << ",";
+	f << T.DayBegin.time.min << ",";
+	f << T.DayBegin.time.sec << ",";
+	f << T.DayFinish.day << ",";
+	f << T.DayFinish.month << ",";
+	f << T.DayFinish.year << ",";
+	f << T.DayFinish.time.hour << ",";
+	f << T.DayFinish.time.min << ",";
+	f << T.DayFinish.time.sec <<",";
+	f.close();
+}
