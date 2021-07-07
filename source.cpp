@@ -270,3 +270,25 @@ void writeToFile_T(string file, registTime &T) {
 	f << T.DayFinish.time.sec <<",";
 	f.close();
 }
+//
+//
+void readFromFile_T(string file, registTime_s &T_s) {
+	fstream f;
+	f.open(file, ios::in);
+	if (!f.is_open())
+	cout << "Error File Open";
+	getline(f, T_s.DayBegin_s.day,',');
+	getline(f, T_s.DayBegin_s.month, ',');
+	getline(f, T_s.DayBegin_s.year, ',');
+	getline(f, T_s.DayBegin_s.time.hour, ',');
+	getline(f, T_s.DayBegin_s.time.min, ',');
+	getline(f, T_s.DayBegin_s.time.sec, ',');
+	getline(f, T_s.DayFinish_s.day, ',');
+	getline(f, T_s.DayFinish_s.month, ',');
+	getline(f, T_s.DayFinish_s.year, ',');
+	getline(f, T_s.DayFinish_s.time.hour, ',');
+	getline(f, T_s.DayFinish_s.time.min, ',');
+	getline(f, T_s.DayFinish_s.time.sec, ',');
+	f.close();
+}
+//
