@@ -292,3 +292,17 @@ void readFromFile_T(string file, registTime_s &T_s) {
 	f.close();
 }
 //
+int main()
+{
+	date today = Today();
+	registTime T = InputregistTime();
+	writeToFile_T("test.txt", T);
+	registTime T1;
+	registTime_s T1_s;
+	readFromFile_T("test.txt", T1_s);
+	StrToInt(T1, T1_s);
+	cout << T1.DayBegin.day << "/" << T1.DayBegin.month << "/" << T1.DayBegin.year << "/  " << T1.DayBegin.time.hour << ":" << T1.DayBegin.time.min << ":" << T1.DayBegin.time.sec << endl;
+	cout << T1.DayFinish.day << "/" << T1.DayFinish.month << "/" << T1.DayFinish.year << "/  " << T1.DayFinish.time.hour << ":" << T1.DayFinish.time.min << ":" << T1.DayFinish.time.sec << endl;
+	checktime(T1);
+	return 0;
+}
