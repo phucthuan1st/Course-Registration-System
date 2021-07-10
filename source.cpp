@@ -43,7 +43,6 @@ struct registTime_s {
 	date_s DayFinish_s;
 };
 //
-//
 void StrToInt(registTime &T, registTime_s &T_s)
 {
 	T.DayBegin.day = atoi(T_s.DayBegin_s.day.c_str());
@@ -59,7 +58,6 @@ void StrToInt(registTime &T, registTime_s &T_s)
 	T.DayFinish.time.min = atoi(T_s.DayFinish_s.time.min.c_str());
 	T.DayFinish.time.sec = atoi(T_s.DayFinish_s.time.sec.c_str());
 }
-//
 //
 date Today()
 {
@@ -306,3 +304,4 @@ int main()
 	checktime(T1);
 	return 0;
 }
+//
