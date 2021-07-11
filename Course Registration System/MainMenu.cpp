@@ -100,13 +100,25 @@ bool writeScoreToFile(string file, listScore& lScore) {
 	fstream f;
 	f.open(file + ".csv", ios::app);
 	for (NodeScore* k = lScore.pHead;k != NULL;k = k->pNext) {
-		f << k->data.No << ",";
-		f << k->data.studentID << ",";
-		f << k->data.fullName << ",";
-		f << k->data.aveScore << ",";
-		f << k->data.finalTermScore << ",";
-		f << k->data.middleTermScore << ",";
-		f << k->data.other << "," << endl;
+		if (k->pNext != NULL)
+		{
+			f << k->data.No << ",";
+			f << k->data.studentID << ",";
+			f << k->data.fullName << ",";
+			f << k->data.aveScore << ",";
+			f << k->data.finalTermScore << ",";
+			f << k->data.middleTermScore << ",";
+			f << k->data.other << "," << endl;
+		}
+		else {
+			f << k->data.No << ",";
+			f << k->data.studentID << ",";
+			f << k->data.fullName << ",";
+			f << k->data.aveScore << ",";
+			f << k->data.finalTermScore << ",";
+			f << k->data.middleTermScore << ",";
+			f << k->data.other << ",";
+		}
 	}
 	f.close();
 	return true;
