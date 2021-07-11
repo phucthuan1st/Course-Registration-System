@@ -2,7 +2,7 @@
 #include "console.h"
 
 
-//sdfsdfsdf
+//
 STATUS key(int _key_)
 {
 	if (_key_ == 224)
