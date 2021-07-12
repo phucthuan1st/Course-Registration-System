@@ -100,13 +100,25 @@ bool writeScoreToFile(string file, listScore& lScore) {
 	fstream f;
 	f.open(file + ".csv", ios::app);
 	for (NodeScore* k = lScore.pHead;k != NULL;k = k->pNext) {
-		f << k->data.No << ",";
-		f << k->data.studentID << ",";
-		f << k->data.fullName << ",";
-		f << k->data.aveScore << ",";
-		f << k->data.finalTermScore << ",";
-		f << k->data.middleTermScore << ",";
-		f << k->data.other << "," << endl;
+		if (k->pNext != NULL)
+		{
+			f << k->data.No << ",";
+			f << k->data.studentID << ",";
+			f << k->data.fullName << ",";
+			f << k->data.aveScore << ",";
+			f << k->data.finalTermScore << ",";
+			f << k->data.middleTermScore << ",";
+			f << k->data.other << "," << endl;
+		}
+		else {
+			f << k->data.No << ",";
+			f << k->data.studentID << ",";
+			f << k->data.fullName << ",";
+			f << k->data.aveScore << ",";
+			f << k->data.finalTermScore << ",";
+			f << k->data.middleTermScore << ",";
+			f << k->data.other << ",";
+		}
 	}
 	f.close();
 	return true;
@@ -306,17 +318,31 @@ void addHead(list& l, Node* p) {
 
 bool writeToFile(string file, list& l) {
 	fstream f;
-	f.open(file + ".csv", ios::app);
-	for (Node* k = l.pHead; k != NULL; k = k->pNext) {
-		f << k->data.No << ",";
-		f << k->data.studentID << ",";
-		f << k->data.firstName << ",";
-		f << k->data.lastName << ",";
-		f << k->data.gender << ",";
-		f << k->data.date.day << ",";
-		f << k->data.date.month << ",";
-		f << k->data.date.year << ",";
-		f << k->data.socialID << "," << endl;
+	f.open(file, ios::app);
+	for (Node* k = l.pHead;k != NULL;k = k->pNext) {
+		if (k->pNext != NULL)
+		{
+			f << k->data.No << ",";
+			f << k->data.studentID << ",";
+			f << k->data.firstName << ",";
+			f << k->data.lastName << ",";
+			f << k->data.gender << ",";
+			f << k->data.date.day << ",";
+			f << k->data.date.month << ",";
+			f << k->data.date.year << ",";
+			f << k->data.socialID << "," << endl;
+		}
+		else {
+			f << k->data.No << ",";
+			f << k->data.studentID << ",";
+			f << k->data.firstName << ",";
+			f << k->data.lastName << ",";
+			f << k->data.gender << ",";
+			f << k->data.date.day << ",";
+			f << k->data.date.month << ",";
+			f << k->data.date.year << ",";
+			f << k->data.socialID << ",";
+		}
 	}
 	f.close();
 	return true;

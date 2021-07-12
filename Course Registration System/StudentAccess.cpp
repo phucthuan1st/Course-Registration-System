@@ -241,7 +241,7 @@ void saveChange(char* tkb, TimeTable student, char* studentID) {
 	}
 }
 
-void drawPassedRegistrationNotification() {
+void drawPassedRegistrationTimeNotification() {
 	gotoXY(60, 15);
 	cout << "----------------------------------------";
 	gotoXY(60, 16);
@@ -273,7 +273,7 @@ void StudentAccess(char* studentID) {
 			}
 			else
 			{
-				drawPassedRegistrationNotification();
+				drawPassedRegistrationTimeNotification();
 			}
 		}
 		else if (choose == 1) {
