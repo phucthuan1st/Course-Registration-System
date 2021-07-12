@@ -770,6 +770,37 @@ int selectTermScreen(char* filepath) {
 	return 1;
 }
 
+int selectClassScreen(char* filepath)
+{
+	int running = 1;
+	while (running) {
+		fileContent termFile = readFile(filepath);
+		char* classFilePath = new char[50];
+		strcpy(classFilePath, getProcessFile(termFile, "CLASS").c_str());
+		if (strcmp(classFilePath, "BACK") == 0)
+			running = 0;
+		else
+			if (strcmp(classFilePath, "add") == 0)
+			{
+				running = 1;
+				add_option(filepath);
+			}
+			else
+				if (strcmp(classFilePath, "_dele") == 0)
+				{
+					running = 1;
+					Del_option(filepath, termFile);
+
+				}
+				else
+				{
+					//danh sach theo lop
+					//selectSubScreen(classFilePath);
+				}
+	}
+	return 1;
+}
+
 void yearAccess(char* filepath) {
 	int running = 1;
 	str yearAccess[3] = { "Class", "Term","Them phien dang ki hoc phan" };
