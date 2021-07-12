@@ -757,13 +757,6 @@ int selectTermScreen(char* filepath) {
 				Del_option(filepath, yearFile);
 
 			}
-			else
-				if (strcmp(termFilePath, "registTime") == 0)
-				{
-					running = 1;
-					registTime T = InputregistTime();
-					writeToFile_T("dkhp.txt", T);
-				}
 		else 
 			selectSubjectScreen(termFilePath);
 	}
