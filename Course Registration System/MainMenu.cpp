@@ -770,6 +770,32 @@ int selectTermScreen(char* filepath) {
 	return 1;
 }
 
+void yearAccess(char* filepath) {
+	int running = 1;
+	str yearAccess[3] = { "Class", "Term","Them phien dang ki hoc phan" };
+	while (running) {
+		clrscr();
+		int choose = getProcess(yearAccess, 3, "Year");
+		clearColor(yearAccess, 3, "Year");
+		if (choose == 0) {
+			selectClassScreen(const_cast<char*>("class.txt"));
+		}
+		else if (choose == 1) {
+			selectTermScreen(filepath);
+		}
+		else if (choose == 2) {
+
+			running = 1;
+			registTime T = InputregistTime();
+			writeToFile_T("dkhp.txt", T);
+		}
+		else if (choose == -1 || choose == 3) {
+			running = 0;
+		}
+	}
+
+}
+
 int selectYearScreen(char* filepath) {
 
 	int running = 1;
