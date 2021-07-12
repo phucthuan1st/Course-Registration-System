@@ -838,23 +838,20 @@ int selectYearScreen(char* filepath) {
 		strcpy(yearFilePath, getProcessFile(adminFile, "Admin").c_str());
 		if (strcmp(yearFilePath, "BACK") == 0) 
 			running = 0;
-		else 
-			if (strcmp(yearFilePath, "add") == 0)
+		else if (strcmp(yearFilePath, "add") == 0)
 			{
 				running = 1;
 				add_option(filepath);
 			
 			}
-			else 
-				if (strcmp(yearFilePath, "_dele") == 0)
+			else if (strcmp(yearFilePath, "_dele") == 0)
 				{
 					running = 1;
 					Del_option(filepath,adminFile);
 
 				}
-		else
-			selectTermScreen(yearFilePath);
-		
+			else
+			yearAccess(yearFilePath);
 	}
 
 	return 0;
