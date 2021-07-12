@@ -735,8 +735,6 @@ int selectSubjectScreen(char* filepath)
 int selectTermScreen(char* filepath) {
 
 	int running = 1;
-	
-
 	while (running) {
 		fileContent yearFile = readFile(filepath);
 		char* termFilePath = new char[50];
@@ -745,20 +743,20 @@ int selectTermScreen(char* filepath) {
 		if (strcmp(termFilePath, "BACK") == 0)
 			running = 0;
 		else
-		if (strcmp(termFilePath, "add") == 0)
-		{
-			running = 1;
-			add_option(filepath);
-		}
-		else
-			if (strcmp(termFilePath, "_dele") == 0)
+			if (strcmp(termFilePath, "add") == 0)
 			{
 				running = 1;
-				Del_option(filepath, yearFile);
-
+				add_option(filepath);
 			}
-		else 
-			selectSubjectScreen(termFilePath);
+			else
+				if (strcmp(termFilePath, "_dele") == 0)
+				{
+					running = 1;
+					Del_option(filepath, yearFile);
+
+				}
+				else
+					selectSubjectScreen(termFilePath);
 	}
 	return 1;
 }
