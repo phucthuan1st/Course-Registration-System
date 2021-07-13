@@ -27,10 +27,6 @@ STATUS key(int _key_)
 		return _DELETE;
 	else if (_key_ == 47)
 		return _ADDPOINT;
-	else if (_key_ == 42)
-	{
-		return _T;
-	}
 	else 
 		return keynone;
 	
@@ -594,9 +590,6 @@ string getProcessFile(fileContent file, const char* nameOfProcess) {
 			break;
 		case _ADDPOINT:
 			return "addpoint";
-			break;
-		case _T:
-			return "registTime";
 			break;
 		}
 		for (int i = 0; i < file.numberOfOptions; i++) { //thay doi mau cua thao tac dang tro den
