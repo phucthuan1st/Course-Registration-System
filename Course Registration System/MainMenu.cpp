@@ -779,7 +779,7 @@ int selectClassScreen(char* filepath)
 				else
 				{
 					//danh sach theo lop
-					//selectSubScreen(classFilePath);
+					
 				}
 	}
 	return 1;
