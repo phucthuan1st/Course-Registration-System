@@ -427,11 +427,15 @@ void Del_option(string str, fileContent CD)
 
 void add_option(string str)      
 {
-	fstream ff;
-	string _addop;
+	fstream ff,file;
 
+	string _addop;
+	
 	cout << " FILE NAME: "; getline(cin, _addop, '\n');
 	ff.open(str, ios::app);
+	file.open(_addop, ios::out);
+	for (int i = 0; i < 4; i++) file << endl;
+	file.close();
 	/*for (int i = 0; i < FC.numberOfOptions; i++)
 	{
 		ff << FC.options[i]<<endl;
