@@ -375,7 +375,7 @@ void readMyAllSubjectScore(string file, listScore& lScore)
 {
 	ScoreBoard score;
 	fstream f;
-	f.open(file, ios::in);
+	f.open(file + ".csv", ios::in);
 	if (!f.is_open())
 		cout << "Error File Open";
 
