@@ -15,7 +15,7 @@
 #define TEXTCOLOR 10
 #define WHITE_TEXTCOLOR 175
 
-enum STATUS { UP, DOWN, LEFT, RIGHT, ENTER, BACKSPACE, ESCAPE, _ADD, _DELETE,_ADDPOINT , _T ,keynone};
+enum STATUS { UP, DOWN, LEFT, RIGHT, ENTER, BACKSPACE, ESCAPE, _ADD, _DELETE,_ADDPOINT ,keynone};
 
 using namespace std;
 typedef char str[31];

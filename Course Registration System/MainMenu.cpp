@@ -27,10 +27,6 @@ STATUS key(int _key_)
 		return _DELETE;
 	else if (_key_ == 47)
 		return _ADDPOINT;
-	else if (_key_ == 42)
-	{
-		return _T;
-	}
 	else 
 		return keynone;
 	
@@ -595,9 +591,6 @@ string getProcessFile(fileContent file, const char* nameOfProcess) {
 		case _ADDPOINT:
 			return "addpoint";
 			break;
-		case _T:
-			return "registTime";
-			break;
 		}
 		for (int i = 0; i < file.numberOfOptions; i++) { //thay doi mau cua thao tac dang tro den
 			color[i] = TEXTCOLOR;
@@ -735,8 +728,6 @@ int selectSubjectScreen(char* filepath)
 int selectTermScreen(char* filepath) {
 
 	int running = 1;
-	
-
 	while (running) {
 		fileContent yearFile = readFile(filepath);
 		char* termFilePath = new char[50];
@@ -745,29 +736,79 @@ int selectTermScreen(char* filepath) {
 		if (strcmp(termFilePath, "BACK") == 0)
 			running = 0;
 		else
-		if (strcmp(termFilePath, "add") == 0)
-		{
-			running = 1;
-			add_option(filepath);
-		}
-		else
-			if (strcmp(termFilePath, "_dele") == 0)
+			if (strcmp(termFilePath, "add") == 0)
 			{
 				running = 1;
-				Del_option(filepath, yearFile);
-
+				add_option(filepath);
 			}
 			else
-				if (strcmp(termFilePath, "registTime") == 0)
+				if (strcmp(termFilePath, "_dele") == 0)
 				{
 					running = 1;
-					registTime T = InputregistTime();
-					writeToFile_T("dkhp.txt", T);
+					Del_option(filepath, yearFile);
+
 				}
-		else 
-			selectSubjectScreen(termFilePath);
+				else
+					selectSubjectScreen(termFilePath);
 	}
 	return 1;
+}
+
+int selectClassScreen(char* filepath)
+{
+	int running = 1;
+	while (running) {
+		fileContent termFile = readFile(filepath);
+		char* classFilePath = new char[50];
+		strcpy(classFilePath, getProcessFile(termFile, "CLASS").c_str());
+		if (strcmp(classFilePath, "BACK") == 0)
+			running = 0;
+		else
+			if (strcmp(classFilePath, "add") == 0)
+			{
+				running = 1;
+				add_option(filepath);
+			}
+			else
+				if (strcmp(classFilePath, "_dele") == 0)
+				{
+					running = 1;
+					Del_option(filepath, termFile);
+
+				}
+				else
+				{
+					//danh sach theo lop
+					
+				}
+	}
+	return 1;
+}
+
+void yearAccess(char* filepath) {
+	int running = 1;
+	str yearAccess[3] = { "Class", "Term","Them phien dang ki hoc phan" };
+	while (running) {
+		clrscr();
+		int choose = getProcess(yearAccess, 3, "Year");
+		clearColor(yearAccess, 3, "Year");
+		if (choose == 0) {
+			selectClassScreen(const_cast<char*>("class.txt"));
+		}
+		else if (choose == 1) {
+			selectTermScreen(filepath);
+		}
+		else if (choose == 2) {
+
+			running = 1;
+			registTime T = InputregistTime();
+			writeToFile_T("dkhp.txt", T);
+		}
+		else if (choose == -1 || choose == 3) {
+			running = 0;
+		}
+	}
+
 }
 
 int selectYearScreen(char* filepath) {
@@ -781,23 +822,20 @@ int selectYearScreen(char* filepath) {
 		strcpy(yearFilePath, getProcessFile(adminFile, "Admin").c_str());
 		if (strcmp(yearFilePath, "BACK") == 0) 
 			running = 0;
-		else 
-			if (strcmp(yearFilePath, "add") == 0)
+		else if (strcmp(yearFilePath, "add") == 0)
 			{
 				running = 1;
 				add_option(filepath);
 			
 			}
-			else 
-				if (strcmp(yearFilePath, "_dele") == 0)
+			else if (strcmp(yearFilePath, "_dele") == 0)
 				{
 					running = 1;
 					Del_option(filepath,adminFile);
 
 				}
-		else
-			selectTermScreen(yearFilePath);
-		
+			else
+			yearAccess(yearFilePath);
 	}
 
 	return 0;
