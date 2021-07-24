@@ -509,12 +509,12 @@ void add_option(string str)
 	ff.close();
 }
 
-fileContent readFile(char* filepath)
+fileContent readFile(string filepath)
 {
 	fstream f;
 	fileContent _fileContent;
 	_fileContent.numberOfOptions = 0;
-	f.open(filepath, ios::in);
+	f.open(filepath+=".txt", ios::in);
 	string temp,xs;
 	getline(f, xs); getline(f, xs); getline(f, xs); getline(f, xs);
 	while (!f.eof()) {
@@ -812,7 +812,7 @@ void yearAccess(char* filepath) {
 
 }
 
-int selectYearScreen(char* filepath) {
+int selectYearScreen(string filepath) {
 
 	int running = 1;
 	
@@ -845,8 +845,7 @@ int selectYearScreen(char* filepath) {
 int mainMenu() {
 
 	const char* name = "=====  Main  =====";
-	char* filepath = new char[50];
-	strcpy(filepath, "admin.txt");
+	string filepath = "admin";
 	fileContent file = readFile(filepath);
 	int running = 0;
 
