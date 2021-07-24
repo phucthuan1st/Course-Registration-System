@@ -347,7 +347,7 @@ bool writeToFile(string file, list& l) {
 bool readFromFile(string file, list& l) {
 	student student;
 	fstream f;
-	f.open(file + ".csv", ios::in);
+	f.open(file += ".csv", ios::in);
 	if (!f.is_open())
 		cout << "Error File Open";
 
@@ -474,7 +474,7 @@ void Del_option(string str, fileContent CD)
 	bool kt;
 	  
 	cout << "NAME: "; getline(cin, _del , '\n');
-	ff.open(str, ios::out);            
+	ff.open(str+=".txt", ios::out);            
 	for(int i=0;i<4;i++)
         ff<<endl;
 	for (int i = 0; i < CD.numberOfOptions; i++)
@@ -497,7 +497,7 @@ void add_option(string str)
 	fstream ff;
 	string _addop;
 	cout << "NAME: "; getline(cin, _addop, '\n');
-	ff.open(str, ios::app);
+	ff.open(str+=".txt", ios::app);
 	/*for (int i = 0; i < FC.numberOfOptions; i++)
 	{
 		ff << FC.options[i]<<endl;
