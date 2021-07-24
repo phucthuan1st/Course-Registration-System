@@ -2,7 +2,7 @@
 
 
 
-KTLT.txt
-AV3.txt
-DSTT.txt
-TLDC.txt
+KTLT
+AV3
+DSTT
+TLDC

@@ -2,6 +2,6 @@
 
 
 
-hocki1-2020.txt
-hocki2-2020.txt
-hocki4.txt
+hocki1-2020
+hocki2-2020
+hocki3-2020
