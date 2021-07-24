@@ -793,7 +793,7 @@ void yearAccess(char* filepath) {
 		int choose = getProcess(yearAccess, 3, "Year");
 		clearColor(yearAccess, 3, "Year");
 		if (choose == 0) {
-			selectClassScreen(const_cast<char*>("class.txt"));
+			selectClassScreen(const_cast<char*>("class"));
 		}
 		else if (choose == 1) {
 			selectTermScreen(filepath);
@@ -871,7 +871,7 @@ int init_MENU()
 	cout << "|             ADMIN    <--       |"; gotoXY(n, m + 6);
 	cout << "|             STUDENT            |"; gotoXY(n, m + 7);
 	cout << "|                                |"; gotoXY(n, m + 8);
-	cout << "|             RATE***           |"; gotoXY(n, m + 9);
+	cout << "|             RATE***            |"; gotoXY(n, m + 9);
 	cout << "|________________________________|"; m += 5;
 	while (true)
 	{
