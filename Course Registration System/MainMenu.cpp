@@ -473,7 +473,7 @@ void Del_option(string str, fileContent CD)
 	string _del;
 	bool kt;
 	  
-	cout << " FILE NAME: "; getline(cin, _del , '\n');
+	cout << "NAME: "; getline(cin, _del , '\n');
 	ff.open(str, ios::out);            
 	for(int i=0;i<4;i++)
         ff<<endl;
@@ -496,8 +496,7 @@ void add_option(string str)
 {
 	fstream ff;
 	string _addop;
-
-	cout << " FILE NAME: "; getline(cin, _addop, '\n');
+	cout << "NAME: "; getline(cin, _addop, '\n');
 	ff.open(str, ios::app);
 	/*for (int i = 0; i < FC.numberOfOptions; i++)
 	{
