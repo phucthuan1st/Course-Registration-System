@@ -598,45 +598,7 @@ string getProcessFile(fileContent file, const char* nameOfProcess) {
 	}
 }
 
-int selectsub1(char* filepath) {
-	list L;
-	initL(L);
-	int running = 1;
-
-
-	while (running) {
-		fileContent yearFile = readFile(filepath);
-		char* termFilePath = new char[150];
-		strcpy(termFilePath, getProcessFile(yearFile, "Term1").c_str());
-		if (strcmp(termFilePath, "BACK") == 0)
-			running = 0;
-		else
-			if (strcmp(termFilePath, "add") == 0)
-			{
-				running = 1;
-				add_option(filepath);
-			}
-			else
-				if (strcmp(termFilePath, "_dele") == 0)
-				{
-					running = 1;
-					Del_option(filepath, yearFile);
-
-				}
-				
-				else
-				{
-					running = 1;
-					readFromFile(termFilePath, L);
-					clrscr();
-					printList(L);
-					system("pause");
-				}
-
-	}
-	return 1;
-}
-
+//
 int selectSubScreen(char* filepath) {
 	list L;
 	initL(L);
