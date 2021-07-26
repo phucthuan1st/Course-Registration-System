@@ -67,7 +67,11 @@ struct list {
 struct ScoreBoard {
 	string No;
 	string studentID;
-	string fullName;
+	string firstName;
+	string lastName;
+	string gender;
+	dateOfBirth date;
+	string socialID;
 	string aveScore;
 	string finalTermScore;
 	string middleTermScore;
