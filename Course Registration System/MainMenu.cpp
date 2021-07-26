@@ -487,7 +487,7 @@ int getProcess(str listOfProcess[], int numberOfOptions, const char* nameOfProce
 	}
 }
 
-void Del_option(string str, fileContent CD)
+void Del_option(string str, fileContent CD) 
 {
 	fstream ff;
 	string _del;
@@ -518,17 +518,25 @@ void add_option(string str)
 
 	string _addop;
 
-	cout << " FILE NAME: "; getline(cin, _addop, '\n');
+	cout << "NAME: "; getline(cin, _addop, '\n');
 	ff.open(str += ".txt", ios::app);
-	file.open(_addop, ios::out);
+	file.open(_addop+".txt", ios::out);
 	for (int i = 0; i < 4; i++) file << endl;
 	file.close();
-	/*for (int i = 0; i < FC.numberOfOptions; i++)
-	{
-		ff << FC.options[i]<<endl;
-	}*/
+	ff << "\n" << _addop;
+	ff.close();
+}
 
+void add_optioncsv(string str)
+{
+	fstream ff, file;
 
+	string _addop;
+
+	cout << "NAME: "; getline(cin, _addop, '\n');
+	ff.open(str + ".txt", ios::app);
+	file.open(_addop+".csv", ios::out);
+	file.close();
 	ff << "\n" << _addop;
 	ff.close();
 }
@@ -758,7 +766,7 @@ int selectClassScreen(char* filepath)
 			if (strcmp(classFilePath, "add") == 0)
 			{
 				running = 1;
-				add_option(filepath);
+				add_optioncsv(filepath);
 			}
 			else
 				if (strcmp(classFilePath, "_dele") == 0)
