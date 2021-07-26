@@ -349,7 +349,10 @@ bool readFromFile(string file, list& l) {
 	fstream f;
 	f.open(file += ".csv", ios::in);
 	if (!f.is_open())
-		cout << "Error File Open";
+	{
+		cout << "Error File Open" << endl;
+		return true;
+	}
 
 	while (!f.eof()) {
 		getline(f, student.No, ',');
