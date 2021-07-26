@@ -685,9 +685,11 @@ int selectSubScreen(char* filepath) {
 					 }
 					else
 					{
-					running = 1;
-					selectsub1(termFilePath);
-					/*selectSubjectScreen(termFilePath);*/
+						running = 1;
+						readFromFile(termFilePath, L);
+						clrscr();
+						printList(L);
+						system("pause");
 					}
 			   
 	}
