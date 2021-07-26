@@ -564,7 +564,7 @@ fileContent readFile(string filepath)
 	return _fileContent;
 }
 
-string getProcessFile(fileContent file, const char* nameOfProcess) {
+string getProcessFile(fileContent file,const char* nameOfProcess) {
 	clrscr();
 	//khoi tao ban dau
 	int processing = 0;
@@ -691,16 +691,36 @@ int selectSubScreen(char* filepath) {
 	return 1;
 }
 
+void readDay(string filepath, string &s1,string &s2)
+{
+	fstream f;
+	f.open(filepath + ".txt", ios::in);
+	dateOfBirth d1, d2;
+	getline(f, d1.day, ',');
+	getline(f, d1.month, ',');
+	getline(f, d1.year, '\n');
+	getline(f, d2.day, ',');
+	getline(f, d2.month, ',');
+	getline(f, d2.year, ',');
+	s1="Ngay bat dau:"+ d1.day + "/" + d1.month + "/" + d1.year;
+	s2 = "Ngay ket thuc" + d2.day + "/" + d2.month + "/" + d2.year;
+}
+
 int selectSubjectScreen(char* filepath) 
 {
 	
 	int running = 1;
-	
+	string s1;
+	string s2;
+	readDay(filepath, s1, s2);
 	while (running) {
 		fileContent termFile = readFile(filepath);
+		string temp = "Subject      " + s1 + "       " + s2;
+		char* c = new char[100];
+		strcpy(c, temp.c_str());
 		char* subjectFilePath = new char[50];
-
-		strcpy(subjectFilePath, getProcessFile(termFile, "Subject").c_str());
+		strcpy(subjectFilePath, getProcessFile(termFile, c).c_str());
+		
 		if (strcmp(subjectFilePath, "BACK") == 0 )
 			running = 0;
 		else 
