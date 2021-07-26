@@ -351,7 +351,8 @@ bool readFromFile(string file, list& l) {
 	if (!f.is_open())
 	{
 		cout << "Error File Open" << endl;
-		return true;
+		system("pause");
+		return false;
 	}
 
 	while (!f.eof()) {
@@ -651,10 +652,13 @@ int selectSubScreen(char* filepath) {
 					else
 					{
 						running = 1;
-						readFromFile(termFilePath, L);
+						bool t=readFromFile(termFilePath, L);
 						clrscr();
-						printList(L);
-						system("pause");
+						if (t == true)
+						{
+							printList(L);
+							system("pause");
+						}
 					}
 			   
 	}
@@ -749,10 +753,13 @@ int selectClassScreen(char* filepath)
 				{
 					//danh sach theo lop
 					running = 1;
-					readFromFile(classFilePath, L);
+					bool t=readFromFile(classFilePath, L);
 					clrscr();
-					printList(L);
-					system("pause");
+					if (t == true)
+					{
+						printList(L);
+						system("pause");
+					}
 				}
 	}
 	return 1;
