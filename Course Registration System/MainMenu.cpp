@@ -496,12 +496,32 @@ void Del_option(string str, fileContent CD)
 	ff.close();
 }
 
-void add_option(string str)      
+//void add_option(string str)      
+//{
+//	fstream ff;
+//	string _addop;
+//	cout << "NAME: "; getline(cin, _addop, '\n');
+//	ff.open(str+=".txt", ios::app);
+//	/*for (int i = 0; i < FC.numberOfOptions; i++)
+//	{
+//		ff << FC.options[i]<<endl;
+//	}*/
+//
+//
+//	ff << "\n" << _addop;
+//	ff.close();
+//}
+void add_option(string str)
 {
-	fstream ff;
+	fstream ff, file;
+
 	string _addop;
-	cout << "NAME: "; getline(cin, _addop, '\n');
-	ff.open(str+=".txt", ios::app);
+
+	cout << " FILE NAME: "; getline(cin, _addop, '\n');
+	ff.open(str += ".txt", ios::app);
+	file.open(_addop, ios::out);
+	for (int i = 0; i < 4; i++) file << endl;
+	file.close();
 	/*for (int i = 0; i < FC.numberOfOptions; i++)
 	{
 		ff << FC.options[i]<<endl;
