@@ -627,11 +627,10 @@ int selectsub1(char* filepath) {
 				else
 				{
 					running = 1;
-					readFromFile(filepath, L);
+					readFromFile(termFilePath, L);
 					clrscr();
 					printList(L);
 					system("pause");
-					/*selectSubjectScreen(termFilePath);*/
 				}
 
 	}
@@ -665,29 +664,31 @@ int selectSubScreen(char* filepath) {
 					Del_option(filepath, yearFile);
 
 				}
-		       if (strcmp(termFilePath, "_dele") == 0)
-		       {
+				else
+				if (strcmp(termFilePath, "_dele") == 0)
+				 {	
 			       running = 1;
 			       Del_option(filepath, yearFile);
-
-		       }
-			   if (strcmp(termFilePath, "addpoint") == 0)
-			   {
+	
+				}
+				else 
+					if (strcmp(termFilePath, "addpoint") == 0)
+					 {
 				   
-				   running = 1;
+					 running = 1;
 
-				   cout << "NHap diem tu ben ngoai ";
-				   system("pause");
-				   readScoreFromFile("KTLTScore.csv",diem);
-				   printScoreBoard(diem);
+					  cout << "NHap diem tu ben ngoai ";
+					 system("pause");
+					readScoreFromFile("KTLTScore.csv",diem);
+					 printScoreBoard(diem);
 
-			   }
-				else
-				{
+					 }
+					else
+					{
 					running = 1;
 					selectsub1(termFilePath);
 					/*selectSubjectScreen(termFilePath);*/
-				}
+					}
 			   
 	}
 	return 1;
@@ -755,6 +756,8 @@ int selectTermScreen(char* filepath) {
 
 int selectClassScreen(char* filepath)
 {
+	list L;
+	initL(L);
 	int running = 1;
 	while (running) {
 		fileContent termFile = readFile(filepath);
@@ -779,7 +782,10 @@ int selectClassScreen(char* filepath)
 				{
 					//danh sach theo lop
 					running = 1;
-					selectsub1(classFilePath);
+					readFromFile(classFilePath, L);
+					clrscr();
+					printList(L);
+					system("pause");
 				}
 	}
 	return 1;
