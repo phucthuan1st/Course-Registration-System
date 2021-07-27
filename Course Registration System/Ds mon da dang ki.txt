@@ -1,1 +1,3 @@
-
+DSTT	T3_2
+PLDC	T5_4
+TLDC	T6_1

@@ -1,0 +1,12 @@
+
+
+
+
+ID khoa hoc:5
+Ten khoa hoc:Toan roi rac
+Ten giao vien:Quoc Thai
+So tin chi:2
+Ngay day:4
+Ca day:2
+
+Xem danh sach sinh vien
