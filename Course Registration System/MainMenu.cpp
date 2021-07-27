@@ -432,6 +432,43 @@ void printMyAllSubjectScore(listScore lScore)
 	cout << "=====================================" << endl;
 }
 
+void readDay(string filepath, string& s1, string& s2)
+{
+	fstream f;
+	f.open(filepath + ".txt", ios::in);
+	dateOfBirth d1, d2;
+	getline(f, d1.day, ',');
+	getline(f, d1.month, ',');
+	getline(f, d1.year, '\n');
+	getline(f, d2.day, ',');
+	getline(f, d2.month, ',');
+	getline(f, d2.year, ',');
+	s1 = "Ngay bat dau:" + d1.day + "/" + d1.month + "/" + d1.year;
+	s2 = "Ngay ket thuc" + d2.day + "/" + d2.month + "/" + d2.year;
+	f.close();
+}
+
+course InputCourse()
+{
+	course course;
+	cout << "========================================" << endl;
+	cout << "Nhap ID khoa hoc:";
+	getline(cin,course.id);
+	cout << "Nhap ten khoa hoc:";
+	getline(cin, course.name);
+	cout << "Nhap ten giao vien:";
+	getline(cin, course.teacher);
+	cout << "Nhap so tin chi:";
+	getline(cin, course.NOCredits);
+	cout << "Nhap so sinh vien toi da:";
+	getline(cin, course.MaxNOStudent);
+	cout << "Nhap ngay day:";
+	getline(cin, course.day);
+	cout << "Nhap ca day:";
+	getline(cin, course.session);
+	return course;
+}
+
 int getProcess(str listOfProcess[], int numberOfOptions, const char* nameOfProcess) {
 	clrscr();
 	//khoi tao ban dau
@@ -537,6 +574,32 @@ void add_optioncsv(string str)
 	ff.open(str + ".txt", ios::app);
 	file.open(_addop+".csv", ios::out);
 	file.close();
+	ff << "\n" << _addop;
+	ff.close();
+}
+
+void add_course(string str)
+{
+	fstream ff, file,file1;
+
+	string _addop;
+	
+	cout << "NAME: "; getline(cin, _addop, '\n');
+	ff.open(str += ".txt", ios::app);
+	file.open(_addop + ".txt", ios::out);
+	course course = InputCourse();
+	for (int i = 0; i < 4; i++) file << endl;
+	file <<"ID khoa hoc:"<< course.id << endl;
+	file << "Ten khoa hoc:" << course.name << endl;
+	file << "Ten giao vien:" << course.teacher << endl;
+	file << "So tin chi:" << course.NOCredits << endl;
+	file << "Ngay day:" << course.day << endl;
+	file << "Ca day:" << course.session << endl;
+	file << endl;
+	file << "Xem danh sach sinh vien" << endl;;
+	file.close();
+	file1.open(_addop + ".csv", ios::out);
+	file1.close();
 	ff << "\n" << _addop;
 	ff.close();
 }
@@ -678,7 +741,7 @@ int selectSubScreen(char* filepath) {
 					else
 					{
 						running = 1;
-						bool t=readFromFile(termFilePath, L);
+						bool t=readFromFile(filepath, L);
 						clrscr();
 						if (t == true)
 						{
@@ -691,20 +754,7 @@ int selectSubScreen(char* filepath) {
 	return 1;
 }
 
-void readDay(string filepath, string &s1,string &s2)
-{
-	fstream f;
-	f.open(filepath + ".txt", ios::in);
-	dateOfBirth d1, d2;
-	getline(f, d1.day, ',');
-	getline(f, d1.month, ',');
-	getline(f, d1.year, '\n');
-	getline(f, d2.day, ',');
-	getline(f, d2.month, ',');
-	getline(f, d2.year, ',');
-	s1="Ngay bat dau:"+ d1.day + "/" + d1.month + "/" + d1.year;
-	s2 = "Ngay ket thuc" + d2.day + "/" + d2.month + "/" + d2.year;
-}
+
 
 int selectSubjectScreen(char* filepath) 
 {
@@ -727,7 +777,8 @@ int selectSubjectScreen(char* filepath)
 			if (strcmp(subjectFilePath, "add") == 0)
 			{
 				running = 1;
-				add_option(filepath);
+				//add_option(filepath);
+				add_course(filepath);
 			}
 		else
 			if (strcmp(subjectFilePath, "_dele") == 0)
@@ -756,7 +807,7 @@ int selectTermScreen(char* filepath) {
 			if (strcmp(termFilePath, "add") == 0)
 			{
 				running = 1;
-				add_option(filepath);
+				//add_option(filepath);
 			}
 			else
 				if (strcmp(termFilePath, "_dele") == 0)

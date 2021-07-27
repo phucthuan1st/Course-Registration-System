@@ -2,8 +2,11 @@
 
 
 
-NGUYEN LE HOANG DUNG
-TIN CHI: 3
-MA MON:THAIDEPTRAI
+ID khoa hoc:2
+Ten khoa hoc:Ki thuat lap trinh
+Ten giao vien:Nguyen Le Hoang Dung
+So tin chi:4
+Ngay day:6
+Ca day:7
 
-KTLT
+Xem danh sach sinh vien

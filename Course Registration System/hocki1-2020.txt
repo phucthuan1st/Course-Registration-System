@@ -3,6 +3,6 @@
 
 
 KTLT
-AV3
-DSTT
-TLDC
+VTP
+PLDC
+TheDuc

@@ -123,6 +123,16 @@ struct registTime_s {
 	date_s DayFinish_s;
 };
 //
+struct course {
+	string id;
+	string name;
+	string teacher;
+	string NOCredits;
+	string MaxNOStudent;
+	string day;
+	string session;
+};
+//
 bool writeToFile(char* file, int data);
 int readFileData(const char* file);
 string getProcessFile(fileContent file, const char* nameOfProcess);
@@ -151,3 +161,4 @@ registTime InputregistTime();
 bool checktime(registTime RegistTime);
 void writeToFile_T(string file, registTime& T);
 void readFromFile_T(string file, registTime_s& T_s);
+void readDay(string filepath, string& s1, string& s2);
