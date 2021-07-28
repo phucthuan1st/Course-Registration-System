@@ -131,6 +131,31 @@ void initL(list& l)
 	l.pHead = l.pTail = NULL;
 }
 
+student insertStudent2()
+{
+	student student;
+	
+	cout << "Student ID: ";
+	getline(cin, student.studentID);
+	//cin.ignore();
+	cout << "First Name: ";
+	getline(cin, student.firstName);
+	//cin.ignore();
+	cout << "Last Name: ";
+	getline(cin, student.lastName);
+	//cin.ignore();
+	cout << "Gender: ";
+	getline(cin, student.gender);
+	cout << "Day: ";
+	getline(cin, student.date.day);
+	cout << "Month: ";
+	getline(cin, student.date.month);
+	cout << "Year: ";
+	getline(cin, student.date.year);
+	cout << "Social ID: ";
+	getline(cin, student.socialID);
+	return student;
+}
 student insertStudent()
 {
 	student student;
@@ -238,7 +263,7 @@ bool writeToFile_info(string file , student  l) {
 	fstream f;
 	f.open(file , ios::out);
 
-	f << l.No << "\n";
+
 	f << l.studentID << "\n";
 	f << l.firstName << "\n";
 	f << l.lastName << "\n";

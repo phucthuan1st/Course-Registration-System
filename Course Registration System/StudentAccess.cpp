@@ -260,10 +260,43 @@ bool infor() {
 	}
 	else return 1;
 	clrscr;
-	cout << "\n\n\n      LAN DAU DANG NHAP, NHAP THONG TIN CA NHAN:";
-	writeToFile_info("infor.txt", insertStudent());
+	cout << "\n\n\n      LAN DAU DANG NHAP, NHAP THONG TIN CA NHAN:\n\n";
+	writeToFile_info("infor.txt", insertStudent2());
 	ff.close();
 	return 1;
+}
+void showinfo() {
+	student b;
+	clrscr;
+	fstream ff;
+	ff.open("infor.txt", ios::in);
+	cout << "\n\n Student Information:";
+
+
+	
+
+
+	getline(ff, b.studentID);
+	getline(ff, b.firstName);
+	getline(ff, b.lastName);
+	getline(ff, b.gender);
+	getline(ff, b.date.day);
+	getline(ff, b.date.month);
+	getline(ff, b.date.year);
+	getline(ff, b.socialID);
+
+
+	
+	cout << "\n Student ID: " << b.studentID << endl;
+	cout << " Name: " << b.firstName << " " << b.lastName << endl;
+	cout << " Gender: " << b.gender << endl;
+	cout << " Date of Birth: " << b.date.day <<"/" <<b.date.month <<"/"<< b.date.year << endl;
+	cout << " Social ID: " << b.socialID << endl;
+
+
+	ff.close();
+	cout << "=====================================";
+	system("pause");
 }
 void StudentAccess(char* studentID) {
 	int running = 1;
@@ -302,7 +335,10 @@ void StudentAccess(char* studentID) {
 			if (confirm)
 				saveChange((char*)"TKB.txt", student, (char*)"20120380");
 		}
-		else if (choose == -1 || choose == 4) {
+		else if (choose == 4) {
+			showinfo();
+		}
+		else if (choose == -1 || choose == 5) {
 			running = 0;
 		}
 	}
