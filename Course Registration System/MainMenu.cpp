@@ -600,7 +600,7 @@ void add_optioncsv(string str)
 void add_course(string str)
 {
 	fstream ff, file,file1;
-
+	fstream f;
 	string _addop;
 	
 	cout << "NAME: "; getline(cin, _addop, '\n');
@@ -621,6 +621,10 @@ void add_course(string str)
 	file1.close();
 	ff << "\n" << _addop;
 	ff.close();
+	f.open("danh sach mon DKHP.txt", ios::app);
+	f <<_addop<<"	"<<"T"<<course.day<<"_"<<course.session<<"\n";
+	f.close();
+
 }
 
 fileContent readFile(string filepath)

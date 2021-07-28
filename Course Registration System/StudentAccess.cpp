@@ -230,7 +230,7 @@ void saveChange(char* tkb, TimeTable student, char* studentID) {
 		f << student.nameOfSubject[i][j] << "\n";
 	}
 	f.close();
-	for (i = 0; i < 4; i++) {
+	/*for (i = 0; i < 4; i++) {
 		for (j = 0; j < 7; j++) {
 			if (student.nameOfSubject[i][j] != "0") {
 				string filepath = "./" + string(studentID) + "/" + student.nameOfSubject[i][j] + "Score.csv";
@@ -238,7 +238,7 @@ void saveChange(char* tkb, TimeTable student, char* studentID) {
 				fclose(g);
 			}
 		}
-	}
+	}*/
 }
 
 void drawPassedRegistrationTimeNotification() {
@@ -300,14 +300,14 @@ void showinfo() {
 }
 void StudentAccess(char* studentID) {
 	int running = 1;
-	str studentProcess[6] = { "Dang ki hoc phan", "Xem diem cac mon da hoc", "Xem TKB", "Huy dang ki hoc phan","Thong Tin Ca Nhan", "Thoat"};
+	str studentProcess[7] = { "Dang ki hoc phan", "Xem diem cac mon da hoc", "Xem TKB","Xem cac mon hoc da dang ki", "Huy dang ki hoc phan","Thong Tin Ca Nhan", "Thoat"};
 	TimeTable student;
 	getStudentTimeTable(const_cast <char*>("TKB.txt"), student);
 	infor();
 	while (running) {
 		clrscr();
-		int choose = getProcess(studentProcess, 6, "HOC SINH");
-		clearColor(studentProcess, 6, "HOC SINH");
+		int choose = getProcess(studentProcess, 7, "HOC SINH");
+		clearColor(studentProcess, 7, "HOC SINH");
 		if (choose == 0) {
 			registTime T1;
 			registTime_s T1_s;
@@ -325,20 +325,30 @@ void StudentAccess(char* studentID) {
 			}
 		}
 		else if (choose == 1) {
-
+			
 		}
 		else if (choose == 2) {
 			displayTimeTable(student);
 		}
 		else if (choose == 3) {
+			int running = 1;
+			while (running) {
+				fileContent file = readFileStudyLesson((char*)"Ds mon da dang ki.txt");
+				char* FilePath = new char[50];
+				strcpy(FilePath, getProcessFile(file, "DANH SAC MON HOC DA DANG KI").c_str());
+				if (strcmp(FilePath, "BACK") == 0)
+					running = 0;
+			}
+		}
+		else if (choose == 4) {
 			int confirm = cancelCourses((char*)"Ds mon da dang ki.txt", student);
 			if (confirm)
 				saveChange((char*)"TKB.txt", student, (char*)"20120380");
 		}
-		else if (choose == 4) {
+		else if (choose == 5) {
 			showinfo();
 		}
-		else if (choose == -1 || choose == 5) {
+		else if (choose == -1 || choose == 6) {
 			running = 0;
 		}
 	}
