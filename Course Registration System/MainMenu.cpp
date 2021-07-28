@@ -39,86 +39,6 @@ void initLScore(listScore& lScore)
 }
 
 
-//Nhap tay
-//drtytyty
-//ScoreBoard insertStudentScore()
-//{
-//	ScoreBoard score;
-//
-//	cout << "No: ";
-//	cin >> score.No;
-//	cin.ignore();
-//
-//	cout << "Student ID: ";
-//	getline(cin, score.studentID);
-//
-//	cout << "Full Name: ";
-//	getline(cin, score.fullName);
-//
-//	cout << "Average Score: ";
-//	getline(cin, score.aveScore);
-//
-//	cout << "Middle Term Score: ";
-//	getline(cin, score.finalTermScore);
-//
-//	cout << "Final Term Score: ";
-//	getline(cin, score.finalTermScore);
-//
-//	cout << "Bonus score: ";
-//	getline(cin, score.other);
-//
-//	return score;
-//}
-
-//void printScoreBoard(listScore lScore)
-//{
-//	NodeScore* pTmp = lScore.pHead;
-//	if (pTmp == NULL)
-//	{
-//		cout << "Empty";
-//		return;
-//	}
-//
-//	cout << "Student Information:" << endl << endl;
-//	for (NodeScore* p = lScore.pHead; p->pNext != NULL; p = p->pNext) {
-//		cout << "No: " << p->data.No << endl;
-//		cout << "Student ID: " << p->data.studentID << endl;
-//		cout << "Full Name: " << p->data.fullName << endl;
-//		cout << "Average Score: " << p->data.aveScore << endl;
-//		cout << "Final-Term Score: " << p->data.finalTermScore << endl;
-//		cout << "Mid-Term Score: " << p->data.middleTermScore << endl;
-//		cout << "Other: " << p->data.other << endl << endl;
-//	}
-//	cout << "=====================================" << endl;
-//}
-
-//bool writeScoreToFile(string file, listScore& lScore) {
-//	fstream f;
-//	f.open(file + ".csv", ios::app);
-//	for (NodeScore* k = lScore.pHead;k != NULL;k = k->pNext) {
-//		if (k->pNext != NULL)
-//		{
-//			f << k->data.No << ",";
-//			f << k->data.studentID << ",";
-//			f << k->data.fullName << ",";
-//			f << k->data.aveScore << ",";
-//			f << k->data.finalTermScore << ",";
-//			f << k->data.middleTermScore << ",";
-//			f << k->data.other << "," << endl;
-//		}
-//		else {
-//			f << k->data.No << ",";
-//			f << k->data.studentID << ",";
-//			f << k->data.fullName << ",";
-//			f << k->data.aveScore << ",";
-//			f << k->data.finalTermScore << ",";
-//			f << k->data.middleTermScore << ",";
-//			f << k->data.other << ",";
-//		}
-//	}
-//	f.close();
-//	return true;
-//}
 
 bool readScoreFromFile(string file, listScore& lScore) {
 	ScoreBoard score;
@@ -314,7 +234,23 @@ void addHead(list& l, Node* p) {
 	}
 
 }
+bool writeToFile_info(string file , student  l) {
+	fstream f;
+	f.open(file , ios::out);
 
+	f << l.No << "\n";
+	f << l.studentID << "\n";
+	f << l.firstName << "\n";
+	f << l.lastName << "\n";
+	f << l.gender << "\n";
+	f << l.date.day << "\n";
+	f << l.date.month << "\n";
+	f << l.date.year << "\n";
+	f << l.socialID << "\n";
+
+	f.close();
+	return true;
+}
 bool writeToFile(string file, list& l) {
 	fstream f;
 	f.open(file, ios::app);

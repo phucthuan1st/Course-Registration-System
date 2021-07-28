@@ -133,7 +133,10 @@ struct course {
 	string session;
 };
 //
+bool infor();
+student insertStudent();
 bool writeToFile(char* file, int data);
+bool writeToFile_info(string file, student  l);
 int readFileData(const char* file);
 string getProcessFile(fileContent file, const char* nameOfProcess);
 int getProcess(str listOfProcess[], int numberOfOptions, const char* nameOfProcess);

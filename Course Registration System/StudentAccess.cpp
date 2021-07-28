@@ -250,16 +250,31 @@ void drawPassedRegistrationTimeNotification() {
 	cout << "----------------------------------------";
 	getch();
 }
-
+bool infor() {
+	fstream ff;
+	
+	ff.open("infor.txt", ios::in);
+	if (!ff) {
+		ff.close();
+		ff.open("infor.txt", ios::out);
+	}
+	else return 1;
+	clrscr;
+	cout << "\n\n\n      LAN DAU DANG NHAP, NHAP THONG TIN CA NHAN:";
+	writeToFile_info("infor.txt", insertStudent());
+	ff.close();
+	return 1;
+}
 void StudentAccess(char* studentID) {
 	int running = 1;
-	str studentProcess[5] = { "Dang ki hoc phan", "Xem diem cac mon da hoc", "Xem TKB", "Huy dang ki hoc phan", "Thoat" };
+	str studentProcess[6] = { "Dang ki hoc phan", "Xem diem cac mon da hoc", "Xem TKB", "Huy dang ki hoc phan","Thong Tin Ca Nhan", "Thoat"};
 	TimeTable student;
 	getStudentTimeTable(const_cast <char*>("TKB.txt"), student);
+	infor();
 	while (running) {
 		clrscr();
-		int choose = getProcess(studentProcess, 5, "HOC SINH");
-		clearColor(studentProcess, 5, "HOC SINH");
+		int choose = getProcess(studentProcess, 6, "HOC SINH");
+		clearColor(studentProcess, 6, "HOC SINH");
 		if (choose == 0) {
 			registTime T1;
 			registTime_s T1_s;
