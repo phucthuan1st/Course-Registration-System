@@ -48,7 +48,6 @@ bool readScoreFromFile(string file, listScore& lScore) {
 		cout << "Error File Open";
 
 	while (!f.eof()) {
-		getline(f, score.No, ',');
 		getline(f, score.studentID, ',');
 		getline(f, score.firstName, ',');
 		getline(f, score.lastName, ',');
@@ -228,13 +227,13 @@ void delTail(list& l) {
 
 void printList(list l)
 {
+	clrscr;
 	Node* pTmp = l.pHead;
 	if (pTmp == NULL)
 	{
 		cout << "Empty";
 		return;
 	}
-
 	cout << "Student Information:" << endl << endl;
 	for (Node* p = l.pHead; p->pNext != NULL; p = p->pNext) {
 		cout << "No: " << p->data.No << endl;
@@ -248,6 +247,30 @@ void printList(list l)
 	cout << "=====================================" << endl;
 }
 
+void printList2(list l)
+{
+	clrscr;
+	Node* pTmp = l.pHead;
+	if (pTmp == NULL)
+	{
+		cout << "Empty";
+		return;
+	}
+	int i = 0;
+	cout << "Student Information:" << endl << endl;
+	for (Node* p = l.pHead; p->pNext != NULL; p = p->pNext) {
+		cout << "No: " << ++i << endl;
+		cout << "Student ID: " << p->data.studentID << endl;
+		cout << "First Name: " << p->data.firstName << endl;
+		cout << "Last Name: " << p->data.lastName << endl;
+		cout << "Gender: " << p->data.gender << endl;
+		cout << "Date of Birth: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
+		cout << "Social ID: " << p->data.socialID << endl << endl;
+	}
+	cout << "=====================================" << endl;
+}
+
+
 void addHead(list& l, Node* p) {
 
 	if (l.pHead == NULL) {
@@ -259,6 +282,7 @@ void addHead(list& l, Node* p) {
 	}
 
 }
+
 bool writeToFile_info(string file , student  l) {
 	fstream f;
 	f.open(file , ios::out);
@@ -276,6 +300,7 @@ bool writeToFile_info(string file , student  l) {
 	f.close();
 	return true;
 }
+//
 bool writeToFile(string file, list& l) {
 	fstream f;
 	f.open(file, ios::app);
@@ -340,6 +365,37 @@ bool readFromFile(string file, list& l) {
 	return true;
 }
 //
+bool readFromFile2(string file, list& l) {
+	student student;
+	string temp;
+	fstream f;
+	f.open(file += ".csv", ios::in);
+	if (!f.is_open())
+	{
+		cout << "Error File Open" << endl;
+		system("pause");
+		return false;
+	}
+
+	while (!f.eof()) {
+		getline(f, student.studentID, ',');
+		getline(f, student.firstName, ',');
+		getline(f, student.lastName, ',');
+		getline(f, student.gender, ',');
+		getline(f, student.date.day, ',');
+		getline(f, student.date.month, ',');
+		getline(f, student.date.year, ',');
+		getline(f, student.socialID, ',');
+		getline(f, temp, ',');
+		getline(f, temp, ',');
+		getline(f, temp, ',');
+		getline(f, temp, '\n');
+		addTail(l, createNode(student));
+	}
+	f.close();
+	return true;
+}
+//
 
 //
 //void readMyAllSubjectScore(string filename, listScore& lScore)
@@ -369,16 +425,18 @@ bool readFromFile(string file, list& l) {
 
 void printMyAllSubjectScore(listScore lScore)
 {
+	clrscr;
 	NodeScore* pTmp = lScore.pHead;
 	if (pTmp == NULL)
 	{
 		cout << "Empty" << endl;
 		return;
 	}
-
+	int i = 0;
 	cout << "Subject Score:" << endl << endl;
 	for (NodeScore* p = lScore.pHead; p->pNext != NULL; p = p->pNext) {
-		cout << "No: " << p->data.No << endl;
+
+		cout << "No: " << ++i << endl;
 		cout << "Student ID: " << p->data.studentID << endl;
 		cout << "First Name: " << p->data.firstName << endl;
 		cout << "Last Name: " << p->data.lastName << endl;
@@ -423,7 +481,7 @@ course InputCourse()
 	getline(cin, course.NOCredits);
 	cout << "Nhap so sinh vien toi da:";
 	getline(cin, course.MaxNOStudent);
-	cout << "Nhap ngay day:";
+	cout << "Nhap thu day trong tuan:";
 	getline(cin, course.day);
 	cout << "Nhap ca day:";
 	getline(cin, course.session);
@@ -702,11 +760,11 @@ int selectSubScreen(char* filepath) {
 					else
 					{
 						running = 1;
-						bool t=readFromFile(filepath, L);
+						bool t=readFromFile2(filepath, L);
 						clrscr();
 						if (t == true)
 						{
-							printList(L);
+							printList2(L);
 							system("pause");
 						}
 					}

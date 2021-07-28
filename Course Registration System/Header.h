@@ -65,7 +65,6 @@ struct list {
 };
 
 struct ScoreBoard {
-	string No;
 	string studentID;
 	string firstName;
 	string lastName;
