@@ -397,31 +397,6 @@ bool readFromFile2(string file, list& l) {
 }
 //
 
-//
-//void readMyAllSubjectScore(string filename, listScore& lScore)
-//{
-//	ScoreBoard score;
-//	fstream f;
-//	f.open(filename + ".csv", ios::in);
-//	if (!f.is_open())
-//		cout << "Error File Open";
-//
-//	while (!f.eof()) {
-//		getline(f, score.fullName, ',');
-//		getline(f, score.aveScore, ',');
-//		getline(f, score.finalTermScore, ',');
-//		getline(f, score.middleTermScore, ',');
-//		getline(f, score.other);
-//		cout << endl;
-//
-//
-//		addTailScore(lScore, createScoreBoard(score));
-//
-//	}
-//
-//	f.close();
-//
-//}
 
 void printMyAllSubjectScore(listScore lScore)
 {
