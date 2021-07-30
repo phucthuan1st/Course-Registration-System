@@ -294,12 +294,12 @@ bool infor() {
 	return 1;
 }
 
-void showinfo() {
+student showinfo(int a=0) {
 	student b;
 	clrscr();
 	fstream ff;
 	ff.open("infor.txt", ios::in);
-	cout << "\n\n Student Information:";
+	
 
 
 	getline(ff, b.studentID);
@@ -310,16 +310,19 @@ void showinfo() {
 	getline(ff, b.date.month);
 	getline(ff, b.date.year);
 	getline(ff, b.socialID);
-
-	cout << "\n Student ID: " << b.studentID << endl;
-	cout << " Name: " << b.firstName << " " << b.lastName << endl;
-	cout << " Gender: " << b.gender << endl;
-	cout << " Date of Birth: " << b.date.day <<"/" <<b.date.month <<"/"<< b.date.year << endl;
-	cout << " Social ID: " << b.socialID << endl;
-
+	if (a == 0) {
+		cout << "\n\n Student Information:";
+		cout << "\n Student ID: " << b.studentID << endl;
+		cout << " Name: " << b.firstName << " " << b.lastName << endl;
+		cout << " Gender: " << b.gender << endl;
+		cout << " Date of Birth: " << b.date.day << "/" << b.date.month << "/" << b.date.year << endl;
+		cout << " Social ID: " << b.socialID << endl;
+		cout << "=====================================";
+		system("pause");
+	}
 	ff.close();
-	cout << "=====================================";
-	system("pause");
+	
+	return b;
 }
 
 int countRegistedSubject(char* filename) {
@@ -338,6 +341,24 @@ int countRegistedSubject(char* filename) {
 		fin.close();
 		return res - 1;
 	}
+}
+
+void GHIDANH(string str)
+{
+	student a = showinfo(1);
+	fstream f;
+	f.open(str, ios::app);
+	f << a.studentID << ";";
+	f << a.firstName << ";";
+	f << a.lastName << ";";
+	f << a.gender << ";";
+	f << a.date.day << ";";
+	f << a.date.month << ";";
+	f << a.date.year << ";";
+	f << a.socialID << ";" << endl;
+
+	f.close();
+
 }
 
 void StudentAccess(char* studentID) {
@@ -359,6 +380,7 @@ void StudentAccess(char* studentID) {
 			StrToInt(T1, T1_s);
 			if (checktime(T1)) { // them dieu kien con mo dang ki hp//
 				bool save = registSubject(const_cast<char*>("danh sach mon DKHP.txt"), student, registed);
+				GHIDANH("PLDC.csv");
 				if (save) {
 					saveChange(const_cast <char*>("TKB.txt"), student, studentID);
 				}
@@ -367,6 +389,7 @@ void StudentAccess(char* studentID) {
 			{
 				drawPassedRegistrationTimeNotification();
 			}
+			
 		}
 		else if (choose == 1) {
 			
@@ -402,7 +425,7 @@ void StudentAccess(char* studentID) {
 
 		}
 		else if (choose == 5) {
-			showinfo();
+			showinfo(0);
 		}
 		else if (choose == -1 || choose == 6) {
 			running = 0;

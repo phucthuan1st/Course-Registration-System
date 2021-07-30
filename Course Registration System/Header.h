@@ -134,6 +134,7 @@ struct course {
 //
 bool infor();
 void showinfo();
+void GHIDANH(string str);
 student insertStudent2();
 student insertStudent();
 bool writeToFile(char* file, int data);
