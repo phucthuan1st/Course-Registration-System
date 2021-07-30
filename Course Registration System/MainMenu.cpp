@@ -27,10 +27,7 @@ STATUS key(int _key_)
 		return _DELETE;
 	else if (_key_ == 47)
 		return _ADDPOINT;
-	else 
-		return keynone;
-	
-
+	return keynone;
 }
 
 void initLScore(listScore& lScore)
