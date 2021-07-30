@@ -227,7 +227,7 @@ void delTail(list& l) {
 
 void printList(list l)
 {
-	clrscr;
+	clrscr();
 	Node* pTmp = l.pHead;
 	if (pTmp == NULL)
 	{
@@ -249,7 +249,7 @@ void printList(list l)
 
 void printList2(list l)
 {
-	clrscr;
+	clrscr();
 	Node* pTmp = l.pHead;
 	if (pTmp == NULL)
 	{
@@ -400,7 +400,7 @@ bool readFromFile2(string file, list& l) {
 
 void printMyAllSubjectScore(listScore lScore)
 {
-	clrscr;
+	clrscr();
 	NodeScore* pTmp = lScore.pHead;
 	if (pTmp == NULL)
 	{

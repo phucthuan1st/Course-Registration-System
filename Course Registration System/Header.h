@@ -26,7 +26,7 @@ struct fileContent {
 };
 
 struct TimeTable {
-	bool table[4][7];
+	bool table[4][7] = {false};
 	string nameOfSubject[4][7];
 };
 

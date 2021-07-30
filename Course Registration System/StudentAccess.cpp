@@ -250,6 +250,7 @@ void drawPassedRegistrationTimeNotification() {
 	cout << "----------------------------------------";
 	getch();
 }
+
 bool infor() {
 	fstream ff;
 	
@@ -259,7 +260,7 @@ bool infor() {
 		ff.open("infor.txt", ios::out);
 	}
 	else return 1;
-	clrscr;
+	clrscr();
 	cout << "\n\n\n      LAN DAU DANG NHAP, NHAP THONG TIN CA NHAN:\n\n";
 	writeToFile_info("infor.txt", insertStudent2());
 	ff.close();
@@ -267,7 +268,7 @@ bool infor() {
 }
 void showinfo() {
 	student b;
-	clrscr;
+	clrscr();
 	fstream ff;
 	ff.open("infor.txt", ios::in);
 	cout << "\n\n Student Information:";
@@ -298,6 +299,7 @@ void showinfo() {
 	cout << "=====================================";
 	system("pause");
 }
+
 void StudentAccess(char* studentID) {
 	int running = 1;
 	str studentProcess[7] = { "Dang ki hoc phan", "Xem diem cac mon da hoc", "Xem TKB","Xem cac mon hoc da dang ki", "Huy dang ki hoc phan","Thong Tin Ca Nhan", "Thoat"};
