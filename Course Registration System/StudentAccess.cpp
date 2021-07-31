@@ -93,7 +93,15 @@ void getDayAndShift(char* result, string& time, string& subject) {
 	time = s.substr(pos + 1, 4);
 	subject = s.substr(0, pos);
 }
-
+string tack(string str)
+{
+	string a = "";
+	for (int i = 0; i < str.length(); i++)
+		if (str[i] != '\t')  a+= str[i];
+		else
+			break;
+	return a;
+}
 bool registSubject(char* filepath, TimeTable &student, int &registedQuantity) {
 	int running = 1;
 	while (running) {
@@ -111,8 +119,11 @@ bool registSubject(char* filepath, TimeTable &student, int &registedQuantity) {
 			fileContent danhSachMonDKHP = readFileStudyLesson(filepath);
 			char* result = new char[20];
 			strcpy(result, getProcessFile(danhSachMonDKHP, "DANG KI HOC PHAN").c_str());
+			tack(result);
 			if (strcmp(result, "BACK") == 0)
 				running = 0;
+			
+			//  GHIDANH("PLDC.csv");
 			else {
 				string time;
 				string subject;
@@ -380,9 +391,10 @@ void StudentAccess(char* studentID) {
 			StrToInt(T1, T1_s);
 			if (checktime(T1)) { // them dieu kien con mo dang ki hp//
 				bool save = registSubject(const_cast<char*>("danh sach mon DKHP.txt"), student, registed);
-				GHIDANH("PLDC.csv");
+				
 				if (save) {
 					saveChange(const_cast <char*>("TKB.txt"), student, studentID);
+					
 				}
 			}
 			else
