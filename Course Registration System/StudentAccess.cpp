@@ -87,6 +87,30 @@ void displayTimeTable(TimeTable student) {
 	system("pause");
 }
 
+void displayTimeTable2(TimeTable student) {
+	TextColor(71);
+	int baseX = whereX() + 8;
+	int baseY = whereY() + 4;
+	gotoXY(baseX, baseY);
+	for (int i = 2; i <= 7; i++) {
+		cout << "Thu " << i << "\t|\t";
+	}
+	cout << "cn-CN";
+	cout << endl << _line << _line << endl;
+	for (int i = 0; i < 4; i++) {
+		cout << "Ca " << i + 1 << " |" << endl;
+	}
+
+	for (int i = 0; i < 4; i++) {
+		gotoXY(baseX, baseY + i + 2);
+		for (int j = 0; j < 7; j++) {
+			cout << student.nameOfSubject[i][j] << "\t|\t";
+		}
+		cout << endl;
+	}
+	cout << endl;
+	system("pause");
+}
 void getDayAndShift(char* result, string& time, string& subject) {
 	string s = result;
 	int pos = (int)s.find('\t');
@@ -119,11 +143,11 @@ bool registSubject(char* filepath, TimeTable &student, int &registedQuantity) {
 			fileContent danhSachMonDKHP = readFileStudyLesson(filepath);
 			char* result = new char[20];
 			strcpy(result, getProcessFile(danhSachMonDKHP, "DANG KI HOC PHAN").c_str());
-			tack(result);
+			//tack(result);
 			if (strcmp(result, "BACK") == 0)
 				running = 0;
 			
-			//  GHIDANH("PLDC.csv");
+			
 			else {
 				string time;
 				string subject;
@@ -141,6 +165,8 @@ bool registSubject(char* filepath, TimeTable &student, int &registedQuantity) {
 				else {
 					int day = int(time[1]) - 48;
 					int shift = int(time[3]) - 48;
+					GHIDANH(tack(result));
+
 					str yes_no[2] = { "Yes", "No" };
 					int confirm = getProcess(yes_no, 2, "Confirm");
 					if (confirm == 0) {
@@ -356,6 +382,7 @@ int countRegistedSubject(char* filename) {
 
 void GHIDANH(string str)
 {
+	str += ".csv";
 	student a = showinfo(1);
 	fstream f;
 	f.open(str, ios::app);

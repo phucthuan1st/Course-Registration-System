@@ -1,4 +1,4 @@
-VTP	0	0	0	TRR	0	0
-DSTT	0	0	0	0	0	0
+VTP	0	0	0	0	0	0
+DSTT	TheDuc	0	0	0	0	0
 0	0	0	0	0	0	0
-0	0	0	PLDC	0	0	0
+0	0	0	0	0	0	0

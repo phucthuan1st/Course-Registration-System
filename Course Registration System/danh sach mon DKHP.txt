@@ -3,3 +3,6 @@ PLDC	T5_4
 VTP	T2_1
 TLDC	T6_2
 TRR	T6_1
+TheDuc	T3_2
+CG	T4_1
+xl	T3_2
