@@ -93,6 +93,14 @@ void getDayAndShift(char* result, string& time, string& subject) {
 	time = s.substr(pos + 1, 4);
 	subject = s.substr(0, pos);
 }
+
+void getSubjectName(char* result, string& subject)
+{
+	string s = result;
+	int pos = (int)s.find('\t') + 1;
+	subject = s.substr(0, s.length() - pos);
+}
+
 string tack(string str)
 {
 	string a = "";
@@ -102,6 +110,7 @@ string tack(string str)
 			break;
 	return a;
 }
+
 bool registSubject(char* filepath, TimeTable &student, int &registedQuantity) {
 	int running = 1;
 	while (running) {
@@ -281,6 +290,68 @@ void saveChange(char* tkb, TimeTable student, char* studentID) {
 	}*/
 }
 
+bool readScoreFromFile2(string file, ScoreBoard& score, student b) {
+	fstream f;
+	f.open(file + ".csv", ios::in);
+	if (!f.is_open())
+	{
+		cout << "Error File Open\n";
+		system("pause");
+		return false;
+	}
+
+	while (!f.eof()) {
+		getline(f, score.studentID, ',');
+		getline(f, score.firstName, ',');
+		getline(f, score.lastName, ',');
+		getline(f, score.gender, ',');
+		getline(f, score.date.day, ',');
+		getline(f, score.date.month, ',');
+		getline(f, score.date.year, ',');
+		getline(f, score.socialID, ',');
+		getline(f, score.aveScore, ',');
+		getline(f, score.finalTermScore, ',');
+		getline(f, score.middleTermScore, ',');
+		getline(f, score.other, '\n');
+		if (b.studentID == score.studentID)
+		{
+			break;
+		}
+	}
+
+	f.close();
+	return true;
+}
+
+void showPoint(string file)
+{
+	student b;
+	fstream ff;
+	ScoreBoard score;
+	ff.open("infor.txt", ios::in);
+	getline(ff, b.studentID);
+	getline(ff, b.firstName);
+	getline(ff, b.lastName);
+	getline(ff, b.gender);
+	getline(ff, b.date.day);
+	getline(ff, b.date.month);
+	getline(ff, b.date.year);
+	getline(ff, b.socialID);
+	ff.close();
+	bool temp=readScoreFromFile2(file, score, b);
+	clrscr;
+	if (temp == true)
+	{
+		cout << "Student's Score" << endl;
+		cout << "============================" << endl;
+		cout << "Diem giua ki:" << score.middleTermScore << endl;
+		cout << "Diem cuoi ki:" << score.finalTermScore << endl;
+		cout << "Diem khac:" << score.other << endl;
+		cout << "Diem tong:" << score.aveScore << endl;
+		system("pause");
+	}
+}
+
 void drawPassedRegistrationTimeNotification() {
 	gotoXY(60, 15);
 	cout << "----------------------------------------";
@@ -358,20 +429,20 @@ int countRegistedSubject(char* filename) {
 
 void GHIDANH(string str)
 {
-	str += ".csv";
-	student a = showinfo(1);
+	student b = showinfo(1);
+	clrscr;
 	fstream f;
-	f.open(str, ios::app);
-	f << a.studentID << ";";
-	f << a.firstName << ";";
-	f << a.lastName << ";";
-	f << a.gender << ";";
-	f << a.date.day << ";";
-	f << a.date.month << ";";
-	f << a.date.year << ";";
-	f << a.socialID << ";" << endl;
-
+	f.open(str+".csv", ios::app);
+	f << b.studentID << ",";
+	f << b.firstName << ",";
+	f << b.lastName << ",";
+	f << b.gender << ",";
+	f << b.date.day << ",";
+	f << b.date.month << ",";
+	f << b.date.year << ",";
+	f << b.socialID << "," << "\n";
 	f.close();
+	
 
 }
 
@@ -407,7 +478,21 @@ void StudentAccess(char* studentID) {
 			
 		}
 		else if (choose == 1) {
-			
+			int running = 1;
+			string subject;
+			while (running) {
+				fileContent file = readFileStudyLesson((char*)"Ds mon da dang ki.txt");
+				char* FilePath = new char[50];
+				strcpy(FilePath, getProcessFile(file, "XEM DIEM CAC MON HOC").c_str());
+				if (strcmp(FilePath, "BACK") == 0)
+					running = 0;
+				else
+				{
+					running = 1;
+					getSubjectName(FilePath, subject);
+					showPoint(subject);
+				}
+			}
 		}
 		else if (choose == 2) {
 			displayTimeTable(student);
@@ -428,7 +513,7 @@ void StudentAccess(char* studentID) {
 					fileContent file = readFileStudyLesson((char*)"Ds mon da dang ki.txt");
 					file.numberOfOptions -= 1;
 					char* FilePath = new char[50];
-					strcpy(FilePath, getProcessFile(file, "DANH SACh MON HOC DA DANG KI").c_str());
+					strcpy(FilePath, getProcessFile(file, "DANH SACH MON HOC DA DANG KI").c_str());
 					if (strcmp(FilePath, "BACK") == 0)
 						running = 0;
 				}
