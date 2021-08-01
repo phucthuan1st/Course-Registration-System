@@ -87,30 +87,6 @@ void displayTimeTable(TimeTable student) {
 	system("pause");
 }
 
-void displayTimeTable2(TimeTable student) {
-	TextColor(71);
-	int baseX = whereX() + 8;
-	int baseY = whereY() + 4;
-	gotoXY(baseX, baseY);
-	for (int i = 2; i <= 7; i++) {
-		cout << "Thu " << i << "\t|\t";
-	}
-	cout << "cn-CN";
-	cout << endl << _line << _line << endl;
-	for (int i = 0; i < 4; i++) {
-		cout << "Ca " << i + 1 << " |" << endl;
-	}
-
-	for (int i = 0; i < 4; i++) {
-		gotoXY(baseX, baseY + i + 2);
-		for (int j = 0; j < 7; j++) {
-			cout << student.nameOfSubject[i][j] << "\t|\t";
-		}
-		cout << endl;
-	}
-	cout << endl;
-	system("pause");
-}
 void getDayAndShift(char* result, string& time, string& subject) {
 	string s = result;
 	int pos = (int)s.find('\t');

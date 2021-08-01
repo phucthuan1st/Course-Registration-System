@@ -1,3 +1,2 @@
-VTP	T2_1
 DSTT	T2_2
 TheDuc	T3_2
