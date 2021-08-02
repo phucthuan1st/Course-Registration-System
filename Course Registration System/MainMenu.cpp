@@ -314,7 +314,7 @@ void addHead(list& l, Node* p) {
 
 bool writeToFile(string file, list& l) {
 	fstream f;
-	f.open(file, ios::app);
+	f.open(file + ".csv", ios::app);
 	for (Node* k = l.pHead;k != NULL;k = k->pNext) {
 		if (k->pNext != NULL)
 		{
