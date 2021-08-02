@@ -1,0 +1,12 @@
+
+
+
+
+ID khoa hoc:10
+Ten khoa hoc:Hoa dai cuong 1
+Ten giao vien:Vu Hoang Phuc
+So tin chi:3
+Ngay day:2
+Ca day:1
+
+Xem danh sach sinh vien
