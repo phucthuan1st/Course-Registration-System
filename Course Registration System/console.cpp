@@ -2,7 +2,7 @@
 #include <conio.h>
 #include "console.h"
 
-
+//xx
 int inputKey()
 {
 	if (_kbhit())
