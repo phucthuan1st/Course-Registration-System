@@ -1,0 +1,12 @@
+
+
+
+
+ID khoa hoc:7
+Ten khoa hoc:Li dai cuong 1
+Ten giao vien:Trieu quoc thai
+So tin chi:4
+Ngay day:3
+Ca day:2
+
+Xem danh sach sinh vien

@@ -26,7 +26,7 @@ struct fileContent {
 };
 
 struct TimeTable {
-	bool table[4][7];
+	bool table[4][7] = {false};
 	string nameOfSubject[4][7];
 };
 
@@ -65,9 +65,12 @@ struct list {
 };
 
 struct ScoreBoard {
-	string No;
 	string studentID;
-	string fullName;
+	string firstName;
+	string lastName;
+	string gender;
+	dateOfBirth date;
+	string socialID;
 	string aveScore;
 	string finalTermScore;
 	string middleTermScore;
@@ -119,7 +122,23 @@ struct registTime_s {
 	date_s DayFinish_s;
 };
 //
+struct course {
+	string id;
+	string name;
+	string teacher;
+	string NOCredits;
+	string MaxNOStudent;
+	string day;
+	string session;
+};
+//
+bool infor();
+void showinfo();
+void GHIDANH(string str);
+student insertStudent2();
+student insertStudent();
 bool writeToFile(char* file, int data);
+bool writeToFile_info(string file, student  l);
 int readFileData(const char* file);
 string getProcessFile(fileContent file, const char* nameOfProcess);
 int getProcess(str listOfProcess[], int numberOfOptions, const char* nameOfProcess);
@@ -147,3 +166,4 @@ registTime InputregistTime();
 bool checktime(registTime RegistTime);
 void writeToFile_T(string file, registTime& T);
 void readFromFile_T(string file, registTime_s& T_s);
+void readDay(string filepath, string& s1, string& s2);

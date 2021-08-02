@@ -27,10 +27,7 @@ STATUS key(int _key_)
 		return _DELETE;
 	else if (_key_ == 47)
 		return _ADDPOINT;
-	else 
-		return keynone;
-	
-
+	return keynone;
 }
 
 void initLScore(listScore& lScore)
@@ -39,86 +36,6 @@ void initLScore(listScore& lScore)
 }
 
 
-//Nhap tay
-//drtytyty
-ScoreBoard insertStudentScore()
-{
-	ScoreBoard score;
-
-	cout << "No: ";
-	cin >> score.No;
-	cin.ignore();
-
-	cout << "Student ID: ";
-	getline(cin, score.studentID);
-
-	cout << "Full Name: ";
-	getline(cin, score.fullName);
-
-	cout << "Average Score: ";
-	getline(cin, score.aveScore);
-
-	cout << "Middle Term Score: ";
-	getline(cin, score.finalTermScore);
-
-	cout << "Final Term Score: ";
-	getline(cin, score.finalTermScore);
-
-	cout << "Bonus score: ";
-	getline(cin, score.other);
-
-	return score;
-}
-
-void printScoreBoard(listScore lScore)
-{
-	NodeScore* pTmp = lScore.pHead;
-	if (pTmp == NULL)
-	{
-		cout << "Empty";
-		return;
-	}
-
-	cout << "Student Information:" << endl << endl;
-	for (NodeScore* p = lScore.pHead; p->pNext != NULL; p = p->pNext) {
-		cout << "No: " << p->data.No << endl;
-		cout << "Student ID: " << p->data.studentID << endl;
-		cout << "Full Name: " << p->data.fullName << endl;
-		cout << "Average Score: " << p->data.aveScore << endl;
-		cout << "Final-Term Score: " << p->data.finalTermScore << endl;
-		cout << "Mid-Term Score: " << p->data.middleTermScore << endl;
-		cout << "Other: " << p->data.other << endl << endl;
-	}
-	cout << "=====================================" << endl;
-}
-
-bool writeScoreToFile(string file, listScore& lScore) {
-	fstream f;
-	f.open(file + ".csv", ios::app);
-	for (NodeScore* k = lScore.pHead;k != NULL;k = k->pNext) {
-		if (k->pNext != NULL)
-		{
-			f << k->data.No << ",";
-			f << k->data.studentID << ",";
-			f << k->data.fullName << ",";
-			f << k->data.aveScore << ",";
-			f << k->data.finalTermScore << ",";
-			f << k->data.middleTermScore << ",";
-			f << k->data.other << "," << endl;
-		}
-		else {
-			f << k->data.No << ",";
-			f << k->data.studentID << ",";
-			f << k->data.fullName << ",";
-			f << k->data.aveScore << ",";
-			f << k->data.finalTermScore << ",";
-			f << k->data.middleTermScore << ",";
-			f << k->data.other << ",";
-		}
-	}
-	f.close();
-	return true;
-}
 
 bool readScoreFromFile(string file, listScore& lScore) {
 	ScoreBoard score;
@@ -128,23 +45,25 @@ bool readScoreFromFile(string file, listScore& lScore) {
 		cout << "Error File Open";
 
 	while (!f.eof()) {
-		getline(f, score.No, ',');
 		getline(f, score.studentID, ',');
-		getline(f, score.fullName, ',');
+		getline(f, score.firstName, ',');
+		getline(f, score.lastName, ',');
+		getline(f, score.gender, ',');
+		getline(f, score.date.day, ',');
+		getline(f, score.date.month, ',');
+		getline(f, score.date.year, ',');
+		getline(f, score.socialID, ',');
 		getline(f, score.aveScore, ',');
 		getline(f, score.finalTermScore, ',');
 		getline(f, score.middleTermScore, ',');
-		getline(f, score.other);
-		cout << endl;
-
-
+		getline(f, score.other, '\n');
 		addTailScore(lScore, createScoreBoard(score));
-
 	}
 
 	f.close();
 	return true;
 }
+
 
 void getTimeTable(TimeTableFromAdmin& admin) {
 	int counter = 0;
@@ -208,6 +127,31 @@ void initL(list& l)
 	l.pHead = l.pTail = NULL;
 }
 
+student insertStudent2()
+{
+	student student;
+	
+	cout << "Student ID: ";
+	getline(cin, student.studentID);
+	//cin.ignore();
+	cout << "First Name: ";
+	getline(cin, student.firstName);
+	//cin.ignore();
+	cout << "Last Name: ";
+	getline(cin, student.lastName);
+	//cin.ignore();
+	cout << "Gender: ";
+	getline(cin, student.gender);
+	cout << "Day: ";
+	getline(cin, student.date.day);
+	cout << "Month: ";
+	getline(cin, student.date.month);
+	cout << "Year: ";
+	getline(cin, student.date.year);
+	cout << "Social ID: ";
+	getline(cin, student.socialID);
+	return student;
+}
 student insertStudent()
 {
 	student student;
@@ -280,13 +224,13 @@ void delTail(list& l) {
 
 void printList(list l)
 {
+	clrscr();
 	Node* pTmp = l.pHead;
 	if (pTmp == NULL)
 	{
 		cout << "Empty";
 		return;
 	}
-
 	cout << "Student Information:" << endl << endl;
 	for (Node* p = l.pHead; p->pNext != NULL; p = p->pNext) {
 		cout << "No: " << p->data.No << endl;
@@ -300,6 +244,30 @@ void printList(list l)
 	cout << "=====================================" << endl;
 }
 
+void printList2(list l)
+{
+	clrscr();
+	Node* pTmp = l.pHead;
+	if (pTmp == NULL)
+	{
+		cout << "Empty";
+		return;
+	}
+	int i = 0;
+	cout << "Student Information:" << endl << endl;
+	for (Node* p = l.pHead; p->pNext != NULL; p = p->pNext) {
+		cout << "No: " << ++i << endl;
+		cout << "Student ID: " << p->data.studentID << endl;
+		cout << "First Name: " << p->data.firstName << endl;
+		cout << "Last Name: " << p->data.lastName << endl;
+		cout << "Gender: " << p->data.gender << endl;
+		cout << "Date of Birth: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
+		cout << "Social ID: " << p->data.socialID << endl << endl;
+	}
+	cout << "=====================================" << endl;
+}
+
+
 void addHead(list& l, Node* p) {
 
 	if (l.pHead == NULL) {
@@ -312,6 +280,24 @@ void addHead(list& l, Node* p) {
 
 }
 
+bool writeToFile_info(string file , student  l) {
+	fstream f;
+	f.open(file , ios::out);
+
+
+	f << l.studentID << "\n";
+	f << l.firstName << "\n";
+	f << l.lastName << "\n";
+	f << l.gender << "\n";
+	f << l.date.day << "\n";
+	f << l.date.month << "\n";
+	f << l.date.year << "\n";
+	f << l.socialID << "\n";
+
+	f.close();
+	return true;
+}
+//
 bool writeToFile(string file, list& l) {
 	fstream f;
 	f.open(file + ".csv", ios::app);
@@ -346,10 +332,15 @@ bool writeToFile(string file, list& l) {
 
 bool readFromFile(string file, list& l) {
 	student student;
+	string temp;
 	fstream f;
-	f.open(file + ".csv", ios::in);
+	f.open(file += ".csv", ios::in);
 	if (!f.is_open())
-		cout << "Error File Open";
+	{
+		cout << "Error File Open" << endl;
+		system("pause");
+		return false;
+	}
 
 	while (!f.eof()) {
 		getline(f, student.No, ',');
@@ -360,56 +351,113 @@ bool readFromFile(string file, list& l) {
 		getline(f, student.date.day, ',');
 		getline(f, student.date.month, ',');
 		getline(f, student.date.year, ',');
-		getline(f, student.socialID, '\n');
+		getline(f, student.socialID, ',');
+		getline(f, temp, ',');
+		getline(f, temp, ',');
+		getline(f, temp, ',');
+		getline(f, temp,'\n');
 		addTail(l, createNode(student));
 	}
 	f.close();
 	return true;
 }
-
-void readMyAllSubjectScore(string filename, listScore& lScore)
-{
-	ScoreBoard score;
+//
+bool readFromFile2(string file, list& l) {
+	student student;
+	string temp;
 	fstream f;
-	f.open(filename + ".csv", ios::in);
+	f.open(file += ".csv", ios::in);
 	if (!f.is_open())
-		cout << "Error File Open";
-
-	while (!f.eof()) {
-		getline(f, score.fullName, ',');
-		getline(f, score.aveScore, ',');
-		getline(f, score.finalTermScore, ',');
-		getline(f, score.middleTermScore, ',');
-		getline(f, score.other);
-		cout << endl;
-
-
-		addTailScore(lScore, createScoreBoard(score));
-
+	{
+		cout << "Error File Open" << endl;
+		system("pause");
+		return false;
 	}
 
+	while (!f.eof()) {
+		getline(f, student.studentID, ',');
+		getline(f, student.firstName, ',');
+		getline(f, student.lastName, ',');
+		getline(f, student.gender, ',');
+		getline(f, student.date.day, ',');
+		getline(f, student.date.month, ',');
+		getline(f, student.date.year, ',');
+		getline(f, student.socialID, ',');
+		getline(f, temp, ',');
+		getline(f, temp, ',');
+		getline(f, temp, ',');
+		getline(f, temp, '\n');
+		addTail(l, createNode(student));
+	}
 	f.close();
-
+	return true;
 }
+//
+
 
 void printMyAllSubjectScore(listScore lScore)
 {
+	clrscr();
 	NodeScore* pTmp = lScore.pHead;
 	if (pTmp == NULL)
 	{
-		cout << "Empty";
+		cout << "Empty" << endl;
 		return;
 	}
-
-	cout << "My All Subject Score:" << endl << endl;
+	int i = 0;
+	cout << "Subject Score:" << endl << endl;
 	for (NodeScore* p = lScore.pHead; p->pNext != NULL; p = p->pNext) {
-		cout << "Full Name: " << p->data.fullName << endl;
+
+		cout << "No: " << ++i << endl;
+		cout << "Student ID: " << p->data.studentID << endl;
+		cout << "First Name: " << p->data.firstName << endl;
+		cout << "Last Name: " << p->data.lastName << endl;
+		cout << "Gender: " << p->data.gender << endl;
+		cout << "Date of Birth: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
+		cout << "Social ID: " << p->data.socialID << endl;
 		cout << "Average Score: " << p->data.aveScore << endl;
 		cout << "Final-Term Score: " << p->data.finalTermScore << endl;
 		cout << "Mid-Term Score: " << p->data.middleTermScore << endl;
 		cout << "Other: " << p->data.other << endl << endl;
 	}
 	cout << "=====================================" << endl;
+}
+
+void readDay(string filepath, string& s1, string& s2)
+{
+	fstream f;
+	f.open(filepath + ".txt", ios::in);
+	dateOfBirth d1, d2;
+	getline(f, d1.day, ',');
+	getline(f, d1.month, ',');
+	getline(f, d1.year, '\n');
+	getline(f, d2.day, ',');
+	getline(f, d2.month, ',');
+	getline(f, d2.year, ',');
+	s1 = "Ngay bat dau:" + d1.day + "/" + d1.month + "/" + d1.year;
+	s2 = "Ngay ket thuc" + d2.day + "/" + d2.month + "/" + d2.year;
+	f.close();
+}
+
+course InputCourse()
+{
+	course course;
+	cout << "========================================" << endl;
+	cout << "Nhap ID khoa hoc:";
+	getline(cin,course.id);
+	cout << "Nhap ten khoa hoc:";
+	getline(cin, course.name);
+	cout << "Nhap ten giao vien:";
+	getline(cin, course.teacher);
+	cout << "Nhap so tin chi:";
+	getline(cin, course.NOCredits);
+	cout << "Nhap so sinh vien toi da:";
+	getline(cin, course.MaxNOStudent);
+	cout << "Nhap thu day trong tuan:";
+	getline(cin, course.day);
+	cout << "Nhap ca day:";
+	getline(cin, course.session);
+	return course;
 }
 
 int getProcess(str listOfProcess[], int numberOfOptions, const char* nameOfProcess) {
@@ -467,14 +515,14 @@ int getProcess(str listOfProcess[], int numberOfOptions, const char* nameOfProce
 	}
 }
 
-void Del_option(string str, fileContent CD)
+void Del_option(string str, fileContent CD) 
 {
 	fstream ff;
 	string _del;
 	bool kt;
 	  
-	cout << " FILE NAME: "; getline(cin, _del , '\n');
-	ff.open(str, ios::out);            
+	cout << "NAME: "; getline(cin, _del , '\n');
+	ff.open(str+=".txt", ios::out);            
 	for(int i=0;i<4;i++)
         ff<<endl;
 	for (int i = 0; i < CD.numberOfOptions; i++)
@@ -492,29 +540,71 @@ void Del_option(string str, fileContent CD)
 	ff.close();
 }
 
-void add_option(string str)      
+void add_option(string str)
 {
-	fstream ff;
+	fstream ff, file;
+
 	string _addop;
 
-	cout << " FILE NAME: "; getline(cin, _addop, '\n');
-	ff.open(str, ios::app);
-	/*for (int i = 0; i < FC.numberOfOptions; i++)
-	{
-		ff << FC.options[i]<<endl;
-	}*/
-
-
+	cout << "NAME: "; getline(cin, _addop, '\n');
+	ff.open(str += ".txt", ios::app);
+	file.open(_addop+".txt", ios::out);
+	for (int i = 0; i < 4; i++) file << endl;
+	file.close();
 	ff << "\n" << _addop;
 	ff.close();
 }
 
-fileContent readFile(char* filepath)
+void add_optioncsv(string str)
+{
+	fstream ff, file;
+
+	string _addop;
+
+	cout << "NAME: "; getline(cin, _addop, '\n');
+	ff.open(str + ".txt", ios::app);
+	file.open(_addop+".csv", ios::out);
+	file.close();
+	ff << "\n" << _addop;
+	ff.close();
+}
+
+void add_course(string str)
+{
+	fstream ff, file,file1;
+	fstream f;
+	string _addop;
+	
+	cout << "NAME: "; getline(cin, _addop, '\n');
+	ff.open(str += ".txt", ios::app);
+	file.open(_addop + ".txt", ios::out);
+	course course = InputCourse();
+	for (int i = 0; i < 4; i++) file << endl;
+	file <<"ID khoa hoc:"<< course.id << endl;
+	file << "Ten khoa hoc:" << course.name << endl;
+	file << "Ten giao vien:" << course.teacher << endl;
+	file << "So tin chi:" << course.NOCredits << endl;
+	file << "Ngay day:" << course.day << endl;
+	file << "Ca day:" << course.session << endl;
+	file << endl;
+	file << "Xem danh sach sinh vien" << endl;;
+	file.close();
+	file1.open(_addop + ".csv", ios::out);
+	file1.close();
+	ff << "\n" << _addop;
+	ff.close();
+	f.open("danh sach mon DKHP.txt", ios::app);
+	f <<_addop<<"	"<<"T"<<course.day<<"_"<<course.session<<"\n";
+	f.close();
+
+}
+
+fileContent readFile(string filepath)
 {
 	fstream f;
 	fileContent _fileContent;
 	_fileContent.numberOfOptions = 0;
-	f.open(filepath, ios::in);
+	f.open(filepath+=".txt", ios::in);
 	string temp,xs;
 	getline(f, xs); getline(f, xs); getline(f, xs); getline(f, xs);
 	while (!f.eof()) {
@@ -532,7 +622,7 @@ fileContent readFile(char* filepath)
 	return _fileContent;
 }
 
-string getProcessFile(fileContent file, const char* nameOfProcess) {
+string getProcessFile(fileContent file,const char* nameOfProcess) {
 	clrscr();
 	//khoi tao ban dau
 	int processing = 0;
@@ -599,46 +689,7 @@ string getProcessFile(fileContent file, const char* nameOfProcess) {
 	}
 }
 
-int selectsub1(char* filepath) {
-	list L;
-	initL(L);
-	int running = 1;
-
-
-	while (running) {
-		fileContent yearFile = readFile(filepath);
-		char* termFilePath = new char[150];
-		strcpy(termFilePath, getProcessFile(yearFile, "Term1").c_str());
-		if (strcmp(termFilePath, "BACK") == 0)
-			running = 0;
-		else
-			if (strcmp(termFilePath, "add") == 0)
-			{
-				running = 1;
-				add_option(filepath);
-			}
-			else
-				if (strcmp(termFilePath, "_dele") == 0)
-				{
-					running = 1;
-					Del_option(filepath, yearFile);
-
-				}
-				
-				else
-				{
-					running = 1;
-					readFromFile(filepath, L);
-					clrscr();
-					printList(L);
-					system("pause");
-					/*selectSubjectScreen(termFilePath);*/
-				}
-
-	}
-	return 1;
-}
-
+//
 int selectSubScreen(char* filepath) {
 	list L;
 	initL(L);
@@ -666,51 +717,63 @@ int selectSubScreen(char* filepath) {
 					Del_option(filepath, yearFile);
 
 				}
-		       if (strcmp(termFilePath, "_dele") == 0)
-		       {
+				else
+				if (strcmp(termFilePath, "_dele") == 0)
+				 {	
 			       running = 1;
 			       Del_option(filepath, yearFile);
-
-		       }
-			   if (strcmp(termFilePath, "addpoint") == 0)
-			   {
-				   
-				   running = 1;
-
-				   cout << "NHap diem tu ben ngoai ";
-				   system("pause");
-				   readScoreFromFile("KTLTScore.csv",diem);
-				   printScoreBoard(diem);
-
-			   }
-				else
-				{
-					running = 1;
-					selectsub1(termFilePath);
-					/*selectSubjectScreen(termFilePath);*/
+	
 				}
+				else 
+					if (strcmp(termFilePath, "addpoint") == 0)
+					 {
+				   
+					 running = 1;
+					 bool t = readScoreFromFile(filepath,diem);
+					 printMyAllSubjectScore(diem);
+					 system("pause");
+					 }
+					else
+					{
+						running = 1;
+						bool t=readFromFile2(filepath, L);
+						clrscr();
+						if (t == true)
+						{
+							printList2(L);
+							system("pause");
+						}
+					}
 			   
 	}
 	return 1;
 }
 
+
+
 int selectSubjectScreen(char* filepath) 
 {
 	
 	int running = 1;
-	
+	string s1;
+	string s2;
+	readDay(filepath, s1, s2);
 	while (running) {
 		fileContent termFile = readFile(filepath);
+		string temp = "Subject      " + s1 + "       " + s2;
+		char* c = new char[100];
+		strcpy(c, temp.c_str());
 		char* subjectFilePath = new char[50];
-
-		strcpy(subjectFilePath, getProcessFile(termFile, "Subject").c_str());
+		strcpy(subjectFilePath, getProcessFile(termFile, c).c_str());
+		
 		if (strcmp(subjectFilePath, "BACK") == 0 )
 			running = 0;
 		else 
 			if (strcmp(subjectFilePath, "add") == 0)
 			{
 				running = 1;
-				add_option(filepath);
+				//add_option(filepath);
+				add_course(filepath);
 			}
 		else
 			if (strcmp(subjectFilePath, "_dele") == 0)
@@ -739,7 +802,7 @@ int selectTermScreen(char* filepath) {
 			if (strcmp(termFilePath, "add") == 0)
 			{
 				running = 1;
-				add_option(filepath);
+				//add_option(filepath);
 			}
 			else
 				if (strcmp(termFilePath, "_dele") == 0)
@@ -756,6 +819,8 @@ int selectTermScreen(char* filepath) {
 
 int selectClassScreen(char* filepath)
 {
+	list L;
+	initL(L);
 	int running = 1;
 	while (running) {
 		fileContent termFile = readFile(filepath);
@@ -767,7 +832,7 @@ int selectClassScreen(char* filepath)
 			if (strcmp(classFilePath, "add") == 0)
 			{
 				running = 1;
-				add_option(filepath);
+				add_optioncsv(filepath);
 			}
 			else
 				if (strcmp(classFilePath, "_dele") == 0)
@@ -779,7 +844,14 @@ int selectClassScreen(char* filepath)
 				else
 				{
 					//danh sach theo lop
-					
+					running = 1;
+					bool t=readFromFile(classFilePath, L);
+					clrscr();
+					if (t == true)
+					{
+						printList(L);
+						system("pause");
+					}
 				}
 	}
 	return 1;
@@ -793,7 +865,7 @@ void yearAccess(char* filepath) {
 		int choose = getProcess(yearAccess, 3, "Year");
 		clearColor(yearAccess, 3, "Year");
 		if (choose == 0) {
-			selectClassScreen(const_cast<char*>("class.txt"));
+			selectClassScreen(const_cast<char*>("class"));
 		}
 		else if (choose == 1) {
 			selectTermScreen(filepath);
@@ -811,7 +883,7 @@ void yearAccess(char* filepath) {
 
 }
 
-int selectYearScreen(char* filepath) {
+int selectYearScreen(string filepath) {
 
 	int running = 1;
 	
@@ -844,8 +916,7 @@ int selectYearScreen(char* filepath) {
 int mainMenu() {
 
 	const char* name = "=====  Main  =====";
-	char* filepath = new char[50];
-	strcpy(filepath, "admin.txt");
+	string filepath = "admin";
 	fileContent file = readFile(filepath);
 	int running = 0;
 
@@ -872,7 +943,7 @@ int init_MENU()
 	cout << "|             ADMIN    <--       |"; gotoXY(n, m + 6);
 	cout << "|             STUDENT            |"; gotoXY(n, m + 7);
 	cout << "|                                |"; gotoXY(n, m + 8);
-	cout << "|             RATE***           |"; gotoXY(n, m + 9);
+	cout << "|             RATE***            |"; gotoXY(n, m + 9);
 	cout << "|________________________________|"; m += 5;
 	while (true)
 	{
@@ -934,7 +1005,7 @@ int init_LOGIN(int k)
 	if (k == 1) typelog = "DATA_AD.txt";
 	else typelog = "DATA_STU.txt";
 	string ACC, PASS;
-	bool kt;
+	//bool kt;
 	gotoXY(n, m);
 	cout << "*________________________________*"; gotoXY(n, m + 1);
 	cout << "|              LOGIN             |"; gotoXY(n, m + 2);

@@ -4,8 +4,3 @@ DSTT
 PLDC
 TLDC
 The duc
-d
-
-
-
-tocic
