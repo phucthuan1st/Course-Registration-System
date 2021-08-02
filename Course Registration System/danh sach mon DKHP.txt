@@ -7,3 +7,4 @@ TheDuc	T3_2
 CG	T4_1
 xl	T3_2
 TLDC	T5_1
+KTLT	T7_3
