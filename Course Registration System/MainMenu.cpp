@@ -930,16 +930,16 @@ int mainMenu() {
 
 int init_MENU()
 {
-	int n = 6;
+	int n = 41;
 	int m = 15;
 	int key = 1;
 
 	gotoXY(n, m);
 	cout << "*________________________________*"; gotoXY(n, m + 1);
 	cout << "|              LOGIN             |"; gotoXY(n, m + 2);
-	cout << "|							    "; gotoXY(n, m + 3);
-	cout << "|							    "; gotoXY(n, m + 4);
-	cout << "|					            "; gotoXY(n, m + 5);
+	cout << "|                                |"; gotoXY(n, m + 3);
+	cout << "|                                |"; gotoXY(n, m + 4);
+	cout << "|                                |"; gotoXY(n, m + 5);
 	cout << "|             ADMIN    <--       |"; gotoXY(n, m + 6);
 	cout << "|             STUDENT            |"; gotoXY(n, m + 7);
 	cout << "|                                |"; gotoXY(n, m + 8);
