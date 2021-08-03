@@ -155,27 +155,27 @@ student insertStudent2()
 student insertStudent()
 {
 	student student;
-	cout << "No: ";
+	cout << "STT: ";
 	cin >> student.No;
 	cin.ignore();
-	cout << "Student ID: ";
+	cout << "MSSV: ";
 	getline(cin, student.studentID);
 	//cin.ignore();
-	cout << "First Name: ";
+	cout << "Ten: ";
 	getline(cin, student.firstName);
 	//cin.ignore();
-	cout << "Last Name: ";
+	cout << "Ho: ";
 	getline(cin, student.lastName);
 	//cin.ignore();
-	cout << "Gender: ";
+	cout << "Gioi tinh: ";
 	getline(cin, student.gender);
-	cout << "Day: ";
+	cout << "Ngay: ";
 	getline(cin, student.date.day);
-	cout << "Month: ";
+	cout << "Thang: ";
 	getline(cin, student.date.month);
-	cout << "Year: ";
+	cout << "Nam: ";
 	getline(cin, student.date.year);
-	cout << "Social ID: ";
+	cout << "CMND: ";
 	getline(cin, student.socialID);
 	return student;
 }
@@ -201,7 +201,7 @@ void addTail(list& l, Node* p)
 
 void delHead(list& l) {
 	if (l.pHead == NULL) {
-		cout << "Don't have element";
+		cout << "Khong co phan tu";
 	}
 	else {
 		l.pHead = l.pHead->pNext;
