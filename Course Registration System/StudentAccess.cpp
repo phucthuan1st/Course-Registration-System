@@ -97,8 +97,8 @@ void getDayAndShift(char* result, string& time, string& subject) {
 void getSubjectName(char* result, string& subject)
 {
 	string s = result;
-	int pos = (int)s.find('\t') + 1;
-	subject = s.substr(0, s.length() - pos);
+	int pos = (int)s.find('\t');
+	subject = s.substr(0, pos);
 }
 
 string tack(string str)
@@ -480,6 +480,7 @@ void StudentAccess(char* studentID) {
 		else if (choose == 1) {
 			int running = 1;
 			string subject;
+			//string time;
 			while (running) {
 				fileContent file = readFileStudyLesson((char*)"Ds mon da dang ki.txt");
 				char* FilePath = new char[50];
@@ -489,7 +490,7 @@ void StudentAccess(char* studentID) {
 				else
 				{
 					running = 1;
-					getSubjectName(FilePath, subject);
+					getSubjectName(FilePath ,subject);
 					showPoint(subject);
 				}
 			}
