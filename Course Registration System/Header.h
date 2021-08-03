@@ -133,6 +133,7 @@ struct course {
 };
 //
 bool infor();
+string checkTK(string str);
 void showinfo();
 void GHIDANH(string str);
 student insertStudent2();

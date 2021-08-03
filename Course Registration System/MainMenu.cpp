@@ -930,21 +930,22 @@ int mainMenu() {
 
 int init_MENU()
 {
-	int n = 6;
+	int n = 41;
 	int m = 15;
 	int key = 1;
 
 	gotoXY(n, m);
 	cout << "*________________________________*"; gotoXY(n, m + 1);
 	cout << "|              LOGIN             |"; gotoXY(n, m + 2);
-	cout << "|							    "; gotoXY(n, m + 3);
-	cout << "|							    "; gotoXY(n, m + 4);
-	cout << "|					            "; gotoXY(n, m + 5);
+	cout << "|                                |"; gotoXY(n, m + 3);
+	cout << "|                                |"; gotoXY(n, m + 4);
+	cout << "|                                |"; gotoXY(n, m + 5);
 	cout << "|             ADMIN    <--       |"; gotoXY(n, m + 6);
 	cout << "|             STUDENT            |"; gotoXY(n, m + 7);
 	cout << "|                                |"; gotoXY(n, m + 8);
-	cout << "|             RATE***            |"; gotoXY(n, m + 9);
+	cout << "|          RATE   *****          |"; gotoXY(n, m + 9);
 	cout << "|________________________________|"; m += 5;
+
 	while (true)
 	{
 		char c = _getch();
@@ -970,25 +971,36 @@ int init_MENU()
 	}
 	return key;
 }
-
-bool check(string tp, string a, string b)
+string checkTK(string str)
+{
+	string a="";
+	for (int i = 0; i < str.length(); i++)
+	{
+		if (str[i] == '#') break;
+		a += str[i];
+	}
+	return a;
+}
+int check(string tp, string a, string b)
 {
 
 	string kt, str = a + "####" + b;
 
 	fstream file;
-
+	bool ck = false;
 	file.open(tp, ios::in);
 	if (!file)
 		file.open(tp, ios::out);
 	while (!file.eof())
 	{
 		getline(file, kt);
-
-		if (kt == str) return true;
+		if (checkTK(kt) == a) ck = true;
+		if (kt == str) return 1;
 	}
+
 	file.close();
-	return false;
+	if (ck) return 2;
+	else return 3;
 
 }
 
@@ -999,7 +1011,7 @@ int init_LOGIN(int k)
 
 
 
-	int n = 6;
+	int n = 41;
 	int m = 15;
 	string typelog;
 	if (k == 1) typelog = "DATA_AD.txt";
@@ -1009,11 +1021,11 @@ int init_LOGIN(int k)
 	gotoXY(n, m);
 	cout << "*________________________________*"; gotoXY(n, m + 1);
 	cout << "|              LOGIN             |"; gotoXY(n, m + 2);
-	cout << "|							    "; gotoXY(n, m + 3);
-	cout << "|							    "; gotoXY(n, m + 4);
-	cout << "|					            "; gotoXY(n, m + 5);
-	cout << "| Account:                              "; gotoXY(n, m + 6);
-	cout << "| PASS:                       "; gotoXY(n, m + 7);
+	cout << "|                                |"; gotoXY(n, m + 3);
+	cout << "|                                | "; gotoXY(n, m + 4);
+	cout << "|                                |"; gotoXY(n, m + 5);
+	cout << "| Account:                       |"; gotoXY(n, m + 6);
+	cout << "| PASS:                          | "; gotoXY(n, m + 7);
 	cout << "|                                |"; gotoXY(n, m + 8);
 	cout << "|                                |"; gotoXY(n, m + 9);
 	cout << "|________________________________|";
@@ -1024,16 +1036,20 @@ int init_LOGIN(int k)
 		gotoXY(n + 12, m + 5);   getline(cin, ACC, '\n');
 		gotoXY(n + 12, m + 6);   getline(cin, PASS, '\n');
 		gotoXY(n, m + 7);
-		if (check(typelog, ACC, PASS))
+		if (check(typelog, ACC, PASS) == 1)
 		{
 			if (k == 1) return 1;
 			else return 2;
 			break;
 		}
-		else cout << " KO DUNG";
+		else
+			if (check(typelog, ACC, PASS) == 3)
+				cout << "| TAI KHOAN KHONG TON TAI";
+			else
+				cout << "| MAT KHAU SAI";
 		gotoXY(n, m + 5);
-		cout << "| Account:                              "; gotoXY(n, m + 6);
-		cout << "| PASS:                       "; gotoXY(n, m + 7);
+		cout << "| Account:                       |"; gotoXY(n, m + 6);
+		cout << "| PASS:                          | "; gotoXY(n, m + 7);
 	}
 
 
