@@ -943,8 +943,9 @@ int init_MENU()
 	cout << "|             ADMIN    <--       |"; gotoXY(n, m + 6);
 	cout << "|             STUDENT            |"; gotoXY(n, m + 7);
 	cout << "|                                |"; gotoXY(n, m + 8);
-	cout << "|             RATE***            |"; gotoXY(n, m + 9);
+	cout << "|          RATE   *****          |"; gotoXY(n, m + 9);
 	cout << "|________________________________|"; m += 5;
+
 	while (true)
 	{
 		char c = _getch();
@@ -999,7 +1000,7 @@ int init_LOGIN(int k)
 
 
 
-	int n = 6;
+	int n = 41;
 	int m = 15;
 	string typelog;
 	if (k == 1) typelog = "DATA_AD.txt";
@@ -1009,11 +1010,11 @@ int init_LOGIN(int k)
 	gotoXY(n, m);
 	cout << "*________________________________*"; gotoXY(n, m + 1);
 	cout << "|              LOGIN             |"; gotoXY(n, m + 2);
-	cout << "|							    "; gotoXY(n, m + 3);
-	cout << "|							    "; gotoXY(n, m + 4);
-	cout << "|					            "; gotoXY(n, m + 5);
-	cout << "| Account:                              "; gotoXY(n, m + 6);
-	cout << "| PASS:                       "; gotoXY(n, m + 7);
+	cout << "|                                |"; gotoXY(n, m + 3);
+	cout << "|                                | "; gotoXY(n, m + 4);
+	cout << "|                                |"; gotoXY(n, m + 5);
+	cout << "| Account:                       |"; gotoXY(n, m + 6);
+	cout << "| PASS:                          | "; gotoXY(n, m + 7);
 	cout << "|                                |"; gotoXY(n, m + 8);
 	cout << "|                                |"; gotoXY(n, m + 9);
 	cout << "|________________________________|";
@@ -1030,10 +1031,10 @@ int init_LOGIN(int k)
 			else return 2;
 			break;
 		}
-		else cout << " KO DUNG";
+		else cout << "| MAT KHAU SAI";
 		gotoXY(n, m + 5);
-		cout << "| Account:                              "; gotoXY(n, m + 6);
-		cout << "| PASS:                       "; gotoXY(n, m + 7);
+		cout << "| Account:                       |"; gotoXY(n, m + 6);
+		cout << "| PASS:                          | "; gotoXY(n, m + 7);
 	}
 
 
