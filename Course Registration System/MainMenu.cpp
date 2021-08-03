@@ -971,25 +971,36 @@ int init_MENU()
 	}
 	return key;
 }
-
-bool check(string tp, string a, string b)
+string checkTK(string str)
+{
+	string a="";
+	for (int i = 0; i < str.length(); i++)
+	{
+		if (str[i] == '#') break;
+		a += str[i];
+	}
+	return a;
+}
+int check(string tp, string a, string b)
 {
 
 	string kt, str = a + "####" + b;
 
 	fstream file;
-
+	bool ck = false;
 	file.open(tp, ios::in);
 	if (!file)
 		file.open(tp, ios::out);
 	while (!file.eof())
 	{
 		getline(file, kt);
-
-		if (kt == str) return true;
+		if (checkTK(kt) == a) ck = true;
+		if (kt == str) return 1;
 	}
+
 	file.close();
-	return false;
+	if (ck) return 2;
+	else return 3;
 
 }
 
@@ -1025,13 +1036,17 @@ int init_LOGIN(int k)
 		gotoXY(n + 12, m + 5);   getline(cin, ACC, '\n');
 		gotoXY(n + 12, m + 6);   getline(cin, PASS, '\n');
 		gotoXY(n, m + 7);
-		if (check(typelog, ACC, PASS))
+		if (check(typelog, ACC, PASS) == 1)
 		{
 			if (k == 1) return 1;
 			else return 2;
 			break;
 		}
-		else cout << "| MAT KHAU SAI";
+		else
+			if (check(typelog, ACC, PASS) == 3)
+				cout << "| TAI KHOAN KHONG TON TAI";
+			else
+				cout << "| MAT KHAU SAI";
 		gotoXY(n, m + 5);
 		cout << "| Account:                       |"; gotoXY(n, m + 6);
 		cout << "| PASS:                          | "; gotoXY(n, m + 7);
