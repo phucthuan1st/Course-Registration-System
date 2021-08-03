@@ -228,18 +228,18 @@ void printList(list l)
 	Node* pTmp = l.pHead;
 	if (pTmp == NULL)
 	{
-		cout << "Empty";
+		cout << "Trong";
 		return;
 	}
-	cout << "Student Information:" << endl << endl;
+	cout << "Thong tin sinh vien:" << endl << endl;
 	for (Node* p = l.pHead; p->pNext != NULL; p = p->pNext) {
-		cout << "No: " << p->data.No << endl;
-		cout << "Student ID: " << p->data.studentID << endl;
-		cout << "First Name: " << p->data.firstName << endl;
-		cout << "Last Name: " << p->data.lastName << endl;
-		cout << "Gender: " << p->data.gender << endl;
-		cout << "Date of Birth: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
-		cout << "Social ID: " << p->data.socialID << endl << endl;
+		cout << "STT: " << p->data.No << endl;
+		cout << "MSSV: " << p->data.studentID << endl;
+		cout << "Ten: " << p->data.firstName << endl;
+		cout << "Ho: " << p->data.lastName << endl;
+		cout << "Gioi tinh: " << p->data.gender << endl;
+		cout << "Ngay sinh: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
+		cout << "CMND: " << p->data.socialID << endl << endl;
 	}
 	cout << "=====================================" << endl;
 }
@@ -250,19 +250,19 @@ void printList2(list l)
 	Node* pTmp = l.pHead;
 	if (pTmp == NULL)
 	{
-		cout << "Empty";
+		cout << "Trong";
 		return;
 	}
 	int i = 0;
-	cout << "Student Information:" << endl << endl;
+	cout << "Thong tin sinh vien:" << endl << endl;
 	for (Node* p = l.pHead; p->pNext != NULL; p = p->pNext) {
-		cout << "No: " << ++i << endl;
-		cout << "Student ID: " << p->data.studentID << endl;
-		cout << "First Name: " << p->data.firstName << endl;
-		cout << "Last Name: " << p->data.lastName << endl;
-		cout << "Gender: " << p->data.gender << endl;
-		cout << "Date of Birth: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
-		cout << "Social ID: " << p->data.socialID << endl << endl;
+		cout << "STT: " << ++i << endl;
+		cout << "MSSV: " << p->data.studentID << endl;
+		cout << "Ten: " << p->data.firstName << endl;
+		cout << "Ho: " << p->data.lastName << endl;
+		cout << "Gioi tinh: " << p->data.gender << endl;
+		cout << "Ngay sinh: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
+		cout << "CMND: " << p->data.socialID << endl << endl;
 	}
 	cout << "=====================================" << endl;
 }
