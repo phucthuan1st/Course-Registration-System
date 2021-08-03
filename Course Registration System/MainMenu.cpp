@@ -42,7 +42,7 @@ bool readScoreFromFile(string file, listScore& lScore) {
 	fstream f;
 	f.open(file + ".csv", ios::in);
 	if (!f.is_open())
-		cout << "Error File Open";
+		cout << "Khong mo duoc file";
 
 	while (!f.eof()) {
 		getline(f, score.studentID, ',');
@@ -131,24 +131,24 @@ student insertStudent2()
 {
 	student student;
 	
-	cout << "Student ID: ";
+	cout << "MSSV: ";
 	getline(cin, student.studentID);
 	//cin.ignore();
-	cout << "First Name: ";
+	cout << "Ten: ";
 	getline(cin, student.firstName);
 	//cin.ignore();
-	cout << "Last Name: ";
+	cout << "Ho: ";
 	getline(cin, student.lastName);
 	//cin.ignore();
-	cout << "Gender: ";
+	cout << "Gioi tinh: ";
 	getline(cin, student.gender);
-	cout << "Day: ";
+	cout << "Ngay: ";
 	getline(cin, student.date.day);
-	cout << "Month: ";
+	cout << "Thang: ";
 	getline(cin, student.date.month);
-	cout << "Year: ";
+	cout << "Nam: ";
 	getline(cin, student.date.year);
-	cout << "Social ID: ";
+	cout << "CMND: ";
 	getline(cin, student.socialID);
 	return student;
 }
