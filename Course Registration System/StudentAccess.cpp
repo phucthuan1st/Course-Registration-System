@@ -2,9 +2,9 @@
 #include "Header.h"
 
 bool confirmScreen() {
-	str yn[2] = { "Yes", "No" };
-	int choose = getProcess(yn, 2, "Confirm changing?");
-	clearColor(yn, 2, "Comfirm changing?");
+	str yn[2] = { "Co", "Khong" };
+	int choose = getProcess(yn, 2, "Xac nhan thay doi?");
+	clearColor(yn, 2, "Xac nhan thay doi?");
 	return choose;
 }
 
@@ -120,7 +120,7 @@ bool registSubject(char* filepath, TimeTable &student, int &registedQuantity) {
 			TextColor(TEXTCOLOR);
 			cout << "DA DANG KI DU 5 MON!!!" << endl;
 			gotoXY(40, 13);
-			cout << "Press any key to exit" << endl;
+			cout << "Nhan mot phim bat ki de thoat" << endl;
 			int c = getch();
 			running = 0;
 		}
@@ -152,8 +152,8 @@ bool registSubject(char* filepath, TimeTable &student, int &registedQuantity) {
 					int shift = int(time[3]) - 48;
 					GHIDANH(tack(result));
 
-					str yes_no[2] = { "Yes", "No" };
-					int confirm = getProcess(yes_no, 2, "Confirm");
+					str yes_no[2] = { "Co", "Khong" };
+					int confirm = getProcess(yes_no, 2, "Xac nhan");
 					if (confirm == 0) {
 						student.nameOfSubject[shift - 1][day - 2] = subject;
 						student.table[shift - 1][day - 2] = 1;
@@ -163,8 +163,8 @@ bool registSubject(char* filepath, TimeTable &student, int &registedQuantity) {
 			}
 		}
 	}
-	str yes_no[2] = { "Yes", "No" };
-	int confirm = getProcess(yes_no, 2, "Confirm");
+	str yes_no[2] = { "Co", "Khong" };
+	int confirm = getProcess(yes_no, 2, "Xac nhan");
 	return !confirm;
 }
 
@@ -205,7 +205,7 @@ int cancelCourses(char* registedcourse, TimeTable& TKB, int &registed) {
 			TextColor(TEXTCOLOR);
 			cout << "CHUA DANG KI MON NAO!!!" << endl;
 			gotoXY(40, 13);
-			cout << "Press any key to exit" << endl;
+			cout << "Nhan mot phim bat ki de thoat" << endl;
 			int c = getch();
 			running = 0;
 		}
@@ -215,9 +215,9 @@ int cancelCourses(char* registedcourse, TimeTable& TKB, int &registed) {
 				running = 0;
 			}
 			else {
-				str yn[2] = { "Yes", "No" };
-				int confirm = getProcess(yn, 2, "Did you want to cancel this course?");
-				clearColor(yn, 2, "Did you want to cancel this course?");
+				str yn[2] = { "Co", "Khong" };
+				int confirm = getProcess(yn, 2, "Ban co chan chan huy mon nay?");
+				clearColor(yn, 2, "Ban co chan chan huy mon nay?");
 				if (!confirm) {
 					int pos = buffer.find('\t');
 					string subject = buffer.substr(0, pos);
@@ -295,7 +295,7 @@ bool readScoreFromFile2(string file, ScoreBoard& score, student b) {
 	f.open(file + ".csv", ios::in);
 	if (!f.is_open())
 	{
-		cout << "Error File Open\n";
+		cout << "Khong mo duoc file\n";
 		system("pause");
 		return false;
 	}
@@ -342,7 +342,7 @@ void showPoint(string file)
 	clrscr;
 	if (temp == true)
 	{
-		cout << "Student's Score" << endl;
+		cout << "Bang diem ca nhan" << endl;
 		cout << "============================" << endl;
 		cout << "Diem giua ki:" << score.middleTermScore << endl;
 		cout << "Diem cuoi ki:" << score.finalTermScore << endl;
@@ -395,12 +395,12 @@ student showinfo(int a=0) {
 	getline(ff, b.date.year);
 	getline(ff, b.socialID);
 	if (a == 0) {
-		cout << "\n\n Student Information:";
-		cout << "\n Student ID: " << b.studentID << endl;
-		cout << " Name: " << b.firstName << " " << b.lastName << endl;
-		cout << " Gender: " << b.gender << endl;
-		cout << " Date of Birth: " << b.date.day << "/" << b.date.month << "/" << b.date.year << endl;
-		cout << " Social ID: " << b.socialID << endl;
+		cout << "\n\n Thong tin sinh vien:";
+		cout << "\n MSSV: " << b.studentID << endl;
+		cout << " Ho ten: " << b.firstName << " " << b.lastName << endl;
+		cout << " Gioi tinh: " << b.gender << endl;
+		cout << " Ngay sinh: " << b.date.day << "/" << b.date.month << "/" << b.date.year << endl;
+		cout << " CMND: " << b.socialID << endl;
 		cout << "=====================================";
 		system("pause");
 	}
@@ -506,7 +506,7 @@ void StudentAccess(char* studentID) {
 				TextColor(TEXTCOLOR);
 				cout << "CHUA DANG KI MON NAO!!!" << endl;
 				gotoXY(40, 13);
-				cout << "Press any key to exit" << endl;
+				cout << "Nhan mot phim bat ki de thoat" << endl;
 				int c = getch();
 			}
 			else 
