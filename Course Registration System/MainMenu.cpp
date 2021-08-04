@@ -971,6 +971,43 @@ int init_MENU()
 	}
 	return key;
 }
+void loading()
+{
+	int n = 42;
+	int m = 22;  int j = 1;
+	gotoXY(n, m-1);
+	for (int i = n; i < 74; i++)
+	{	
+		cout <<'_';	//Sleep(100);
+	}
+	gotoXY(n, m+1);
+	for (int i = n; i < 74; i++)
+	{
+		cout <<char(196);	//Sleep(100);
+	}
+
+	gotoXY(n, m);
+	for (int i = n; i < 74; i++)
+	{
+		gotoXY(i, m);
+		cout << char(177);
+		gotoXY(n+14, m+2);
+		
+		
+		if (i < 60) {
+			
+			cout <<" "<< j << " %"; j += 3;
+			Sleep(300);
+		}
+		else {
+			if (j > 100) j = 100;
+			cout <<" "<< j << " %"; j += 4;
+			Sleep(150);
+		}
+	}
+	//cout << "|                                |"; gotoXY(n, m + 3);
+//	cout << "|                                | "; gotoXY(n, m + 4);
+}
 string checkTK(string str)
 {
 	string a="";
@@ -1038,6 +1075,7 @@ int init_LOGIN(int k)
 		gotoXY(n, m + 7);
 		if (check(typelog, ACC, PASS) == 1)
 		{
+			loading();
 			if (k == 1) return 1;
 			else return 2;
 			break;

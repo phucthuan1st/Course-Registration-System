@@ -155,6 +155,7 @@ bool readScoreFromFile(string file, listScore& lScore);
 void getTimeTable(TimeTableFromAdmin& admin);
 void writeTimeTable(string file, TimeTableFromAdmin& admin);
 void addTailScore(listScore& lScore, NodeScore* p);
+void loading();
 NodeScore* createScoreBoard(ScoreBoard score);
 void StudentAccess(char* studentID);
 void StrToInt(registTime& T, registTime_s& T_s);
