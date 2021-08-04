@@ -337,7 +337,7 @@ bool readFromFile(string file, list& l) {
 	f.open(file += ".csv", ios::in);
 	if (!f.is_open())
 	{
-		cout << "Error File Open" << endl;
+		cout << "Khong the mo file" << endl;
 		system("pause");
 		return false;
 	}
@@ -369,7 +369,7 @@ bool readFromFile2(string file, list& l) {
 	f.open(file += ".csv", ios::in);
 	if (!f.is_open())
 	{
-		cout << "Error File Open" << endl;
+		cout << "Khong the mo file" << endl;
 		system("pause");
 		return false;
 	}
@@ -401,24 +401,24 @@ void printMyAllSubjectScore(listScore lScore)
 	NodeScore* pTmp = lScore.pHead;
 	if (pTmp == NULL)
 	{
-		cout << "Empty" << endl;
+		cout << "Trong" << endl;
 		return;
 	}
 	int i = 0;
-	cout << "Subject Score:" << endl << endl;
+	cout << "Diem mon hoc:" << endl << endl;
 	for (NodeScore* p = lScore.pHead; p->pNext != NULL; p = p->pNext) {
 
-		cout << "No: " << ++i << endl;
-		cout << "Student ID: " << p->data.studentID << endl;
-		cout << "First Name: " << p->data.firstName << endl;
-		cout << "Last Name: " << p->data.lastName << endl;
-		cout << "Gender: " << p->data.gender << endl;
-		cout << "Date of Birth: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
-		cout << "Social ID: " << p->data.socialID << endl;
-		cout << "Average Score: " << p->data.aveScore << endl;
-		cout << "Final-Term Score: " << p->data.finalTermScore << endl;
-		cout << "Mid-Term Score: " << p->data.middleTermScore << endl;
-		cout << "Other: " << p->data.other << endl << endl;
+		cout << "STT: " << ++i << endl;
+		cout << "MSSV: " << p->data.studentID << endl;
+		cout << "Ten: " << p->data.firstName << endl;
+		cout << "Ho: " << p->data.lastName << endl;
+		cout << "Gioi tinh: " << p->data.gender << endl;
+		cout << "Ngay sinh: " << p->data.date.day << "/" << p->data.date.month << "/" << p->data.date.year << endl;
+		cout << "CMND: " << p->data.socialID << endl;
+		cout << "Diem TB: " << p->data.aveScore << endl;
+		cout << "Diem CK: " << p->data.finalTermScore << endl;
+		cout << "Diem GK: " << p->data.middleTermScore << endl;
+		cout << "Diem cong: " << p->data.other << endl << endl;
 	}
 	cout << "=====================================" << endl;
 }
