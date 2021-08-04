@@ -1084,7 +1084,7 @@ int init_LOGIN(int k)
 			if (check(typelog, ACC, PASS) == 3)
 				cout << "| TAI KHOAN KHONG TON TAI";
 			else
-				cout << "| MAT KHAU SAI";
+				cout << "| MAT KHAU SAI            ";
 		gotoXY(n, m + 5);
 		cout << "| Account:                       |"; gotoXY(n, m + 6);
 		cout << "| PASS:                          | "; gotoXY(n, m + 7);
