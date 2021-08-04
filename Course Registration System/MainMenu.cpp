@@ -701,7 +701,7 @@ int selectSubScreen(char* filepath) {
 	while (running) {
 		fileContent yearFile = readFile(filepath);
 		char* termFilePath = new char[150];
-		strcpy(termFilePath, getProcessFile(yearFile, "Course").c_str());
+		strcpy(termFilePath, getProcessFile(yearFile, "MON HOC").c_str());
 		if (strcmp(termFilePath, "BACK") == 0)
 			running = 0;
 		else
@@ -760,7 +760,7 @@ int selectSubjectScreen(char* filepath)
 	readDay(filepath, s1, s2);
 	while (running) {
 		fileContent termFile = readFile(filepath);
-		string temp = "Subject      " + s1 + "       " + s2;
+		string temp = "MON HOC    " + s1 + "     " + s2;
 		char* c = new char[100];
 		strcpy(c, temp.c_str());
 		char* subjectFilePath = new char[50];
@@ -794,7 +794,7 @@ int selectTermScreen(char* filepath) {
 	while (running) {
 		fileContent yearFile = readFile(filepath);
 		char* termFilePath = new char[50];
-		strcpy(termFilePath, getProcessFile(yearFile, "Term").c_str());
+		strcpy(termFilePath, getProcessFile(yearFile, "HOC KI").c_str());
 
 		if (strcmp(termFilePath, "BACK") == 0)
 			running = 0;
@@ -825,7 +825,7 @@ int selectClassScreen(char* filepath)
 	while (running) {
 		fileContent termFile = readFile(filepath);
 		char* classFilePath = new char[50];
-		strcpy(classFilePath, getProcessFile(termFile, "CLASS").c_str());
+		strcpy(classFilePath, getProcessFile(termFile, "LOP HOC").c_str());
 		if (strcmp(classFilePath, "BACK") == 0)
 			running = 0;
 		else
@@ -859,11 +859,11 @@ int selectClassScreen(char* filepath)
 
 void yearAccess(char* filepath) {
 	int running = 1;
-	str yearAccess[3] = { "Class", "Term","Them phien dang ki hoc phan" };
+	str yearAccess[3] = { "HOC KI", "HOC KI","THEM PHIEN DANG KI HOC PHAN" };
 	while (running) {
 		clrscr();
-		int choose = getProcess(yearAccess, 3, "Year");
-		clearColor(yearAccess, 3, "Year");
+		int choose = getProcess(yearAccess, 3, "NAM HOC");
+		clearColor(yearAccess, 3, "NAM HOC");
 		if (choose == 0) {
 			selectClassScreen(const_cast<char*>("class"));
 		}
