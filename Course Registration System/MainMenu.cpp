@@ -551,7 +551,7 @@ void add_option(string str)
 	file.open(_addop+".txt", ios::out);
 	for (int i = 0; i < 4; i++) file << endl;
 	file.close();
-	ff << "\n" << _addop;
+	ff << _addop<<endl;
 	ff.close();
 }
 
@@ -859,7 +859,7 @@ int selectClassScreen(char* filepath)
 
 void yearAccess(char* filepath) {
 	int running = 1;
-	str yearAccess[3] = { "HOC KI", "HOC KI","THEM PHIEN DANG KI HOC PHAN" };
+	str yearAccess[3] = { "LOP HOC", "HOC KI","THEM PHIEN DANG KI HOC PHAN" };
 	while (running) {
 		clrscr();
 		int choose = getProcess(yearAccess, 3, "NAM HOC");
