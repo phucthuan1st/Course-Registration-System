@@ -256,7 +256,7 @@ void printList2(list l)
 	int i = 0;
 	cout << "Thong tin sinh vien:" << endl << endl;
 	for (Node* p = l.pHead; p->pNext != NULL; p = p->pNext) {
-		cout << "STT: " << ++i << endl;
+		cout << "STT: " << ++i << "\t|\t";
 		cout << "MSSV: " << p->data.studentID << endl;
 		cout << "Ten: " << p->data.firstName << endl;
 		cout << "Ho: " << p->data.lastName << endl;
@@ -551,7 +551,7 @@ void add_option(string str)
 	file.open(_addop+".txt", ios::out);
 	for (int i = 0; i < 4; i++) file << endl;
 	file.close();
-	ff << "\n" << _addop;
+	ff << _addop<<endl;
 	ff.close();
 }
 
@@ -704,8 +704,7 @@ int selectSubScreen(char* filepath) {
 		strcpy(termFilePath, getProcessFile(yearFile, "MON HOC").c_str());
 		if (strcmp(termFilePath, "BACK") == 0)
 			running = 0;
-		else
-			if (strcmp(termFilePath, "add") == 0)
+		else if (strcmp(termFilePath, "add") == 0)
 			{
 				running = 1;
 				add_option(filepath);
@@ -1084,7 +1083,7 @@ int init_LOGIN(int k)
 			if (check(typelog, ACC, PASS) == 3)
 				cout << "| TAI KHOAN KHONG TON TAI";
 			else
-				cout << "| MAT KHAU SAI";
+				cout << "| MAT KHAU SAI            ";
 		gotoXY(n, m + 5);
 		cout << "| Account:                       |"; gotoXY(n, m + 6);
 		cout << "| PASS:                          | "; gotoXY(n, m + 7);
@@ -1340,24 +1339,16 @@ void readFromFile_T(string file, registTime_s& T_s) {
 	f.close();
 }
 //
-void stdent()
-{
-
-	clrscr();
-	cout << " oooooo";
-}
 
 void Login()
 {
-
 	int d = init_LOGIN(init_MENU());
 	if (d == 1) mainMenu();
-	else StudentAccess(const_cast<char*>("20120380"));
+	else StudentAccess(const_cast<char*>("STUDENT ACCESS"));
 
 }
 
 int main() {
-
 	Login();
 	return 0;
 }

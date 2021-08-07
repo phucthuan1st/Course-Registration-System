@@ -128,7 +128,7 @@ bool registSubject(char* filepath, TimeTable &student, int &registedQuantity) {
 			fileContent danhSachMonDKHP = readFileStudyLesson(filepath);
 			char* result = new char[20];
 			strcpy(result, getProcessFile(danhSachMonDKHP, "DANG KI HOC PHAN").c_str());
-			//tack(result);
+			
 			if (strcmp(result, "BACK") == 0)
 				running = 0;
 			
@@ -279,15 +279,7 @@ void saveChange(char* tkb, TimeTable student, char* studentID) {
 		f << student.nameOfSubject[i][j] << "\n";
 	}
 	f.close();
-	/*for (i = 0; i < 4; i++) {
-		for (j = 0; j < 7; j++) {
-			if (student.nameOfSubject[i][j] != "0") {
-				string filepath = "./" + string(studentID) + "/" + student.nameOfSubject[i][j] + "Score.csv";
-				FILE* g = fopen(filepath.c_str(), "w");
-				fclose(g);
-			}
-		}
-	}*/
+	
 }
 
 bool readScoreFromFile2(string file, ScoreBoard& score, student b) {
