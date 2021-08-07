@@ -859,7 +859,7 @@ int selectClassScreen(char* filepath)
 
 void yearAccess(char* filepath) {
 	int running = 1;
-	str yearAccess[3] = { "HOC KI", "HOC KI","THEM PHIEN DANG KI HOC PHAN" };
+	str yearAccess[3] = { "LOP HOC", "HOC KI","THEM PHIEN DANG KI HOC PHAN" };
 	while (running) {
 		clrscr();
 		int choose = getProcess(yearAccess, 3, "NAM HOC");
