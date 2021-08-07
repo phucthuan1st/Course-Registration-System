@@ -530,7 +530,8 @@ void Del_option(string str, fileContent CD)
 				ff << CD.options[i];
 				kt=true;
 			}
-		if ((i < CD.numberOfOptions)&&(kt)) ff << endl;
+		if ((i < CD.numberOfOptions-1)&&(kt)) 			
+			ff << endl;
 	}
 		
 	
@@ -836,7 +837,7 @@ int selectTermScreen(char* filepath) {
 			if (strcmp(termFilePath, "add") == 0)
 			{
 				running = 1;
-				//add_option(filepath);
+				add_option(filepath);
 			}
 			else
 				if (strcmp(termFilePath, "_dele") == 0)
@@ -1143,7 +1144,7 @@ int init_LOGIN(int k)
 		gotoXY(n, m + 7);
 		if (check(typelog, ACC, PASS) == 1)
 		{
-			loading();
+			//loading();
 			if (k == 1) return 1;
 			else return 2;
 			break;
