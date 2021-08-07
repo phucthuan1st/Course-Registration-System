@@ -1,0 +1,15 @@
+
+
+
+
+ID khoa hoc:
+Ten khoa hoc:3
+Ten giao vien:34
+So tin chi:4
+So luong sinh vien toi da:343
+Ngay day:
+Ca day:
+
+Xem danh sach sinh vien
+Xem diem cua sinh vien
+Cap nhat thong tin mon hoc
