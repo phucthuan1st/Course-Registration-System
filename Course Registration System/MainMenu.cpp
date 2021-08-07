@@ -21,6 +21,8 @@ STATUS key(int _key_)
 		return ENTER;
 	else if (_key_ == 27)
 		return ESCAPE;
+	else if (_key_ == 42)
+		return CHANGE;
 	else if (_key_ == 43) 
 		return _ADD;
 	else if (_key_ == 45) 
@@ -584,10 +586,13 @@ void add_course(string str)
 	file << "Ten khoa hoc:" << course.name << endl;
 	file << "Ten giao vien:" << course.teacher << endl;
 	file << "So tin chi:" << course.NOCredits << endl;
+	file << "So luong sinh vien toi da:" << course.MaxNOStudent << endl;
 	file << "Ngay day:" << course.day << endl;
 	file << "Ca day:" << course.session << endl;
 	file << endl;
-	file << "Xem danh sach sinh vien" << endl;;
+	file << "Xem danh sach sinh vien" << endl;
+	file << "Xem diem cua sinh vien" << endl;
+	file << "Cap nhat thong tin mon hoc" << endl;
 	file.close();
 	file1.open(_addop + ".csv", ios::out);
 	file1.close();
@@ -597,6 +602,26 @@ void add_course(string str)
 	f <<_addop<<"	"<<"T"<<course.day<<"_"<<course.session<<"\n";
 	f.close();
 
+}
+
+void changeCourseInfo(string str)
+{
+	fstream file;
+	file.open(str + ".txt", ios::out);
+	course course = InputCourse();
+	for (int i = 0; i < 4; i++) file << endl;
+	file << "ID khoa hoc:" << course.id << endl;
+	file << "Ten khoa hoc:" << course.name << endl;
+	file << "Ten giao vien:" << course.teacher << endl;
+	file << "So tin chi:" << course.NOCredits << endl;
+	file << "So luong sinh vien toi da:" << course.MaxNOStudent << endl;
+	file << "Ngay day:" << course.day << endl;
+	file << "Ca day:" << course.session << endl;
+	file << endl;
+	file << "Xem danh sach sinh vien" << endl;
+	file << "Xem diem cua sinh vien" << endl;
+	file << "Cap nhat thong tin mon hoc" << endl;
+	file.close();
 }
 
 fileContent readFile(string filepath)
@@ -675,6 +700,9 @@ string getProcessFile(fileContent file,const char* nameOfProcess) {
 
 			return "add";
 			break;
+		case CHANGE:
+			return "change";
+			break;
 		case _DELETE:
 			return "_dele";
 			break;
@@ -723,25 +751,37 @@ int selectSubScreen(char* filepath) {
 			       Del_option(filepath, yearFile);
 	
 				}
-				else 
-					if (strcmp(termFilePath, "addpoint") == 0)
-					 {
-				   
-					 running = 1;
-					 bool t = readScoreFromFile(filepath,diem);
-					 printMyAllSubjectScore(diem);
-					 system("pause");
-					 }
 					else
 					{
-						running = 1;
-						bool t=readFromFile2(filepath, L);
-						clrscr();
-						if (t == true)
+						char* temp = new char[50];
+						temp = strcpy(temp, termFilePath);
+						if (strcmp(temp, "Xem danh sach sinh vien") == 0)
 						{
-							printList2(L);
-							system("pause");
+							running = 1;
+							bool t = readFromFile2(filepath, L);
+							clrscr();
+							if (t == true)
+							{
+								cout << termFilePath << endl;
+								printList2(L);
+								system("pause");
+							}
 						}
+						else 
+							if (strcmp(temp, "Xem diem cua sinh vien") == 0)
+							{
+								running = 1;
+								bool t = readScoreFromFile(filepath, diem);
+								printMyAllSubjectScore(diem);
+								system("pause");
+							}
+							else
+								if (strcmp(temp, "Cap nhat thong tin mon hoc") == 0)
+								{
+									running = 1;
+									changeCourseInfo(filepath);
+									system("pause");
+								}
 					}
 			   
 	}

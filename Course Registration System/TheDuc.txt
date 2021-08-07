@@ -4,7 +4,8 @@
 
 ID khoa hoc:4
 Ten khoa hoc:TheDuc
-Ten giao vien:Co LOL
+Ten giao vien:Co Thanh
+So luong sinh vien toi da:50
 So tin chi:4
 Ngay day:5
 Ca day:4

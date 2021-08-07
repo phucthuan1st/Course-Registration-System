@@ -6,6 +6,7 @@ ID khoa hoc:2
 Ten khoa hoc:Phap luat dai cuong
 Ten giao vien:cc
 So tin chi:3
+So luong sinh vien toi da:50
 Ngay day:2
 Ca day:4
 

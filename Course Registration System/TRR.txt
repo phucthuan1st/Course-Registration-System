@@ -6,6 +6,7 @@ ID khoa hoc:6
 Ten khoa hoc:Toan roi rac
 Ten giao vien:Tung
 So tin chi:3
+So luong sinh vien toi da:50
 Ngay day:6
 Ca day:1
 

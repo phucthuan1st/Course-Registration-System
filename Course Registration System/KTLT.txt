@@ -6,7 +6,10 @@ ID khoa hoc:2
 Ten khoa hoc:Ki thuat lap trinh
 Ten giao vien:Nguyen Le Hoang Dung
 So tin chi:4
+So luong sinh vien toi da:50
 Ngay day:6
-Ca day:7
+Ca day:3
 
 Xem danh sach sinh vien
+Xem diem cua sinh vien
+Cap nhat thong tin mon hoc

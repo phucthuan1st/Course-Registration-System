@@ -6,6 +6,7 @@ ID khoa hoc:1
 Ten khoa hoc:Vi tich phan
 Ten giao vien:Huy
 So tin chi:4
+So luong sinh vien toi da:50
 Ngay day:4
 Ca day:2
 
