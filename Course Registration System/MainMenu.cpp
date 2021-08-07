@@ -157,9 +157,6 @@ student insertStudent2()
 student insertStudent()
 {
 	student student;
-	cout << "STT: ";
-	cin >> student.No;
-	cin.ignore();
 	cout << "MSSV: ";
 	getline(cin, student.studentID);
 	//cin.ignore();
@@ -233,9 +230,10 @@ void printList(list l)
 		cout << "Trong";
 		return;
 	}
+	int i = 0;
 	cout << "Thong tin sinh vien:" << endl << endl;
 	for (Node* p = l.pHead; p->pNext != NULL; p = p->pNext) {
-		cout << "STT: " << p->data.No << endl;
+		cout << "STT: " << ++i << endl;
 		cout << "MSSV: " << p->data.studentID << endl;
 		cout << "Ten: " << p->data.firstName << endl;
 		cout << "Ho: " << p->data.lastName << endl;
@@ -306,7 +304,6 @@ bool writeToFile(string file, list& l) {
 	for (Node* k = l.pHead;k != NULL;k = k->pNext) {
 		if (k->pNext != NULL)
 		{
-			f << k->data.No << ",";
 			f << k->data.studentID << ",";
 			f << k->data.firstName << ",";
 			f << k->data.lastName << ",";
@@ -317,7 +314,6 @@ bool writeToFile(string file, list& l) {
 			f << k->data.socialID << "," << endl;
 		}
 		else {
-			f << k->data.No << ",";
 			f << k->data.studentID << ",";
 			f << k->data.firstName << ",";
 			f << k->data.lastName << ",";
@@ -336,7 +332,7 @@ bool readFromFile(string file, list& l) {
 	student student;
 	string temp;
 	fstream f;
-	f.open(file += ".csv", ios::in);
+	f.open(file + ".csv", ios::in);
 	if (!f.is_open())
 	{
 		cout << "Khong the mo file" << endl;
@@ -345,19 +341,18 @@ bool readFromFile(string file, list& l) {
 	}
 
 	while (!f.eof()) {
-		getline(f, student.No, ',');
 		getline(f, student.studentID, ',');
 		getline(f, student.firstName, ',');
 		getline(f, student.lastName, ',');
 		getline(f, student.gender, ',');
-		getline(f, student.date.day, ',');
+		getline(f, student.date.day, ','); 
 		getline(f, student.date.month, ',');
 		getline(f, student.date.year, ',');
-		getline(f, student.socialID, ',');
+		getline(f, student.socialID, /*','*/'\n');
+		/*getline(f, temp, ',');
 		getline(f, temp, ',');
 		getline(f, temp, ',');
-		getline(f, temp, ',');
-		getline(f, temp,'\n');
+		getline(f, temp,'\n');*/
 		addTail(l, createNode(student));
 	}
 	f.close();
@@ -856,6 +851,24 @@ int selectTermScreen(char* filepath) {
 	return 1;
 }
 
+void addToClass(string file, student b)
+{
+	fstream f;
+	string temp = file + ".csv";
+	f.open(temp, ios::app);
+	if (!f.is_open())
+		cout << "Khong mo duoc file";
+	f << b.studentID << ",";
+	f << b.firstName << ",";
+	f << b.lastName << ",";
+	f << b.gender << ",";
+	f << b.date.day << ",";
+	f << b.date.month << ",";
+	f << b.date.year << ",";
+	f << b.socialID << "\n";
+	f.close();
+}
+
 int selectClassScreen(char* filepath)
 {
 	list L;
@@ -891,6 +904,22 @@ int selectClassScreen(char* filepath)
 						printList(L);
 						system("pause");
 					}
+					int i = 0;
+					int z = _getch();
+					STATUS status = key(z); //nhan vao thao tac moi
+					switch (status) {
+					case _ADD:
+						i = 1;
+						break;
+					default:
+						break;
+					}
+					if (i == 1)
+					{
+						student b = insertStudent2();
+						addToClass(classFilePath, b);
+					}
+					system("pause");
 				}
 	}
 	return 1;

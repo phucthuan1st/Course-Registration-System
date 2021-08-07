@@ -43,7 +43,6 @@ struct dateOfBirth {
 };
 
 struct student {
-	string No;
 	string studentID;
 	string firstName;
 	string lastName;
