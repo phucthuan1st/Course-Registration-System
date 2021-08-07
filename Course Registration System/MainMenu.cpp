@@ -643,6 +643,24 @@ fileContent readFile(string filepath)
 	return _fileContent;
 }
 
+void addToClass(string file, student b)
+{
+	fstream f;
+	string temp = file + ".csv";
+	f.open(temp, ios::app);
+	if (!f.is_open())
+		cout << "Khong mo duoc file";
+	f << b.studentID << ",";
+	f << b.firstName << ",";
+	f << b.lastName << ",";
+	f << b.gender << ",";
+	f << b.date.day << ",";
+	f << b.date.month << ",";
+	f << b.date.year << ",";
+	f << b.socialID << "\n";
+	f.close();
+}
+
 string getProcessFile(fileContent file,const char* nameOfProcess) {
 	clrscr();
 	//khoi tao ban dau
@@ -852,24 +870,6 @@ int selectTermScreen(char* filepath) {
 	return 1;
 }
 
-void addToClass(string file, student b)
-{
-	fstream f;
-	string temp = file + ".csv";
-	f.open(temp, ios::app);
-	if (!f.is_open())
-		cout << "Khong mo duoc file";
-	f << b.studentID << ",";
-	f << b.firstName << ",";
-	f << b.lastName << ",";
-	f << b.gender << ",";
-	f << b.date.day << ",";
-	f << b.date.month << ",";
-	f << b.date.year << ",";
-	f << b.socialID << "\n";
-	f.close();
-}
-
 int selectClassScreen(char* filepath)
 {
 	list L;
@@ -903,7 +903,6 @@ int selectClassScreen(char* filepath)
 					if (t == true)
 					{
 						printList(L);
-						system("pause");
 					}
 					int i = 0;
 					int z = _getch();

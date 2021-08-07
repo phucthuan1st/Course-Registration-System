@@ -1,4 +1,0 @@
-thuan.txt
-vy.txt
-phuc.txt
-that.txt
